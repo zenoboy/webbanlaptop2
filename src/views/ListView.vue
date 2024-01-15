@@ -1,6 +1,6 @@
 <template>
   <div>
-    <top-bar />
+    <top-bar/>
     <v-container class="mt-10">
         <v-row>
           <v-col class="menu-col" cols="2">
@@ -43,11 +43,12 @@
   <v-col v-for="(product, index) in displayedProducts" :key="index" cols="12" md="4">
     <v-card>
       <!-- Sửa tên thuộc tính ở đây -->
-      <v-img :src="product.productimg" alt="Hình ảnh sản phẩm" cover></v-img>
+      <v-img :src="product.productimg" alt="Hình ảnh sản phẩm" contain height="100"></v-img>
       <v-card-text>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>{{ product.productName }}</v-list-item-title>
+            <v-list-item-subtitle>{{ product.price }}</v-list-item-subtitle>
             <v-list-item-subtitle>{{ product.price }}</v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-action>
@@ -85,10 +86,11 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
+      <div v-if="!products.length">Giàu rồi bán gì nữa sang shop khác đi</div>
 
       <!-- Hiển thị phân trang -->
       <v-pagination v-if="totalPages > 1" v-model="currentPage" :length="totalPages" @input="updateDisplayedProducts"></v-pagination>
-      <footer-bar/>    
+ 
       </v-container>
       <v-dialog v-model="dialog" max-width="600px">
       <v-card>
@@ -105,7 +107,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-      
+    <footer-bar/>   
   </div>
 </template>
 
@@ -157,10 +159,12 @@ export default {
   },
   computed: {
     displayedProducts() {
-      const start = (this.currentPage - 1) * this.itemsPerPage;
-      const end = start + this.itemsPerPage;
-      return this.products.slice(start, end);
-    },
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    const displayed = this.products.slice(start, end);
+    console.log('Displayed Products:', displayed);
+    return displayed;
+  },
     totalPages() {
       return Math.ceil(this.products.length / this.itemsPerPage);
     },

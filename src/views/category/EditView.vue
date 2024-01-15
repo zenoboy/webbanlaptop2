@@ -79,6 +79,7 @@ export default {
     methods: {
         updateProduct() {
             this.categoryId=this.currentItem.categoryId
+            this.data.productimg = this.currentItem.productimg;
             this.categoryId=this.currentItem.inventoryId
             this.categoryId=this.currentItem.productId
             console.log(this.data)
@@ -114,7 +115,6 @@ export default {
     watch: {
         currentItem: function () {
             this.data.productId = this.currentItem.productId;
-            this.data.productimg= this.currentItem.productimg;
             this.data.productName = this.currentItem.productName;
             this.data.productDesc = this.currentItem.productDesc;
             this.data.price = this.currentItem.price;

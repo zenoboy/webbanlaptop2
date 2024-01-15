@@ -35,6 +35,12 @@ const routes = [
 
     component: () => import( '../views/ListView.vue')
   },
+  {
+    path: '/productdetail',
+    name: 'productdetail',
+
+    component: () => import( '../views/productdetail.vue')
+  },
   // {
   //   path: '/admin',
   //   name: 'admin',
