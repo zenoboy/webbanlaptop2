@@ -2,7 +2,7 @@
       <div>
   <v-row class="mt-2">
     <v-icon>mdi-home</v-icon>
-    <h3 class="ml-2">Danh sách loại sản phẩm</h3>
+    <h3 class="ml-2">Danh sách sản phẩm</h3>
     <v-spacer></v-spacer>
     <v-btn icon 
     size="small"
