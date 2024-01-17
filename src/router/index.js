@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import AdminView from '../views/WebAdmin/AdminView.vue'
+import ListCategory from '../views/WebAdmin/category/ListView.vue'
 
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'home',
     component: HomeView
   },
@@ -30,7 +32,7 @@ const routes = [
   },
 
   {
-    path: '/sanpham',
+    path: '/',
     name: 'sanpham',
 
     component: () => import( '../views/ListView.vue')
@@ -41,24 +43,30 @@ const routes = [
 
     component: () => import( '../views/productdetail.vue')
   },
-  // {
-  //   path: '/admin',
-  //   name: 'admin',
 
-  //   component: () => import( '../components/admin.vue')
-  // },
   {
     path: '/admin',
     name: 'admin',
 
-    component: () => import( '../views/admin.vue')
+    component: () => import( '../views/WebAdmin/admin.vue')
   },
   {
     path: '/login',
     name: 'login',
 
     component: () => import( '../views/dangky.vue')
-  }
+  },
+  {
+    path: '/AdminView',
+    name: 'AdminView',
+    component: AdminView
+  },
+  {
+    path: '/list-category',
+    name: 'ListCategory',
+    component: ListCategory
+  },
+
 ]
 
 const router = createRouter({

@@ -1,5 +1,8 @@
 <template>
+
       <div>
+        <side-bar-admin/>
+<top-bar-admin/>
   <v-row class="mt-2">
     <v-icon>mdi-home</v-icon>
     <h3 class="ml-2">Danh sách loại sản phẩm</h3>
@@ -100,11 +103,14 @@
 </template>
 <script>
 
+import SideBarAdmin from '@/components/SideBarAdmin.vue'
+import TopBarAdmin from '@/components/TopBarAdmin.vue'
+
 import axios from 'axios'
 import AddView from './AddView.vue'
 import EditView from './EditView'
 export default {
-    components:{AddView,EditView},
+    components:{AddView,EditView, SideBarAdmin, TopBarAdmin},
     name:'ListView',
     data() {
     return {
