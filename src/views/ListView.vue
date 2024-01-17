@@ -47,7 +47,7 @@
       <v-card-text>
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title>{{ product.productName }}</v-list-item-title>
+            <v-list-item-title>{{ product.ProductsName }}</v-list-item-title>
             <v-list-item-subtitle>{{ product.price }}</v-list-item-subtitle>
             <v-list-item-subtitle>{{ product.price }}</v-list-item-subtitle>
           </v-list-item-content>
@@ -111,16 +111,17 @@
           >
      
             <v-img
-              :src="item.Avatar"
+              
+            :src="'https://localhost:7072/images/' + item.ImagerUrl"
               height="200"
             ></v-img>
      
-            <v-card-title>{{ item.ProductName }}</v-card-title>
+            <v-card-title>{{ item.ProductsName }}</v-card-title>
      
             <v-card-subtitle>{{ item.Price }}</v-card-subtitle>
       
             <v-card-actions>
-              <!-- <v-btn color="primary" :to="{ name: 'ProductDetail', params: { id: item.bookId } }">Xem Chi Tiết</v-btn> -->
+              <v-btn color="primary" :to="{ name: 'ProductDetail', params: { id: item.ProductsId } }">Xem Chi Tiết</v-btn>
               <v-btn color="success" @click="addToCart(Books)">Mua Ngay</v-btn>
             </v-card-actions>
           </v-card>
@@ -221,7 +222,7 @@ export default {
     async fetchProducts() {
       try {
         // const response = await axios.get('https://localhost:44384/api/Product');
-        const response = await axios.get('https://65a48de652f07a8b4a3d7466.mockapi.io/Product');
+        const response = await axios.get('https://localhost:7072/api/Products/GetProducts');
         this.products = response.data;
       } catch (error) {
         console.error('Lỗi khi lấy sản phẩm:', error);
