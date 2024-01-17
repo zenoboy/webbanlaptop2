@@ -25,7 +25,7 @@
           </v-col>
           <v-col cols="10">
             <v-carousel cycle="100px">
-              <v-carousel-item v-for="(item,index) in silders" :key="item.id" :src="item.url" cover></v-carousel-item>
+              <v-carousel-item v-for="item in silders" :key="item.id" :src="item.url" cover></v-carousel-item>
             </v-carousel>
             <div class="d-flex mt-2">
               <v-img class="mr-2" src="https://hanoicomputercdn.com/media/banner/09_Dec3d401a771449960d10a6faddd8010ca5.jpg" aspect-ratio="1.5"></v-img>
@@ -43,7 +43,7 @@
   <v-col v-for="(product, index) in displayedProducts" :key="index" cols="12" md="4">
     <v-card>
       <!-- Sửa tên thuộc tính ở đây -->
-      <v-img :src="product.productimg" alt="Hình ảnh sản phẩm" contain height="100"></v-img>
+      <v-img :src="product.Avatar" alt="Hình ảnh sản phẩm" contain height="100"></v-img>
       <v-card-text>
         <v-list-item>
           <v-list-item-content>
@@ -68,11 +68,11 @@
 
 
       <!-- Danh sách sản phẩm - Chế độ Hiển thị danh sách -->
-      <v-list v-else-if="displayType === 'list'">
+      <!-- <v-list v-else-if="displayType === 'list'">
         <v-list-item-group>
           <v-list-item v-for="(product, index) in displayedProducts" :key="index">
             <v-list-item-avatar>
-              <v-img :src="product.productimg" alt="Hình ảnh sản phẩm"></v-img>
+              <v-img :src="product.Avatar" alt="Hình ảnh sản phẩm"></v-img>
             </v-list-item-avatar>
 
             <v-list-item-content>
@@ -85,7 +85,52 @@
             </v-list-item-action>
           </v-list-item>
         </v-list-item-group>
-      </v-list>
+      </v-list> -->
+
+
+      <v-row v-else-if="displayType === 'list'">
+        <!-- Lặp qua danh sách sản phẩm và hiển thị từng sản phẩm trong một v-col -->
+       
+        <v-col
+            v-for="(item, index) in displayedProducts"
+            :key="index"
+            cols="12"
+            md="3" 
+        >
+        <!-- <router-link :to="{ name: 'ProductDetail'} " style="text-decoration: none;"> -->
+        <v-hover
+          v-slot="{isHovering,props}"
+          open-delay="1"
+
+        >
+        <v-card
+        
+            :elevation="isHovering ? 16 : 2"
+            :class="{ 'on-hover': isHovering }"
+            v-bind="props"
+          >
+     
+            <v-img
+              :src="item.Avatar"
+              height="200"
+            ></v-img>
+     
+            <v-card-title>{{ item.ProductName }}</v-card-title>
+     
+            <v-card-subtitle>{{ item.Price }}</v-card-subtitle>
+      
+            <v-card-actions>
+              <!-- <v-btn color="primary" :to="{ name: 'ProductDetail', params: { id: item.bookId } }">Xem Chi Tiết</v-btn> -->
+              <v-btn color="success" @click="addToCart(Books)">Mua Ngay</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-hover>
+      <!-- </router-link> -->
+        </v-col>
+
+
+        
+      </v-row>
       <div v-if="!products.length">Giàu rồi bán gì nữa sang shop khác đi</div>
 
       <!-- Hiển thị phân trang -->
@@ -94,9 +139,9 @@
       </v-container>
       <v-dialog v-model="dialog" max-width="600px">
       <v-card>
-        <v-card-title>{{ selectedProduct.productName }}</v-card-title>
-        <v-card-subtitle>{{ selectedProduct.price }}</v-card-subtitle>
-        <v-img :src="selectedProduct.Productimg" alt="Hình ảnh sản phẩm"></v-img>
+        <v-card-title>{{ selectedProduct.ProductName }}</v-card-title>
+        <v-card-subtitle>{{ selectedProduct.Price }}</v-card-subtitle>
+        <v-img :src="selectedProduct.Avatar" alt="Hình ảnh sản phẩm"></v-img>
         <v-card-text>
           <!-- Thêm thông tin chi tiết sản phẩm ở đây -->
           {{ selectedProduct.description }}
@@ -175,7 +220,8 @@ export default {
   methods: {
     async fetchProducts() {
       try {
-        const response = await axios.get('https://localhost:44384/api/Product');
+        // const response = await axios.get('https://localhost:44384/api/Product');
+        const response = await axios.get('https://65a48de652f07a8b4a3d7466.mockapi.io/Product');
         this.products = response.data;
       } catch (error) {
         console.error('Lỗi khi lấy sản phẩm:', error);
