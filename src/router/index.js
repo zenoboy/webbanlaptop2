@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import AdminView from '../views/WebAdmin/AdminView.vue'
 import ListCategory from '../views/WebAdmin/category/ListView.vue'
 import ProductDetail from '../views/productdetail.vue'
+import SearchView from '@/views/SearchView.vue';
+
 
 
 const routes = [
@@ -10,6 +12,11 @@ const routes = [
     path: '/home',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/timkiem',
+    name: 'tiemkiem',
+    component: SearchView
   },
   {
     path: '/about',
@@ -67,6 +74,10 @@ const routes = [
     name: 'ListCategory',
     component: ListCategory
   },
+  {
+    path:'/timkiem',
+    name:'timkiem',
+    component: () => import( '../views/SearchView.vue')  },
   {
     path: '/product-detail/:id',
     name: 'ProductDetail',

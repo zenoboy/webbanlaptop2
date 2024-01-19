@@ -124,7 +124,7 @@ export default {
         } else {
           // Khi đếm ngược kết thúc, chuyển hướng về trang sản phẩm
           clearInterval(timer);
-          this.$router.push('/sanpham');
+          this.$router.push('/');
         }
       }, 1000);
     },
