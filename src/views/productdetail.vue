@@ -1,19 +1,24 @@
 <template>
     
 <top-bar></top-bar>
-        <v-row>
-            <v-col><v-img src="https://www.tncstore.vn/media/product/250-5812-acer-nitro-5-tiger-2-2.jpg"></v-img></v-col>
+<div v-if="Product">
+
+
+        <v-row >
+            <!-- <v-col><v-img src="https://www.tncstore.vn/media/product/250-5812-acer-nitro-5-tiger-2-2.jpg"></v-img></v-col> -->
             <v-col>
-              <h1 class="name">Laptop Gaming Acer Nitro 5 Eagle AN515-57-54MV i5-11400H/ 8GB/ 512GB/ RTX 3050 4GB/ Win 11</h1>
+              <v-img
+              
+              :src="'https://localhost:7072/images/' + Product[0].ImagerUrl"
+                height="200"
+              ></v-img>
+            </v-col>
+            <v-col>
+              <h1 class="name" >{{ Product[0].ProductsName }}</h1>
               <ul style="margin-top: 20px;">
-                <li>CPU: Intel® Core i5-11400H (upto 4.50 GHz, 12MB)</li>
-                <li>RAM: 8GB khe rời DDR4 3200MHz (2 khe, tối đa 32GB)</li>
-                <li>Ổ cứng: 512GB PCIe NVMe SSD</li>
-                <li>VGA: NVIDIA® GeForce RTX™ 3050 4GB GDDR6</li>
-                <li>Màn hình: 15.6 inch FHD(1920 x 1080) IPS 144Hz</li>
-                <li>Pin: 4-cell, 57.5 Wh</li>
-                <li>Cân nặng: 2.2 kg</li>
-                <li>HĐH: windows 11</li>
+                <li>Xuất xứ: {{ Product[0].origin }}</li>
+                <li>Thương hiệu: {{ Product[0].CategoryName }}</li>
+                
               </ul>
             </v-col>
             <v-col>
@@ -32,9 +37,9 @@
 
                 <div class="main-price">
                   <div class="flex-item">
-                    <div class="price">16.990.000 đ</div>
-                    <del class="old-price">23.990.000 đ </del>
-                    <div class="sale-off">-30%</div>
+                    <div class="price">{{ computedNewPrice }} đ</div>
+                    <del class="old-price">{{ Product[0].Price }} đ</del>
+                    <div class="sale-off">-{{ Product[0].promotion }}%</div>
                   </div>
 
                   <div class="baohanh flex-item">
@@ -71,37 +76,88 @@
             </v-col>
         </v-row>
 
-        <v-row>
+        <v-row style="margin-bottom: 20px;">
           <v-col :cols="7" style="border-right: 1px solid #ededed;">
             <h2 class="title">MÔ TẢ SẢN PHẨM</h2>
-            <p>Đánh giá chi tiết chiếc Laptop Gaming Acer Nitro 5 Eagle AN515-57-54MV
-Cấu hình mạnh mẽ, vượt trội
-Với sự kết hợp từ CPU Core i5 -11400H và GPU NVIDIA GeForce RTX 3050, laptop Acer Nitro 5 Eagle AN515-57 sẽ cho chúng ta hiệu năng tốt để xử lý các công việc đồ họa đơn giản trên các phần mềm chuyên dụng, tốc độ xử lý thông tin cũng tương đối nhanh và mượt. </p>
+            <p>{{ Product[0].ProductsDescription }}</p>
           </v-col>
           <v-col :cols="5">
             <h2 class="title">THÔNG SỐ KỸ THUẬT</h2>
-            <table>
-              <tbody></tbody>
-            </table>
+            <v-table id="table-detail">
+              <tbody>
+                <tr>
+                  <td>Thương hiệu</td>
+                  <td>Acer</td>
+                </tr>
+                <tr>
+                  <td>Thương hiệu</td>
+                  <td>Acer</td>
+                </tr>
+                <tr>
+                  <td>Thương hiệu</td>
+                  <td>Acer</td>
+                </tr>
+                <tr>
+                  <td>Thương hiệu</td>
+                  <td>Acer</td>
+                </tr>
+              </tbody>
+            </v-table>
           </v-col>
         </v-row>
-      
+
+        <v-row style="border-top: 1px solid #ededed;">
+          <v-col>
+            <h3 style="display: block;">ĐÁNH GIÁ CỦA KHÁCH HÀNG</h3>
+
+          <v-list
+          :items="danhgia"
+          item-props
+          lines="three"
+          >
+          <template v-slot:subtitle="{ subtitle }">
+        <div v-html="subtitle"></div>
+        <v-divider></v-divider>
+      </template>
+     
+          </v-list>
+          </v-col>
+                    
+        </v-row>
+      </div>
       <footer-bar/>   
     
 </template>
   
 <script>
+import axios from 'axios';
+
 import TopBar from '@/components/TopBar.vue';
 import FooterBar from '@/components/FooterBar.vue';
 export default {
+  name: 'ProductDetail',
+  props:['id'],
   components:{
     TopBar,
     FooterBar
   },
   data(){
     return{
-      quantity:1
-    }
+      quantity:1,
+      danhgia:[
+        {
+        title: 'sadas',
+        subtitle:'ádsadÂS',
+        date: "2022-01-12" 
+        },
+        {
+          title:'được quád',
+          subtitle:'quá đepk',
+          date: "2022-01-12" 
+        }
+    ],
+    Product: null,
+    };
   },
   methods:{
     TangSoLuong(){
@@ -112,8 +168,48 @@ export default {
         this.quantity--;
       }
     },
+    getProduct(){
+      axios.get('https://localhost:7072/api/Products/GetProductstoID?newproductsID='+this.id)
+        .then(response =>{
+          this.Product = response.data;
+          console.log(this.Product)
+    //     .then(response => {
+    // if (response.data.length > 0) {
+    //   // Truy cập phần tử đầu tiên trong mảng và gán cho Product
+    //   this.Product = response.data[0];
+    //   console.log(this.Product);
+    // }
+
+
+        Product.newPrice = product.Price - (product.Price * (product.promotion / 100));
+             
+        }).catch(error => {
+          console.log(error)
+        });
+    },
+    
+  },
+  created(){
+    console.log(this.id);
+    this.getProduct();
+    
+  },
+  computed:{
+    computedNewPrice() {
+      // Tính toán giá mới dựa trên giảm giá
+      return (this.Product[0].Price * (100 - this.Product[0].promotion) / 100).toFixed(0);
+    },
   }
+  
 }
+document.addEventListener('DOMContentLoaded',function(){
+  var rows = document.querySelectorAll('#table-detail tr');
+    for (var i = 0; i < rows.length; i++) {
+      if (i % 2 === 1) {
+        rows[i].style.backgroundColor = '#f2f2f2';
+      }
+    }
+});
 </script>
   
 <style >
@@ -179,6 +275,9 @@ ul li{
 }
 .title{
   padding-bottom: 30px;
+}
+#table-detail tr:nth-child(even){
+  background: #f5f5f5;
 }
 </style>
   
