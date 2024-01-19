@@ -73,6 +73,11 @@ const routes = [
     component: ProductDetail,
     props: true
   },
+  {
+    path: '/ho-so',
+    name: 'ho-so',
+    component:() =>import('../views/UserProfile.vue')
+  } 
 
 ]
 
