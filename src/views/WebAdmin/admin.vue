@@ -164,8 +164,8 @@
 <script>
 
 import axios from 'axios'
-import AddView from '../category/AddView.vue';
-import EditView from '../category/EditView.vue';
+import AddView from '../WebAdmin/category/AddView.vue';
+import EditView from '../WebAdmin/category/EditView.vue';
 
 export default {
     name: 'admin',
