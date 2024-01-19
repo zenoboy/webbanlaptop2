@@ -1,7 +1,9 @@
 <template>
     <div>
       <v-app-bar :elevation="0" color="" class="">
-        <a href="" class="text-decoration-none"><h3 class="headline mb-0 text-red">LapTop Uông Bí</h3></a>
+        <router-link to="/" class="text-decoration-none">
+        <h3 class="headline mb-0 text-red">LapTop Uông Bí</h3>
+      </router-link>
         <v-spacer></v-spacer>
         <v-btn>Dell</v-btn>
         <v-btn>Acer</v-btn>
