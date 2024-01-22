@@ -129,6 +129,7 @@
   import TopBar from '@/components/TopBar.vue';
   import FooterBar from '@/components/FooterBar.vue';
   
+  
   export default {
     name: 'UserProfile',
     props:['id'],
@@ -139,10 +140,10 @@
     data() {
       return {
         links: [
-          { text: "Hồ Sơ Người Dùng", icon: "mdi mdi-account-box-multiple", route: "/ho-so" },
-          { text: "Địa Chỉ", icon: "mdi mdi-map-marker" },
-          { text: "Đơn Hàng Của Tôi", icon: "mdi mdi-shopping" },
-          { text: "Đăng Xuất", icon: "mdi mdi-logout" },
+           { text: "Hồ Sơ Người Dùng", icon: "mdi mdi-account-box-multiple", route: "./ho-so" },
+        { text: "Địa Chỉ", icon: "mdi mdi-map-marker", route: "./dia-chi" },
+        { text: "Đơn Hàng Của Tôi", icon: "mdi mdi-shopping", route: "./don-hang" },
+        { text: "Đăng Xuất", icon: "mdi mdi-logout", route: "./dang-xuat" },
         ],
         drawer: ref(null),
         day: 1,
