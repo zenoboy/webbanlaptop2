@@ -9,7 +9,7 @@
         <v-col>
           <v-card class="order-summary">
             <v-card-title>
-              <h2>Đơn hàng</h2>
+              <h2>Đơn hàng aaaaa</h2>
             </v-card-title>
             <v-list>
               <v-list-item-group>

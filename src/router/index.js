@@ -84,6 +84,11 @@ const routes = [
     name: 'test',
     component: test
   },
+  {
+    path: '/ho-so',
+    name: 'ho-so',
+    component:() =>import('../views/UserProfile.vue')
+  } 
 
 ]
 
