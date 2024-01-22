@@ -49,35 +49,68 @@
         </div>
       </v-navigation-drawer>
       <v-main>
-      <v-container>
-        <v-data-table
-          :items="orders"
-          :headers="headers"
-          disable-pagination
-          hide-default-footer
-        >
-          <template v-slot:item.status="{ item }">
-            <v-chip
-              v-bind:color="getStatusColor(item.status)"
-              class="ml-2"
-            >
-              {{ item.status }}
-            </v-chip>
-          </template>
+        <v-container>
+          <v-card class="pa-2">
+            <v-card-title>
+              <h3>Danh sách đơn hàng</h3>
+            </v-card-title>
+            <v-card-text>
+              <v-simple-table
+                :items="orders"
+                :headers="headers"
+                disable-pagination
+                hide-default-footer
+              >
+                <template v-slot:item.id="{ item }">
+                  <v-text>{{ item.id }}</v-text>
+                </template>
 
-          <template v-slot:item.total-price="{ item }">
-            {{ item.totalPrice | currency }}
-          </template>
-        </v-data-table>
-      </v-container>
-    </v-main>
+                <template v-slot:item.createdAt="{ item }">
+                  <v-text>{{ item.createdAt }}</v-text>
+                </template>
+
+                <template v-slot:item.totalPrice="{ item }">
+                  <v-text>{{ item.totalPrice }}</v-text>
+                </template>
+
+                <template v-slot:item.status="{ item }">
+                  <v-chip
+                    v-bind:color="getStatusColor(item.status)"
+                    class="ml-2"
+                  >
+                    {{ item.status }}
+                  </v-chip>
+                </template>
+
+                <template v-slot:item.actions="{ item }">
+                  <v-btn
+                    color="primary"
+                    small
+                    @click="viewDetails(item)"
+                  >
+                    Xem chi tiết
+                  </v-btn>
+
+                  <v-btn
+                    color="red"
+                    small
+                    @click="cancelOrder(item)"
+                  >
+                    Hủy
+                  </v-btn>
+                </template>
+              </v-simple-table>
+            </v-card-text>
+          </v-card>
+        </v-container>
+      </v-main>
       <footer-bar />
     </v-app>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, axios } from "vue";
 import TopBar from "@/components/TopBar.vue";
 import FooterBar from "@/components/FooterBar.vue";
 
@@ -98,25 +131,51 @@ export default {
         { text: "Đăng Xuất", icon: "mdi mdi-logout", route: "/dang-xuat" },
       ],
       orders: [],
-      statuses: ["Tất cả", "Mới", "Đang xử lý", "Đang vận chuyển", "Hoàn thành", "Hủy"],
-      filterStatus: "Tất cả",
-      filterDate: null,
-      search: ""
+      headers: [
+        { text: "Mã đơn hàng", value: "id" },
+        { text: "Ngày tạo", value: "createdAt" },
+        { text: "Tổng giá trị", value: "totalPrice" },
+        { text: "Trạng thái", value: "status" },
+        { text: "Thao tác", value: "actions" },
+      ],
     };
   },
-
-  computed: {
+  methods: {
+    navigateTo(route) {
+      console.log("Route to navigate:", route);
+      this.$router.push(route).catch(err => console.error("Navigation error:", err));
+    },
+    viewDetails(order) {
+      console.log("Xem chi tiết đơn hàng", order);
+    },
+    cancelOrder(order) {
+      console.log("Hủy đơn hàng", order);
+    },
     getStatusColor(status) {
-      const colors = {
-        "Tất cả": "primary",
-        "Mới": "success",
-        "Đang xử lý": "warning",
-        "Đang vận chuyển": "info",
-        "Hoàn thành": "success",
-        "Hủy": "error"
-      };
-      return colors[status];
-    }
-  }
+      switch (status) {
+        case "Đang xử lý":
+          return "primary";
+        case "Đã giao hàng":
+          return "success";
+        case "Đã hủy":
+          return "red";
+        default:
+          return "gray";
+      }
+    },
+    loadOrders() {
+      axios
+        .get("https://example.com/api/orders")
+        .then((response) => {
+          this.orders = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  mounted() {
+    this.loadOrders();
+  },
 };
 </script>
