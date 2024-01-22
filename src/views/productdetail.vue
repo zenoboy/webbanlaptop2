@@ -1,5 +1,7 @@
 <template>
-    
+    <div>
+
+  
 <top-bar></top-bar>
 <div v-if="Product">
 
@@ -11,6 +13,7 @@
               
               :src="'https://localhost:44367/images/' + Product[0].ImagerUrl"
                 height="200"
+
               ></v-img>
             </v-col>
             <v-col>
@@ -66,7 +69,7 @@
 
                 <div style="margin-top: 30px;" class="all-btn-add-product flex-item">
                   <div class="btn-add-cart">
-                    <v-btn style="margin-right: 30px; height: 45px;" color="#3278f6" >Thêm vào giỏ hàng</v-btn>
+                    <v-btn @click="addToCart" :products=Product[0] style="margin-right: 30px; height: 45px;" color="#3278f6" >Thêm vào giỏ hàng</v-btn>
                     
                     <v-btn style="height: 45px;" color="#fb4e4e">Mua Ngay</v-btn>
                   </div>
@@ -116,24 +119,27 @@
           lines="three"
           >
           <template v-slot:subtitle="{ subtitle }">
-        <div v-html="subtitle"></div>
-        <v-divider></v-divider>
-      </template>
+            <div v-html="subtitle"></div>
+            <v-divider></v-divider>
+          </template>
      
           </v-list>
           </v-col>
                     
         </v-row>
+        
       </div>
-      <footer-bar/>   
-    
+  <footer-bar/>
+</div>
 </template>
   
 <script>
 import axios from 'axios';
+import { toast } from 'vue3-toastify'
 
 import TopBar from '@/components/TopBar.vue';
 import FooterBar from '@/components/FooterBar.vue';
+
 export default {
   name: 'ProductDetail',
   props:['id'],
@@ -143,7 +149,7 @@ export default {
   },
   data(){
     return{
-      quantity:1,
+    quantity:1,
       danhgia:[
         {
         title: 'sadas',
@@ -157,6 +163,7 @@ export default {
         }
     ],
     Product: null,
+    Add: true,
     };
   },
   methods:{
@@ -173,19 +180,38 @@ export default {
         .then(response =>{
           this.Product = response.data;
           console.log(this.Product)
-    //     .then(response => {
-    // if (response.data.length > 0) {
-    //   // Truy cập phần tử đầu tiên trong mảng và gán cho Product
-    //   this.Product = response.data[0];
-    //   console.log(this.Product);
-    // }
-
-
+  
         Product.newPrice = product.Price - (product.Price * (product.promotion / 100));
              
         }).catch(error => {
           console.log(error)
         });
+    },
+    addToCart(){ 
+      let cart = this.$store.state.cart;
+      let object = cart.find(o => o.ProductsId === this.Product[0].ProductsId)
+      if(object){
+        console.log('Co san pham roi')
+        // this.Product[0].qty = this.Product[0].qty + this.quantity
+        
+        this.$store.commit('updateCart',{products:this.Product[0]})
+        toast.success('cart updated',{autoClose:500})
+        toast.autoClose=500
+        
+        console.log(this.Product[0].qty)
+        console.log("quantity",this.quantity)
+      }
+      else{
+        this.Product[0].qty = this.quantity
+        this.$store.commit('addCart',{products:this.Product[0], Add:this.Add})
+        console.log(this.Product.quantity)
+
+        // Hiển thị thông báo sử dụng thư viện toast
+        let toastMSG = 'Added to cart';
+        toast(toastMSG, {
+          autoClose: 1000,
+        });
+      }
     },
     
   },
@@ -199,6 +225,9 @@ export default {
       // Tính toán giá mới dựa trên giảm giá
       return (this.Product[0].Price * (100 - this.Product[0].promotion) / 100).toFixed(0);
     },
+  },
+  mounted(){
+    
   }
   
 }

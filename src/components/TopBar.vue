@@ -1,7 +1,11 @@
 <template>
     <div>
       <v-app-bar :elevation="0" color="" class="">
-        <a href="" class="text-decoration-none"><h3 class="headline mb-0 text-red">LapTop Uông Bí</h3></a>
+
+        <router-link to="/" class="text-decoration-none">
+        <h3 class="headline mb-0 text-red">LapTop Uông Bí</h3>
+      </router-link>
+
         <v-spacer></v-spacer>
         <v-btn>Dell</v-btn>
         <v-btn>Acer</v-btn>
@@ -25,8 +29,9 @@
     </v-card-text>
         
         <v-toolbar-items>
+          <!-- cart -->
           <v-btn @click="goToCartPage" >
-            <v-badge content="5" color="red">
+            <v-badge  :content= "$store.state.cart.length" color="red">
               <v-icon>mdi mdi-cart-outline</v-icon>
             </v-badge>
                 
@@ -155,7 +160,8 @@
     },
 
       goToCartPage() {
-      this.$router.push('/cart')
+      // this.$router.push('/cart')
+      this.$router.push('/cart-view')
       },
         async login() {
             console.log('Đăng nhập thành công:');

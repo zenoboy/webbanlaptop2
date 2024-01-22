@@ -5,6 +5,10 @@ import ListCategory from '../views/WebAdmin/category/ListView.vue'
 import ProductDetail from '../views/productdetail.vue'
 import SearchView from '@/views/SearchView.vue';
 
+// =======
+import CartView from '../views/CartView.vue'
+// import test from '../views/test.vue'
+// >>>>>>> 686648eae67ccc91883c65f8b8fddf988e64bb33
 
 
 const routes = [
@@ -80,10 +84,24 @@ const routes = [
     component: () => import( '../views/SearchView.vue')  },
   {
     path: '/product-detail/:id',
-    name: 'ProductDetail',
+    name: 'product-detail',
     component: ProductDetail,
     props: true
+  },{
+    path: '/cart-view',
+    name: 'CartView',
+    component: CartView
   },
+  // {
+  //   path: '/test',
+  //   name: 'test',
+  //   component: test
+  // },
+  {
+    path: '/ho-so',
+    name: 'ho-so',
+    component:() =>import('../views/UserProfile.vue')
+  } 
 
 ]
 
