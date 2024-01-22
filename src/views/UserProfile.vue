@@ -1,4 +1,5 @@
 <template>
+  <div>
     <top-bar></top-bar>
     <v-app>
       <v-navigation-drawer v-model="drawer" app color="#425C5A" class="rounded-e-xl">
@@ -122,13 +123,14 @@
       </v-main>
     </v-app>
     <footer-bar/> 
+  </div>
   </template>
   
   <script>
   import { ref } from "vue";
-  import TopBar from '@/components/TopBar.vue';
-  import FooterBar from '@/components/FooterBar.vue';
-  
+  import TopBar from "@/components/TopBar.vue";
+  import FooterBar from "@/components/FooterBar.vue";
+
   
   export default {
     name: 'UserProfile',
