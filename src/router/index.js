@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import AdminView from '../views/WebAdmin/AdminView.vue'
 import ListCategory from '../views/WebAdmin/category/ListView.vue'
 import ProductDetail from '../views/productdetail.vue'
+import CartView from '../views/CartView.vue'
+import test from '../views/test.vue'
 
 
 const routes = [
@@ -69,9 +71,18 @@ const routes = [
   },
   {
     path: '/product-detail/:id',
-    name: 'ProductDetail',
+    name: 'product-detail',
     component: ProductDetail,
     props: true
+  },{
+    path: '/cart-view',
+    name: 'CartView',
+    component: CartView
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: test
   },
   {
     path: '/ho-so',
