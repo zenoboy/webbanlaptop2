@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import AdminView from '../views/WebAdmin/AdminView.vue'
 import ListCategory from '../views/WebAdmin/category/ListView.vue'
 import ProductDetail from '../views/productdetail.vue'
-import SearchView from '@/views/SearchView.vue';
+// import SearchView from '@/views/SearchResults.vue';
 
 // =======
 import CartView from '../views/CartView.vue'
@@ -17,11 +17,11 @@ const routes = [
     name: 'home',
     component: HomeView
   },
-  {
-    path: '/timkiem',
-    name: 'tiemkiem',
-    component: SearchView
-  },
+  // {
+  //   path: '/timkiem',
+  //   name: 'tiemkiem',
+  //   component: SearchView
+  // },
   {
     path: '/about',
     name: 'about',
@@ -81,7 +81,7 @@ const routes = [
   {
     path:'/timkiem',
     name:'timkiem',
-    component: () => import( '../views/SearchView.vue')  },
+    component: () => import( '../views/SearchResults.vue')  },
   {
     path: '/product-detail/:id',
     name: 'product-detail',

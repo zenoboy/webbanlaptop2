@@ -1,9 +1,14 @@
 import { createStore } from 'vuex'
+// store/index.js
 
+// import Vue from 'vue';
+// import Vuex from 'vuex';
 
+// Vue.use(Vuex);
 
 export default createStore({
   state:{
+    searchResults: [],
     cart:[],
     cartTotal:0
   },
@@ -54,7 +59,10 @@ export default createStore({
         localStorage.setItem('cartTotal',JSON.stringify(state.cartTotal));
         localStorage.setItem('cart',JSON.stringify(state.cart));
 
-    }
+    },
+    setSearchResults(state, results) {
+        state.searchResults = results;
+      },
 
   },
   actions:{

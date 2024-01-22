@@ -80,16 +80,16 @@
                 <tbody>
                     <tr v-for="(item,index) in products" :key="index">
                       <td>{{ index + 1 }}</td>
-                      <td>{{ item.productId }}</td>
+                      <td>{{ item.ProductsId }}</td>
                           <!-- Thêm thành phần v-img để hiển thị ảnh -->
                     <td>
-                        <v-img :src="item.productimg" alt="Hình ảnh sản phẩm"></v-img>
+                        <v-img :src="'https://localhost:44367/images/' + item.ImagerUrl" alt="Hình ảnh sản phẩm"></v-img>
                     </td>
-                      <td>{{ item.productName }}</td>
-                      <td>{{ item.productDesc }}</td>
-                      <td>{{ item.price }}</td>
-                      <td>{{ item.categoryId }}</td>
-                      <td>{{ item.inventoryId }}</td>
+                      <td>{{ item.ProductsName }}</td>
+                      <td>{{ item.ProductsDescription }}</td>
+                      <td>{{ item.Price }}</td>
+                      <td>{{ item.CategoryId }}</td>
+                      <td>{{ item.Quatity }}</td>
                         <td>
                             <v-btn color="blue"
                             class="mr-3"
@@ -185,17 +185,17 @@ export default {
             ],
             products: [],
             productId: '',
-            productimg:'',
-            productName: '',
-            productDesc: '',
-            price: '',
-            categoryId: '',
-            inventoryId: '',
+            ImagerUrl:'',
+            ProductsName: '',
+            ProductsDescription: '',
+            Price: '',
+            CategoryId: '',
+            warranty: '',
         };
     },
     methods: {
         getProducts() {
-            axios.get('https://localhost:44384/api/Product')
+            axios.get('https://localhost:44367/api/Products/GetProducts')
                 .then(response => {
                 this.products = response.data;
 
@@ -206,7 +206,7 @@ export default {
         },
 
         deleteProduct() {
-            axios.delete('https://localhost:44384/api/Product/' + this.productId)
+            axios.delete('https://localhost:44367/api/Products/GetProducts/' + this.productId)
                 .then(response => {
                 var newArr = this.products.filter(x => x.productId != this.productId);
                 this.products = newArr;
@@ -224,7 +224,7 @@ export default {
     watch: {
         currentItem: function () {
             this.data.productId = this.currentItem.productId;
-            this.data.productImg = this.currentItem.productImg;
+            this.data.ImagerUrl = this.currentItem.ImagerUrl;
             this.data.productName = this.currentItem.productName;
             this.data.productDesc = this.currentItem.productDesc;
             this.data.price = this.currentItem.price;

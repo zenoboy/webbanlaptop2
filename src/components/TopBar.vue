@@ -108,6 +108,7 @@
   
   <script>
   import axios from 'axios';
+  import { mapMutations } from 'vuex';
   export default {
     name: 'TopBar' ,
     data() {
@@ -115,7 +116,6 @@
         form: false,
         email: null,
         password: null,
-        loading: false,
         loginDialog: false,
         registerDialog: false,
         UserName: '',
@@ -124,6 +124,7 @@
         Phone: '',
         categories: [],
         search: '',
+        loading: false,
         
         laptopCategories: [
           { id: 1, name: 'Laptop Dell', icon: 'mdi-laptop' },
@@ -152,12 +153,23 @@
     methods: {
       async performSearch() {
       try {
-        const response = await axios.get(`https://localhost:44367/api/Categorys/Categorys?categoryId=${this.selectedCategory}&query=${this.search}`);
-        this.$router.push({ name: 'search-result', params: { results: response.data, searchTerm: this.search } });
+        const response = await axios.get(`https://localhost:44367/api/Products/SearchProducts?keyword=${this.search}`);
+        this.setSearchResults(response.data);
+        this.$router.push({ name: 'search-results', params: { searchResults: response.data } });
       } catch (error) {
         console.error('Lỗi tìm kiếm sản phẩm:', error);
       }
     },
+    ...mapMutations(['setSearchResults']),
+
+    //   async performSearch() {
+    //   try {
+    //     const response = await axios.get(`https://localhost:44367/api/Categorys/Categorys?categoryId=${this.selectedCategory}&query=${this.search}`);
+    //     this.$router.push({ name: 'search-result', params: { results: response.data, searchTerm: this.search } });
+    //   } catch (error) {
+    //     console.error('Lỗi tìm kiếm sản phẩm:', error);
+    //   }
+    // },
 
       goToCartPage() {
       // this.$router.push('/cart')

@@ -14,19 +14,21 @@
                                 <v-col>
                                     <v-text-field
                                         label="Tên sản phẩm"
-                                        v-model="data.productName"
+                                        v-model="data.ProductsName"
                                     ></v-text-field>
                                 </v-col>
                                 <v-col>
                                     <v-text-field
                                         label="Ảnh sản phẩm"
                                         v-model="data.productimg"
+                                        @change="handleFileUpload"
+
                                     ></v-text-field>
                                 </v-col>
                                 <v-col>
                                     <v-text-field
                                         label="Mô tả sản phẩm"
-                                        v-model="data.productDesc"
+                                        v-model="data.ProductsDescription"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -34,7 +36,7 @@
                                 <v-col>
                                     <v-text-field
                                         label="Giá"
-                                        v-model="data.price"
+                                        v-model="data.Price"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -66,26 +68,26 @@ export default {
     data() {
         return {
             data: {
-                productName: '',
+                ProductsName: '',
                 productimg:'',
-                productDesc: '',
-                price: '',
-                categoryId: 0,
-                inventoryId:0, 
-                productId:null,
+                ProductsDescription: '',
+                Price: '',
+                CategoryId: 0,
+                ProductsId:null,
             },
         };
     },
     methods: {
+        
         updateProduct() {
-            this.categoryId=this.currentItem.categoryId
+            this.CategoryId=this.currentItem.CategoryId
             this.data.productimg = this.currentItem.productimg;
-            this.categoryId=this.currentItem.inventoryId
-            this.categoryId=this.currentItem.productId
+            this.CategoryId=this.currentItem.inventoryId
+            this.CategoryId=this.currentItem.ProductsId
             console.log(this.data)
 
 
-    axios.put('https://localhost:44384/api/Product/'+this.data.productId, this.data)
+    axios.put('https://localhost:44367/api/Products/'+this.data.ProductsId, this.data)
         .then(response => {
             this.$emit('close');
             // this.$emit('updateData');
@@ -114,14 +116,33 @@ export default {
     },
     watch: {
         currentItem: function () {
-            this.data.productId = this.currentItem.productId;
-            this.data.productName = this.currentItem.productName;
-            this.data.productDesc = this.currentItem.productDesc;
-            this.data.price = this.currentItem.price;
-            this.data.categoryId = this.currentItem.categoryId;
+            this.data.ProductsId = this.currentItem.ProductsId;
+            this.data.ProductsName = this.currentItem.ProductsName;
+            this.data.ProductsDescription = this.currentItem.ProductsDescription;
+            this.data.Price = this.currentItem.Price;
+            this.data.CategoryId = this.currentItem.CategoryId;
             this.data.inventoryId = this.currentItem.inventoryId;
         }
-    }
+    },
+    uploadImage() {
+        return new Promise((resolve, reject) => {
+            const formData = new FormData();
+            formData.append('files', this.data.productimg);
+
+            axios.post('https://localhost:44367/api/Products/UploadImage', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            .then(response => {
+                // Trả về đường dẫn ảnh mới
+                resolve(response.data);
+            })
+            .catch(error => {
+                reject(error);
+            });
+        }
+    )},
 };
 </script>
 
