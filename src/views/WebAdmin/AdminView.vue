@@ -1,9 +1,11 @@
 <template>
-  
-    <side-bar-admin/>
-    <top-bar-admin/>
+    <div>
+        <side-bar-admin/>
+        <top-bar-admin/>
     
-    <h1>Admin View</h1>
+        <h1>Admin View</h1>
+    </div>
+    
     
     
   

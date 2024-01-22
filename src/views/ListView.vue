@@ -92,8 +92,8 @@
         <!-- Lặp qua danh sách sản phẩm và hiển thị từng sản phẩm trong một v-col -->
        
         <v-col
-            v-for="(item, index) in displayedProducts"
-            :key="index"
+            v-for="item in displayedProducts"
+            :key="item.ProductsId"
             cols="12"
             md="3" 
         >
@@ -121,8 +121,9 @@
             <v-card-subtitle>{{ item.Price }}</v-card-subtitle>
       
             <v-card-actions>
-              <v-btn color="primary" :to="{ name: 'ProductDetail', params: { id: item.ProductsId } }">Xem Chi Tiết</v-btn>
-              <v-btn color="success" @click="addToCart(Books)">Mua Ngay</v-btn>
+              <v-btn color="primary" :to="{ name: 'product-detail', params: { id: item.ProductsId } }">Xem Chi Tiết</v-btn>
+              
+              <cart-btn :products="item"/>
             </v-card-actions>
           </v-card>
         </v-hover>
@@ -144,12 +145,13 @@
         <v-card-subtitle>{{ selectedProduct.Price }}</v-card-subtitle>
         <v-img :src="selectedProduct.Avatar" alt="Hình ảnh sản phẩm"></v-img>
         <v-card-text>
-          <!-- Thêm thông tin chi tiết sản phẩm ở đây -->
-          {{ selectedProduct.description }}
+          
+          <!-- {{ selectedProduct.description }} -->
         </v-card-text>
         <v-card-actions>
           <v-btn @click="addToCart(selectedProduct)">Thêm vào giỏ hàng</v-btn>
           <v-btn @click="dialog = false">Đóng</v-btn>
+          
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -163,17 +165,21 @@ import axios from 'axios';
 import TopBar from '@/components/TopBar.vue';
 import FooterBar from '@/components/FooterBar.vue';
 
+import CartBtn from '@/components/CartBtn.vue';
+
+
 export default {
   components: {
     ProductDetailDialog,
     TopBar,
     FooterBar,
+    CartBtn,
   },
   data() {
     return {
       dialog: false,
       selectedProduct: null,
-      
+      displayProduct:[],
       products: [],
       laptopCategories: [
         { id: 1, name: 'Laptop Dell', icon: 'mdi-laptop' },
@@ -228,12 +234,25 @@ export default {
         console.error('Lỗi khi lấy sản phẩm:', error);
       }
     },
+    displayProducts(){
+      axios.get('https://localhost:7072/api/Products/GetProducts')
+            .then(response =>{
+                this.displayProduct = response.data;
+                console.log(this.displayProduct)
+            }).catch(error => {
+                console.log(error)
+            });
+
+    },
     addToCart(product) {
       console.log('Đã thêm vào giỏ hàng:', product);
     },
     updateDisplayedProducts() {
     },
   },
+  created(){
+    this.displayProducts()
+  }
 };
 </script>
 <style>
