@@ -15,14 +15,16 @@
 
         <v-card-text>
       <v-text-field
-        :loading="loading"
-        density="compact"
-        variant="solo"
-        label="Chưa có  gì đâu"
-        append-inner-icon="mdi-magnify"
-        single-line
-        hide-details
-        @click:append-inner="onClick"
+      :loading="loading"
+          density="compact"
+          variant="solo"
+          label="Chưa có gì đâu"
+          append-inner-icon="mdi-magnify"
+          single-line
+          hide-details
+          v-model="search"
+          @click:append-inner="performSearch"
+          @keyup.enter="performSearch"
       ></v-text-field>
     </v-card-text>
         
@@ -82,7 +84,20 @@
         </v-col>
       </v-row>
     </v-container>
-
+    <v-dialog v-model="searchDialog" max-width="600px">
+      <v-card>
+        <v-card-title class="headline">Kết quả tìm kiếm</v-card-title>
+        <v-card-text>
+          <!-- Display your search results here -->
+          <ul>
+            <li v-for="result in searchResults" :key="result.id">{{ result.name }}</li>
+          </ul>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click="searchDialog = false" color="primary">Đóng</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
         </v-toolbar-items>
       </v-app-bar>
       
@@ -107,8 +122,9 @@
         PassWord: '',
         FullName: '',
         Phone: '',
-
+        categories: [],
         search: '',
+        
         laptopCategories: [
           { id: 1, name: 'Laptop Dell', icon: 'mdi-laptop' },
           { id: 2, name: 'Laptop Acer', icon: 'mdi-laptop' },
@@ -132,7 +148,16 @@
         ]
       }
     },
+
     methods: {
+      async performSearch() {
+      try {
+        const response = await axios.get(`https://localhost:44367/api/Categorys/Categorys?categoryId=${this.selectedCategory}&query=${this.search}`);
+        this.$router.push({ name: 'search-result', params: { results: response.data, searchTerm: this.search } });
+      } catch (error) {
+        console.error('Lỗi tìm kiếm sản phẩm:', error);
+      }
+    },
 
       goToCartPage() {
       // this.$router.push('/cart')

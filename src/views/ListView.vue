@@ -112,7 +112,7 @@
      
             <v-img
               
-            :src="'https://localhost:7072/images/' + item.ImagerUrl"
+            :src="'https://localhost:44367/images/' + item.ImagerUrl"
               height="200"
             ></v-img>
      
@@ -228,7 +228,7 @@ export default {
     async fetchProducts() {
       try {
         // const response = await axios.get('https://localhost:44384/api/Product');
-        const response = await axios.get('https://localhost:7072/api/Products/GetProducts');
+        const response = await axios.get('https://localhost:44367/api/Products/GetProducts');       
         this.products = response.data;
       } catch (error) {
         console.error('Lỗi khi lấy sản phẩm:', error);

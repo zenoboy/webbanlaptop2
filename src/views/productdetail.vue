@@ -11,8 +11,9 @@
             <v-col>
               <v-img
               
-              :src="'https://localhost:7072/images/' + Product[0].ImagerUrl"
-              height="200"
+              :src="'https://localhost:44367/images/' + Product[0].ImagerUrl"
+                height="200"
+
               ></v-img>
             </v-col>
             <v-col>
@@ -45,7 +46,7 @@
                   </div>
 
                   <div class="baohanh flex-item">
-                  <div class="item">Bảo hành 12 tháng</div>
+                  <div class="item">Bảo Hành {{ Product[0].warranty }} Tháng</div>
                 </div>
                 </div>
                
@@ -175,7 +176,7 @@ export default {
       }
     },
     getProduct(){
-      axios.get('https://localhost:7072/api/Products/GetProductstoID?newproductsID='+this.id)
+      axios.get('https://localhost:44367/api/Products/GetProductstoID?newproductsID='+this.id)
         .then(response =>{
           this.Product = response.data;
           console.log(this.Product)
