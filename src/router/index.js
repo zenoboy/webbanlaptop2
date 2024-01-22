@@ -77,7 +77,12 @@ const routes = [
     path: '/ho-so',
     name: 'ho-so',
     component:() =>import('../views/UserProfile.vue')
-  } 
+  },
+  {
+    path: '/don-hang',
+    name: 'don-hang',
+    component:() =>import('../views/UserProduct.vue')
+  },
 
 ]
 

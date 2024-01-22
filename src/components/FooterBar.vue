@@ -25,7 +25,6 @@
 export default {
     data: () => ({
       links: [
-        'Home',
         'Chính sách bảo hành,',
         'Chính sách bảo mật',
         'Trung tâm bảo hành',
