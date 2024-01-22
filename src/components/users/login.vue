@@ -55,7 +55,10 @@ export default {
         if (Role === 'admin') {
           this.$router.push('/admin/index');
         } else {
-          this.$router.push('/users/index');
+          this.$router.push('/');
+          // Khi người dùng đăng nhập thành công
+          localStorage.setItem('AuthToken', yourToken);
+
         }
       } catch (error) {
         console.error('Login failed', error);
