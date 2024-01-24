@@ -3,7 +3,6 @@ import HomeView from '../views/HomeView.vue'
 import AdminView from '../views/WebAdmin/AdminView.vue'
 import ListCategory from '../views/WebAdmin/category/ListView.vue'
 import ProductDetail from '../views/productdetail.vue'
-// import SearchView from '@/views/SearchResults.vue';
 import SearchResultsPage from '@/views/SearchResultsPage.vue'
 
 
@@ -105,9 +104,15 @@ const routes = [
     component:() =>import('../views/UserProfile.vue')
   },
   {
+
     path: '/search-results',
     name: 'search-results',
     component: SearchResultsPage,
+  },
+{
+    path: '/don-hang',
+    name: 'don-hang',
+    component:() =>import('../views/UserProduct.vue')
   },
 
 ]

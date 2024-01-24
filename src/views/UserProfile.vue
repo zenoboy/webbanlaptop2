@@ -1,4 +1,5 @@
 <template>
+  <div>
     <top-bar></top-bar>
     <v-app>
       <v-navigation-drawer v-model="drawer" app color="#425C5A" class="rounded-e-xl">
@@ -23,14 +24,15 @@
           <span class="mb-6 text-caption" style="color: #B49239;">*********@gmail.com</span>
         </v-sheet>
   
-        <v-list>
-          <v-list-item-group v-if="links.length">
+            <v-list>
+            <v-list-item-group v-if="links.length">
             <v-list-item
-              v-for="(item, i) in links"
-              :key="i"
-              :value="item"
-              active-class="border"
-              :ripple="false"
+            v-for="(item, i) in links"
+            :key="i"
+            :value="item"
+            active-class="border"
+            :ripple="false"
+            @click="navigateTo(item.route)"
             >
               <template v-slot:prepend>
                 <v-icon :icon="item.icon" color="#B49239"></v-icon>
@@ -79,6 +81,9 @@
               </v-col>
             </v-inline>
             <v-row>
+              <v-col cols="12">
+          <label class="mb-2" style="color: #425C5A;">Ngày Sinh:</label>
+      </v-col>
               <v-col cols="4">
                 <v-combobox
                   v-model="day"
@@ -110,18 +115,22 @@
                 ></v-combobox>
               </v-col>
             </v-row>
-            <v-btn color="#B49239" type="submit" v-if="valid">Cập nhật</v-btn>
+            <v-row justify="center">
+        <v-btn color="#B49239" type="submit" v-if="valid">Cập nhật</v-btn>
+      </v-row>
           </v-form>
         </v-container>
       </v-main>
     </v-app>
     <footer-bar/> 
+  </div>
   </template>
   
   <script>
   import { ref } from "vue";
-  import TopBar from '@/components/TopBar.vue';
-  import FooterBar from '@/components/FooterBar.vue';
+  import TopBar from "@/components/TopBar.vue";
+  import FooterBar from "@/components/FooterBar.vue";
+
   
   export default {
     name: 'UserProfile',
@@ -133,10 +142,10 @@
     data() {
       return {
         links: [
-          { text: "Hồ Sơ Người Dùng", icon: "mdi mdi-account-box-multiple" },
-          { text: "Địa Chỉ", icon: "mdi mdi-map-marker" },
-          { text: "Đơn Hàng Của Tôi", icon: "mdi mdi-shopping" },
-          { text: "Đăng Xuất", icon: "mdi mdi-logout" },
+           { text: "Hồ Sơ Người Dùng", icon: "mdi mdi-account-box-multiple", route: "./ho-so" },
+        { text: "Địa Chỉ", icon: "mdi mdi-map-marker", route: "./dia-chi" },
+        { text: "Đơn Hàng Của Tôi", icon: "mdi mdi-shopping", route: "./don-hang" },
+        { text: "Đăng Xuất", icon: "mdi mdi-logout", route: "./dang-xuat" },
         ],
         drawer: ref(null),
         day: 1,
@@ -164,21 +173,20 @@
   },
       getDaysInMonth(month, year) {
         if (month === 2) {
-          // Tháng 2
-          return this.isLeapYear(year) ? 29 : 28;
-        } else if ([4, 6, 9, 11].includes(month)) {
-          // Tháng 4, 6, 9, 11 có 30 ngày
+
+          return this.isLeapYear(year) ? 29 : 28;        } else if ([4, 6, 9, 11].includes(month)) {
           return 30;
         } else {
-          // Các tháng còn lại có 31 ngày
           return 31;
         }
       },
       isLeapYear(year) {
-        // Hàm kiểm tra năm nhuận
         return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
       },
-      
+      navigateTo(route) {
+            console.log(this.$router);
+            this.$router.push(route);
+        },
     },
-  };
+};
   </script>
