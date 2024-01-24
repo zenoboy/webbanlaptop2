@@ -4,6 +4,8 @@ import AdminView from '../views/WebAdmin/AdminView.vue'
 import ListCategory from '../views/WebAdmin/category/ListView.vue'
 import ProductDetail from '../views/productdetail.vue'
 // import SearchView from '@/views/SearchResults.vue';
+import SearchResultsPage from '@/views/SearchResultsPage.vue'
+
 
 // =======
 import CartView from '../views/CartView.vue'
@@ -81,7 +83,7 @@ const routes = [
   {
     path:'/timkiem',
     name:'timkiem',
-    component: () => import( '../views/SearchResults.vue')  },
+    component: () => import( '../views/SearchResultsPage.vue')  },
   {
     path: '/product-detail/:id',
     name: 'product-detail',
@@ -101,7 +103,12 @@ const routes = [
     path: '/ho-so',
     name: 'ho-so',
     component:() =>import('../views/UserProfile.vue')
-  } 
+  },
+  {
+    path: '/search-results',
+    name: 'search-results',
+    component: SearchResultsPage,
+  },
 
 ]
 

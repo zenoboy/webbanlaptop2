@@ -160,7 +160,7 @@ export default {
       }
     },
     displayProducts(){
-      axios.get('https://localhost:7072/api/Products/GetProducts')
+      axios.get('https://localhost:44367/api/Products/GetProducts')
             .then(response =>{
                 this.displayProduct = response.data;
                 console.log(this.displayProduct)
