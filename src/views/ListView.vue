@@ -107,7 +107,7 @@ export default {
       ],
       displayType: 'grid',
       displayTypes: ['grid', 'list'],
-      itemsPerPage: 6,
+      itemsPerPage: 10,
       currentPage: 1,
 
       silders: [

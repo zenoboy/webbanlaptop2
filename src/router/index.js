@@ -3,8 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import AdminView from '../views/WebAdmin/AdminView.vue'
 import ListCategory from '../views/WebAdmin/category/ListView.vue'
 import ProductDetail from '../views/productdetail.vue'
-import SearchResultsPage from '@/views/SearchResultsPage.vue'
-
+import SearchResults from '@/views/SearchResults.vue';
 
 // =======
 import CartView from '../views/CartView.vue'
@@ -20,7 +19,7 @@ const routes = [
   },
   // {
   //   path: '/timkiem',
-  //   name: 'tiemkiem',
+  //   name: 'timkiem',
   //   component: SearchView
   // },
   {
@@ -67,7 +66,7 @@ const routes = [
     path: '/login',
     name: 'login',
 
-    component: () => import( '../views/login.vue')
+    component: () => import( '../views/dangky.vue')
   },
   {
     path: '/AdminView',
@@ -79,10 +78,13 @@ const routes = [
     name: 'ListCategory',
     component: ListCategory
   },
-  {
-    path:'/timkiem',
-    name:'timkiem',
-    component: () => import( '../views/SearchResultsPage.vue')  },
+  
+  { 
+      path: '/search-results', 
+      name: 'search-results',
+      component: SearchResults
+  },
+   
   {
     path: '/product-detail/:id',
     name: 'product-detail',
@@ -102,28 +104,7 @@ const routes = [
     path: '/ho-so',
     name: 'ho-so',
     component:() =>import('../views/UserProfile.vue')
-  },
-  {
-
-    path: '/search-results',
-    name: 'search-results',
-    component: SearchResultsPage,
-  },
-{
-    path: '/don-hang',
-    name: 'don-hang',
-    component:() =>import('../views/UserProduct.vue')
-  },
-  {
-    path: '/dia-chi',
-    name: 'dia-chi',
-    component:() =>import('../views/UserAdress.vue')
-  },
-  {
-    path: '/chi-tiet-dia-chi',
-    name: 'chi-tiet-dia-chi',
-    component:() =>import('../views/UserAdressDetail.vue')
-  },
+  } 
 
 ]
 

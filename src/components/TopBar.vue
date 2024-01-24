@@ -15,16 +15,22 @@
 
         <v-card-text>
       <v-text-field
-      :loading="loading"
-          density="compact"
-          variant="solo"
-          label="Chưa có gì đâu"
-          append-inner-icon="mdi-magnify"
-          single-line
-          hide-details
-          v-model="search"
-          @click:append-inner="performSearch"
-          @keyup.enter="performSearch"
+      v-model="search"
+  :loading="loading"
+  :density="density"
+  :variant="variant"
+  label="Tìm kiếm sản phẩm"
+  append-inner-icon="mdi-magnify"
+  single-line
+  hide-details
+  :rules="[
+    {
+      required: true,
+      message: 'Tên sản phẩm không được để trống',
+    },
+  ]"
+  @click:append-inner="performSearch"
+  @keyup.enter="performSearch"
       ></v-text-field>
     </v-card-text>
         
@@ -152,24 +158,16 @@
 
     methods: {
       async performSearch() {
-      try {
-        const response = await axios.get(`https://localhost:44367/api/Products/SearchProducts?keyword=${this.search}`);
-        this.setSearchResults(response.data);
-        this.$router.push({ name: 'search-results', params: { searchResults: response.data } });
-      } catch (error) {
-        console.error('Lỗi tìm kiếm sản phẩm:', error);
-      }
-    },
-    ...mapMutations(['setSearchResults']),
-
-    //   async performSearch() {
-    //   try {
-    //     const response = await axios.get(`https://localhost:44367/api/Categorys/Categorys?categoryId=${this.selectedCategory}&query=${this.search}`);
-    //     this.$router.push({ name: 'search-result', params: { results: response.data, searchTerm: this.search } });
-    //   } catch (error) {
-    //     console.error('Lỗi tìm kiếm sản phẩm:', error);
-    //   }
-    // },
+    try {
+      const response = await axios.get(`https://localhost:44367/api/Products/SearchProducts?keyword=${this.search}`);
+      this.$store.commit('setSearchResults', response.data);
+      this.$router.push('/search-results' ); // Use the name of your search results route
+      this.$store.commit('setSearchKeyword',this.search)
+    } catch (error) {
+      console.error('Lỗi tìm kiếm sản phẩm:', error);
+    }
+  },
+  ...mapMutations(['setSearchResults']),
 
       goToCartPage() {
       // this.$router.push('/cart')

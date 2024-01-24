@@ -1,8 +1,14 @@
 import { createStore } from 'vuex'
+// store/index.js
 
+// import Vue from 'vue';
+// import Vuex from 'vuex';
+
+// Vue.use(Vuex);
 
 export default createStore({
   state:{
+    searchKeyword: '',
     searchResults: [],
     cart:[],
     cartTotal:0
@@ -58,6 +64,9 @@ export default createStore({
     setSearchResults(state, results) {
         state.searchResults = results;
       },
+    setSearchKeyword(state, keyword) {
+        state.searchKeyword = keyword;
+    },
 
   },
   actions:{

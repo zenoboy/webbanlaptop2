@@ -65,9 +65,30 @@
     </v-app-bar>
 
     <!-- Hiển thị danh sách sản phẩm từ API ở đây -->
-    <v-container>
-    <v-row v-if="displayType === 'grid'">
-  <v-col v-for="(item, index) in displayedProducts" :key="index" cols="12" md="3">
+    <v-container class="mt-10">
+      <v-select v-model="displayType" :items="displayTypes" label="Hiển thị" outlined></v-select>
+
+      <v-row v-if="displayType === 'grid'">
+        <v-col v-for="(product, index) in displayedProducts" :key="index" cols="12" md="4">
+          <v-card>
+            <v-img :src="product.Avatar" alt="Hình ảnh sản phẩm" contain height="100"></v-img>
+            <v-card-text>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>{{ product.ProductsName }}</v-list-item-title>
+                  <v-list-item-subtitle>{{ product.price }}</v-list-item-subtitle>
+                </v-list-item-content>
+                <v-list-item-action>
+                  <v-btn @click="addToCart(product)">Thêm vào giỏ hàng</v-btn>
+                </v-list-item-action>
+              </v-list-item>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+
+      <v-row v-else-if="displayType === 'list'">
+        <v-col v-for="(item, index) in displayedProducts" :key="index" cols="12" md="3">
           <v-hover v-slot="{isHovering,props}" open-delay="1">
             <v-card :elevation="isHovering ? 16 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
               <v-img :src="'https://localhost:44367/images/' + item.ImagerUrl" height="200"></v-img>
@@ -75,7 +96,8 @@
               <v-card-subtitle>{{ item.Price }}</v-card-subtitle>
               <v-card-actions>
                 <v-btn color="primary" :to="{ name: 'product-detail', params: { id: item.ProductsId } }">Xem Chi Tiết</v-btn>
-                <cart-btn  :products="item"/></v-card-actions>
+                <v-btn color="success" @click="addToCart(item)">Mua Ngay</v-btn>
+              </v-card-actions>
             </v-card>
           </v-hover>
         </v-col>
