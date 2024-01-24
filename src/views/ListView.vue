@@ -73,6 +73,9 @@
 
       <!-- Hiển thị phân trang -->
       <v-pagination v-if="totalPages > 1" v-model="currentPage" :length="totalPages" @input="updateDisplayedProducts"></v-pagination> 
+      <v-row>
+        <v-col><h3>Sản phẩm bạn vừa xem</h3></v-col>
+      </v-row>
       </v-container>
     <footer-bar/>   
   </div>

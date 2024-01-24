@@ -11,7 +11,7 @@
             <v-col>
               <v-img
               
-              :src="'https://localhost:7072/images/' + Product[0].ImagerUrl"
+              :src="'https://localhost:44367/images/' + Product[0].ImagerUrl"
                 height="200"
 
               ></v-img>
@@ -40,8 +40,8 @@
 
                 <div class="main-price">
                   <div class="flex-item">
-                    <div class="price">{{ Product[0].Price }} đ</div>
-                    <del class="old-price">{{   computedNewPrice}} đ</del>
+                    <div class="price">{{ formatPrice( Product[0].Price) }} đ</div>
+                    <del class="old-price">{{ formatPrice (computedNewPrice) }} đ</del>
                     <div class="sale-off">-{{ Product[0].promotion }}%</div>
                   </div>
 
@@ -90,20 +90,29 @@
               <tbody>
                 <tr>
                   <td>Thương hiệu</td>
-                  <td>Acer</td>
+                  <td>{{ Product[0].trademark }}</td>
                 </tr>
                 <tr>
-                  <td>Thương hiệu</td>
-                  <td>Acer</td>
+                  <td>Hệ Điều Hành </td>
+                  <td>{{ Product[0].operatingsystem }}</td>
                 </tr>
                 <tr>
-                  <td>Thương hiệu</td>
-                  <td>Acer</td>
+                  <td>Màn Hình</td>
+                  <td>{{ Product[0].Screen }}</td>
                 </tr>
                 <tr>
-                  <td>Thương hiệu</td>
-                  <td>Acer</td>
+                  <td>Card đồ hoạ</td>
+                  <td>{{ Product[0].Graphicscard }}</td>
                 </tr>
+                <tr>
+                  <td>Tên CPU </td>
+                  <td>{{ Product[0].Cpuname }}</td>
+                </tr>
+                <tr>
+          <td colspan="2" class="text-center">
+            <v-btn @click="openDialog" color="">Xem Thêm</v-btn>
+          </td>
+        </tr>
               </tbody>
             </v-table>
           </v-col>
@@ -156,11 +165,49 @@
         @updateData="getReview"
         :product="this.Product"
       />
+      <v-dialog v-model="showDialog" max-width="600" persistent="false" transition="dialog-transition">
+      <v-card>
+        <v-card-title>Thông Số Kỹ Thuật Chi Tiết</v-card-title>
+        <v-card-text>
+          <v-table>
+            <tbody>
+              <tr>
+                  <td>Thương hiệu</td>
+                  <td>{{ Product[0].trademark }}</td>
+                </tr>
+                <tr>
+                  <td>Hệ Điều Hành </td>
+                  <td>{{ Product[0].operatingsystem }}</td>
+                </tr>
+                <tr>
+                  <td>Màn Hình</td>
+                  <td>{{ Product[0].Screen }}</td>
+                </tr>
+                <tr>
+                  <td>Card đồ hoạ</td>
+                  <td>{{ Product[0].Graphicscard }}</td>
+                </tr>
+                <tr>
+                  <td>Tên CPU </td>
+                  <td>{{ Product[0].Cpuname }}</td>
+                </tr>
+                
+              <!-- Add more rows for other details -->
+            </tbody>
+          </v-table>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click="closeDialog" color="primary">Đóng</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   <footer-bar/>
 </div>
 </template>
   
 <script>
+import numeral from 'numeral';
+
 import axios from 'axios';
 import { toast } from 'vue3-toastify'
 
@@ -179,15 +226,26 @@ export default {
   },
   data(){
     return{
+    showDialog: false,
     quantity:1,
     Product: null,
     Add: true,
     averageRating: 0,
     Review: [],
     showReviewView: false,
+    locale: 'vi-VN',
     };
   },
   methods:{
+    openDialog() {
+    this.showDialog = true;
+  },
+  closeDialog() {
+    this.showDialog = false;
+  },
+    formatPrice(price) {
+      return numeral(price).format('0,0');
+    },
     TangSoLuong(){
       this.quantity++;
     },
@@ -197,7 +255,7 @@ export default {
       }
     },
     getProduct(){
-      axios.get('https://localhost:7072/api/Products/GetProductstoID?newproductsID='+this.id)
+      axios.get('https://localhost:44367/api/Products/GetProductstoID?newproductsID='+this.id)
         .then(response =>{
           this.Product = response.data;
           console.log(this.Product)
@@ -235,7 +293,7 @@ export default {
       }
     },
     getReview(){
-      axios.get('https://localhost:7072/api/Review/GetReviewByIdProduct?ProductsId='+this.id)
+      axios.get('https://localhost:44367/api/Review/GetReviewByIdProduct?ProductsId='+this.id)
         .then(response =>{
           this.Review = response.data;
           console.log("review",this.Review)    
@@ -362,5 +420,6 @@ ul li{
 #table-detail tr:nth-child(even){
   background: #f5f5f5;
 }
+
 </style>
   

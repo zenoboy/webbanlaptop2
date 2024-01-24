@@ -5,6 +5,7 @@
       <!-- <div v-if="searchResults && searchResults.length > 0"> -->
         <!-- Hiển thị từ khóa tìm kiếm -->
         <p><strong>Kết quả tìm kiếm :"{{ $store.state.searchKeyword }}"</strong> </p>
+        <v-btn></v-btn>
   
         <!-- Hiển thị kết quả tìm kiếm -->
         <v-row>
@@ -33,13 +34,15 @@
 </template>
 
 <script>
+import CartBtn from '@/components/CartBtn.vue';
 import TopBar from '@/components/TopBar.vue';
 import FooterBar from '@/components/FooterBar.vue';
   export default {
     components: {
     TopBar,
     FooterBar,
-  },
+    CartBtn,
+  },    
     computed: {
       searchResults() {
         return this.$store.state.searchResults;
