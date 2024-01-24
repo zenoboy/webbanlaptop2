@@ -180,12 +180,12 @@
             <v-dialog maxWidth="450px" v-model="dialogDelete">
                 <v-card>
                     <v-alert type="error">
-                        <v-row align="center">
+                        <v-row justify="center">
                             <v-col cols="11" class="text-center">
                                 Bạn có chắc chắn không ?
                             </v-col>
                         </v-row>
-                        <v-row align="center">
+                        <v-row justify="center">
                             <v-spacer></v-spacer>
                             <v-col cols="5">
                                 <v-btn variant="text" @click="deleteProduct(ProductsId)">Đồng ý</v-btn>

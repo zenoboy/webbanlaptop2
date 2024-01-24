@@ -1,5 +1,7 @@
 import { createStore } from 'vuex'
-
+const store = createStore({
+    // Cấu hình Vuex store của bạn ở đây
+  });
 
 
 export default createStore({

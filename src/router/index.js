@@ -101,7 +101,22 @@ const routes = [
     path: '/ho-so',
     name: 'ho-so',
     component:() =>import('../views/UserProfile.vue')
-  } 
+  },
+  {
+    path: '/don-hang',
+    name: 'don-hang',
+    component:() =>import('../views/UserProduct.vue')
+  },
+  {
+    path: '/dia-chi',
+    name: 'dia-chi',
+    component:() =>import('../views/UserAdress.vue')
+  },
+  {
+    path: '/chi-tiet-dia-chi',
+    name: 'chi-tiet-dia-chi',
+    component:() =>import('../views/UserAdressDetail.vue')
+  },
 
 ]
 
