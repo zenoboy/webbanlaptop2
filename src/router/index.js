@@ -67,7 +67,7 @@ const routes = [
     path: '/login',
     name: 'login',
 
-    component: () => import( '../views/dangky.vue')
+    component: () => import( '../views/login.vue')
   },
   {
     path: '/AdminView',
@@ -113,6 +113,16 @@ const routes = [
     path: '/don-hang',
     name: 'don-hang',
     component:() =>import('../views/UserProduct.vue')
+  },
+  {
+    path: '/dia-chi',
+    name: 'dia-chi',
+    component:() =>import('../views/UserAdress.vue')
+  },
+  {
+    path: '/chi-tiet-dia-chi',
+    name: 'chi-tiet-dia-chi',
+    component:() =>import('../views/UserAdressDetail.vue')
   },
 
 ]
