@@ -46,16 +46,30 @@ export default {
 
         const response = await axios.post('https://localhost:7072/api/Login/Login', loginData);
 
-        const { Token, Message, RedirectUrl, Role } = response.data;
-        // Store the token securely (e.g., Vuex store or localStorage)
-        // Optionally, you can show a success message
-        alert(Message);
-        alert(Role);
+        
+        const { Token, Message, RedirectUrl, Role,UserId } = response.data;
+        
+        //alert(Message);
+        
+        //alert(Role);
+      
+
+        localStorage.setItem('token', JSON.stringify(Token))
+        localStorage.setItem('username', this.username)
+        
+        localStorage.setItem('tokenID', UserId)
+
+
+        // console.log("userID", UserId)
         // Redirect the user based on the user role
         if (Role === 'admin') {
           this.$router.push('/admin/index');
         } else {
-          this.$router.push('/users/index');
+          this.$router.push('/');
+          
+          
+          
+
         }
       } catch (error) {
         console.error('Login failed', error);

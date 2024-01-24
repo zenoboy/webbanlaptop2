@@ -51,14 +51,16 @@
   <v-container fluid>
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="4">
-          <v-dialog v-model="loginDialog" persistent max-width="600px">
+          <v-btn v-if="!isLoggedIn" color="primary" to="/login">Đăng nhập</v-btn>
+          <v-btn v-if="isLoggedIn" @click="logout">Xin chào, {{ten}} ! Đăng Xuất</v-btn>
+          <!-- <v-dialog v-model="loginDialog" persistent max-width="600px">
             <v-card>
               <v-card-title class="headline">Đăng nhập</v-card-title>
               <v-card-text>
                 <v-form @submit.prevent="login">
                   <v-text-field v-model="UserName" label="Tên đăng nhập" required></v-text-field>
                   <v-text-field v-model="PassWord" label="Mật khẩu" type="password" required></v-text-field>
-                  <v-btn type="submit" color="primary">Đăng nhập</v-btn>
+                  <v-btn to="login" type="submit" color="primary">Đăng nhập</v-btn>
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -66,9 +68,9 @@
                 <v-btn @click="loginDialog = false" color="primary">Đóng</v-btn>
               </v-card-actions>
             </v-card>
-          </v-dialog>
+          </v-dialog> -->
 
-          <v-dialog v-model="registerDialog" persistent max-width="600px">
+          <!-- <v-dialog v-model="registerDialog" persistent max-width="600px">
             <v-card>
               <v-card-title class="headline">Đăng ký</v-card-title>
               <v-card-text>
@@ -84,9 +86,9 @@
                 <v-btn @click="registerDialog = false" color="primary">Đóng</v-btn>
               </v-card-actions>
             </v-card>
-          </v-dialog>
+          </v-dialog> -->
 
-          <v-btn @click="loginDialog = true" color="primary">Đăng nhập</v-btn>
+          <!-- <v-btn @click="loginDialog = true" color="primary">Đăng nhập</v-btn> -->
         </v-col>
       </v-row>
     </v-container>
@@ -106,8 +108,6 @@
     </v-dialog>
         </v-toolbar-items>
       </v-app-bar>
-      
-      
     </div>
     
 </template>
@@ -130,7 +130,6 @@
         Phone: '',
         categories: [],
         search: '',
-        loading: false,
         
         laptopCategories: [
           { id: 1, name: 'Laptop Dell', icon: 'mdi-laptop' },
@@ -206,7 +205,17 @@
       this.registerDialog = true;
     },
   
+    logout(){
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      localStorage.removeItem('tokenID')
+      this.isLoggedIn = false; // Nếu có biến dữ liệu này
+       // Nếu có biến dữ liệu này
+
+      // Nếu cần điều hướng sau khi đăng xuất
     
+      window.location.reload();
+    },
   
 
       onSubmit () {s
@@ -220,6 +229,17 @@
         return !!v || 'Field is required'
       },
     },
+    computed:{
+      isLoggedIn() {
+      // Kiểm tra xem đã đăng nhập hay chưa
+      return !!localStorage.getItem('token');
+    },
+    },
+    created(){
+      console.log("token", localStorage.getItem('token'))
+      console.log("token", this.ten)
+      console.log("tokenID", localStorage.getItem('tokenID'))
+    }
   }
   </script>
   

@@ -11,7 +11,7 @@
             <v-col>
               <v-img
               
-              :src="'https://localhost:44367/images/' + Product[0].ImagerUrl"
+              :src="'https://localhost:7072/images/' + Product[0].ImagerUrl"
                 height="200"
 
               ></v-img>
@@ -40,8 +40,8 @@
 
                 <div class="main-price">
                   <div class="flex-item">
-                    <div class="price">{{ computedNewPrice }} đ</div>
-                    <del class="old-price">{{ Product[0].Price }} đ</del>
+                    <div class="price">{{ Product[0].Price }} đ</div>
+                    <del class="old-price">{{   computedNewPrice}} đ</del>
                     <div class="sale-off">-{{ Product[0].promotion }}%</div>
                   </div>
 
@@ -112,23 +112,50 @@
         <v-row style="border-top: 1px solid #ededed;">
           <v-col>
             <h3 style="display: block;">ĐÁNH GIÁ CỦA KHÁCH HÀNG</h3>
-
-          <v-list
-          :items="danhgia"
-          item-props
-          lines="three"
-          >
-          <template v-slot:subtitle="{ subtitle }">
-            <div v-html="subtitle"></div>
-            <v-divider></v-divider>
-          </template>
-     
-          </v-list>
+            <v-row align="center" justify="center">
+              <v-rating
+              v-model="averageRating"
+              hover
+              half-increments
+              color="orange-lighten-1"
+              active-color="orange-lighten-1"
+              :readonly="true"
+            ></v-rating>
+            <!-- <v-btn @click="showReviewView=true" variant="text" border color="blue">Viết đánh giá</v-btn> -->
+            <v-btn @click="showReview" variant="text" border color="blue">Viết đánh giá</v-btn>
+            </v-row>
+            
+          
+          <ul>
+            <li style="list-style: none;" v-for="(review, index) in Review" :key="index">
+              <!-- Hiển thị thông tin của người đánh giá -->
+              <p><strong style="margin-right: 30px;">{{ review.UserName }}</strong> 
+                <v-rating 
+                  v-model=" review.Rating " 
+                  size="x-small"  
+                  density="compact" 
+                  readonly
+                  color="orange-lighten-1"
+                  active-color="orange-lighten-1">
+                </v-rating>
+              </p>
+              <p>Đánh giá: {{ review.Comment }}</p>
+              <p style="color: #CCC; font-weight: 600;"> {{formatReviewDate(review.DateReviews)}}</p>
+              <v-divider></v-divider>
+            </li>
+          </ul>
           </v-col>
+          
                     
         </v-row>
         
       </div>
+      <review-view
+        :visible="showReviewView"
+        @close="showReviewView=false"
+        @updateData="getReview"
+        :product="this.Product"
+      />
   <footer-bar/>
 </div>
 </template>
@@ -140,30 +167,24 @@ import { toast } from 'vue3-toastify'
 import TopBar from '@/components/TopBar.vue';
 import FooterBar from '@/components/FooterBar.vue';
 
+import ReviewView from './ReviewView.vue';
+
 export default {
   name: 'ProductDetail',
   props:['id'],
   components:{
     TopBar,
-    FooterBar
+    FooterBar,
+    ReviewView
   },
   data(){
     return{
     quantity:1,
-      danhgia:[
-        {
-        title: 'sadas',
-        subtitle:'ádsadÂS',
-        date: "2022-01-12" 
-        },
-        {
-          title:'được quád',
-          subtitle:'quá đepk',
-          date: "2022-01-12" 
-        }
-    ],
     Product: null,
     Add: true,
+    averageRating: 0,
+    Review: [],
+    showReviewView: false,
     };
   },
   methods:{
@@ -176,12 +197,12 @@ export default {
       }
     },
     getProduct(){
-      axios.get('https://localhost:44367/api/Products/GetProductstoID?newproductsID='+this.id)
+      axios.get('https://localhost:7072/api/Products/GetProductstoID?newproductsID='+this.id)
         .then(response =>{
           this.Product = response.data;
           console.log(this.Product)
   
-        Product.newPrice = product.Price - (product.Price * (product.promotion / 100));
+          Product.newPrice = product.Price + (product.Price * (product.promotion / 100));
              
         }).catch(error => {
           console.log(error)
@@ -213,21 +234,54 @@ export default {
         });
       }
     },
+    getReview(){
+      axios.get('https://localhost:7072/api/Review/GetReviewByIdProduct?ProductsId='+this.id)
+        .then(response =>{
+          this.Review = response.data;
+          console.log("review",this.Review)    
+          console.log("review", this.Review.length)    
+          
+          const totalRating = this.Review.reduce((acc, review) => acc + review.Rating, 0);
+         
+          console.log("review",totalRating / this.Review.length)
+          this.averageRating = totalRating / this.Review.length;
+        }).catch(error => {
+          console.log(error)
+        });
+    },
+    formatReviewDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString(); // Sử dụng toLocaleDateString để chỉ lấy ngày tháng năm
+    },
+    showReview(){
+      if(localStorage.getItem('tokenID')){
+        this.showReviewView=true
+      }
+      else{
+        alert("Bạn phải đăng nhập trước!!!")
+      }
+      
+    }
     
   },
   created(){
     console.log(this.id);
     this.getProduct();
+    this.getReview();
     
   },
   computed:{
     computedNewPrice() {
       // Tính toán giá mới dựa trên giảm giá
-      return (this.Product[0].Price * (100 - this.Product[0].promotion) / 100).toFixed(0);
+      //return (this.Product[0].Price * (100 - this.Product[0].promotion) / 100).toFixed(0);
+      return (this.Product[0].Price + (this.Product[0].Price * (this.Product[0].promotion / 100))).toFixed(0);
+
     },
+    
   },
   mounted(){
     
+
   }
   
 }
