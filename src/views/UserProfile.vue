@@ -44,9 +44,6 @@
         </v-list>
         <v-row justify="center" class="spacer ml-16 mt-4" no-gutters>
         </v-row>
-        <div style="position: relative; z-index: 9999" class="mt-2">
-          <v-img src="map.png" contain max-height="100"></v-img>
-        </div>
       </v-navigation-drawer>
   
       <v-main>
@@ -136,16 +133,16 @@
     name: 'UserProfile',
     props:['id'],
     components:{
-    TopBar,
-    FooterBar
+      TopBar,
+      FooterBar
   },
     data() {
       return {
         links: [
-           { text: "Hồ Sơ Người Dùng", icon: "mdi mdi-account-box-multiple", route: "./ho-so" },
-        { text: "Địa Chỉ", icon: "mdi mdi-map-marker", route: "./dia-chi" },
-        { text: "Đơn Hàng Của Tôi", icon: "mdi mdi-shopping", route: "./don-hang" },
-        { text: "Đăng Xuất", icon: "mdi mdi-logout", route: "./dang-xuat" },
+          { text: "Hồ Sơ Người Dùng", icon: "mdi mdi-account-box-multiple", route: "./ho-so" },
+          { text: "Địa Chỉ", icon: "mdi mdi-map-marker", route: "./dia-chi" },
+          { text: "Đơn Hàng Của Tôi", icon: "mdi mdi-shopping", route: "./don-hang" },
+          { text: "Đăng Xuất", icon: "mdi mdi-logout", route: "./login" },
         ],
         drawer: ref(null),
         day: 1,
