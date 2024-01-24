@@ -110,12 +110,12 @@ const routes = [
   {
     path: '/dia-chi',
     name: 'dia-chi',
-    component:() =>import('../views/UserAdress.vue')
+    component:() =>import('../views/UserAddress.vue')
   },
   {
     path: '/chi-tiet-dia-chi',
     name: 'chi-tiet-dia-chi',
-    component:() =>import('../views/UserAdressDetail.vue')
+    component:() =>import('../views/UserAddressDetail.vue')
   },
 
 ]
