@@ -28,8 +28,9 @@
       data(){
           return{
               links:[
-                  {icon:'mdi-microsoft-windows',text:'Products',to:"/list-products"},
-                  {icon:'mdi-microsoft-windows',text:'Category',to:"/list-category"},
+                  {icon:'mdi mdi-shopping',text:'Products',to:"/list-products"},
+                  {icon:'mdi mdi-shape-plus',text:'Category',to:"/list-category"},
+                  {icon:'mdi mdi-chart-pie',text:'Thống Kê',to:"/list-statistical"},
                   
               ]
           }

@@ -3,8 +3,12 @@ import HomeView from '../views/HomeView.vue'
 import AdminView from '../views/WebAdmin/AdminView.vue'
 import ListCategory from '../views/WebAdmin/category/ListView.vue'
 import ProductDetail from '../views/productdetail.vue'
+import SearchView from '@/views/SearchView.vue';
+
+// =======
 import CartView from '../views/CartView.vue'
-import test from '../views/test.vue'
+// import test from '../views/test.vue'
+// >>>>>>> 686648eae67ccc91883c65f8b8fddf988e64bb33
 
 
 const routes = [
@@ -12,6 +16,11 @@ const routes = [
     path: '/home',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/timkiem',
+    name: 'tiemkiem',
+    component: SearchView
   },
   {
     path: '/about',
@@ -70,6 +79,10 @@ const routes = [
     component: ListCategory
   },
   {
+    path:'/timkiem',
+    name:'timkiem',
+    component: () => import( '../views/SearchView.vue')  },
+  {
     path: '/product-detail/:id',
     name: 'product-detail',
     component: ProductDetail,
@@ -79,11 +92,11 @@ const routes = [
     name: 'CartView',
     component: CartView
   },
-  {
-    path: '/test',
-    name: 'test',
-    component: test
-  },
+  // {
+  //   path: '/test',
+  //   name: 'test',
+  //   component: test
+  // },
   {
     path: '/ho-so',
     name: 'ho-so',

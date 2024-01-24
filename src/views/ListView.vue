@@ -228,7 +228,7 @@ export default {
     async fetchProducts() {
       try {
         // const response = await axios.get('https://localhost:44384/api/Product');
-        const response = await axios.get('https://localhost:7072/api/Products/GetProducts');
+        const response = await axios.get('https://localhost:7072/api/Products/GetProducts');       
         this.products = response.data;
       } catch (error) {
         console.error('Lỗi khi lấy sản phẩm:', error);
