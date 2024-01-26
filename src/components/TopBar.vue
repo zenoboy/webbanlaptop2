@@ -208,7 +208,7 @@
     logout(){
       localStorage.removeItem('token');
       localStorage.removeItem('username');
-      localStorage.removeItem('tokenID')
+      localStorage.removeItem('userId')
       this.isLoggedIn = false; // Nếu có biến dữ liệu này
        // Nếu có biến dữ liệu này
 
@@ -238,7 +238,7 @@
     created(){
       console.log("token", localStorage.getItem('token'))
       console.log("token", this.ten)
-      console.log("tokenID", localStorage.getItem('tokenID'))
+      console.log("tokenID", localStorage.getItem('userId'))
     }
   }
   </script>
