@@ -1,16 +1,16 @@
 
 <template>
-    <singin></singin>
-  </template>
+    <register></register>
+</template>
   
   <script>
   // @ is an alias to /src
-  import singin from '@/components/users/singin.vue'
+  import register from '@/components/users/register.vue'
   
   export default {
 
     components: {
-        singin
+      register
     }
   }
   </script>

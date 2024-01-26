@@ -62,7 +62,7 @@
                               size="x-small"
                               icon
                               @click="dialogDelete=true,
-                              productId=item.productId">
+                              ProductsId=item.ProductsId">
                                   <v-icon>mdi-delete</v-icon>
                               </v-btn>
                           </td>
@@ -73,11 +73,12 @@
           </v-card>
       </v-col>
     </v-row>
-    <add-view
+      <add-product
       :dialogAdd="dialogAdd"
       @close="dialogAdd=false"
       @updateData="getCategories"/>
-      <edit-view
+
+      <edit-product
       :currentItem="currentItem"
       :dialogEdit="dialogEdit"
       @close="dialogEdit=false"
@@ -101,7 +102,7 @@
                   <v-spacer></v-spacer>
                   <v-col cols="5">
                       <v-btn variant="text"
-                          @click="deleteProduct(productId)"
+                          @click="deleteProduct(ProductsId)"
                           >Đồng ý</v-btn>
                   </v-col>
                   <v-col cols="6">
@@ -112,7 +113,10 @@
           </v-alert>
       </v-card>
       </v-dialog>
-  </div>
+      <v-row class="mt-2">
+      <v-pagination :length="totalPages" v-model="currentPage" @input="loadData"></v-pagination>
+    </v-row>
+      </div>
 </template>
   
   <script>
@@ -152,6 +156,9 @@ import TopBarAdmin1 from '@/components/TopBarAdmin1.vue';
               Price: '',
               CategoryId: '',
               warranty: '',
+              totalPages: '0',
+              currentPage: 1,
+              pageSize: 2,
           };
       },
       methods: {
@@ -165,11 +172,14 @@ import TopBarAdmin1 from '@/components/TopBarAdmin1.vue';
                   console.log(error);
               });
           },
+          loadData() {
+                this.getProducts();
+                },
   
           deleteProduct() {
-              axios.delete('https://localhost:44367/api/Products/GetProducts/' + this.productId)
+              axios.delete('https://localhost:44367/api/Products/DeleteProducts?NewProductsId'+this.ProductsId)
                   .then(response => {
-                  var newArr = this.products.filter(x => x.productId != this.productId);
+                  var newArr = this.products.filter(x => x.ProductsId != this.ProductsId);
                   this.products = newArr;
                   this.dialogDelete = false;
                   console.log(response.status);
@@ -184,7 +194,7 @@ import TopBarAdmin1 from '@/components/TopBarAdmin1.vue';
       },
       watch: {
           currentItem: function () {
-              this.data.productId = this.currentItem.productId;
+              this.data.ProductsId = this.currentItem.ProductsId;
               this.data.ImagerUrl = this.currentItem.ImagerUrl;
               this.data.productName = this.currentItem.productName;
               this.data.productDesc = this.currentItem.productDesc;

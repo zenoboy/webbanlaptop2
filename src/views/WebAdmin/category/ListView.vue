@@ -49,7 +49,7 @@
                             size="x-small"
                             icon
                             @click="dialogDelete=true,
-                            categoryId=item.categoryId">
+                            CategoryId=item.CategoryId">
                                 <v-icon>mdi-delete</v-icon>
                             </v-btn>
                         </td>
@@ -103,10 +103,9 @@
 <script>
 
 
-import SideBarAdmin1 from '@/components/SideBarAdmin1.vue'
-
-import axios from 'axios'
-import AddView from './AddView.vue'
+import SideBarAdmin1 from '@/components/SideBarAdmin1.vue';
+import axios from 'axios';
+import AddView from './AddView.vue';
 import EditView from './EditView'
 import TopBarAdmin1 from '@/components/TopBarAdmin1.vue'
 export default {
@@ -119,7 +118,7 @@ export default {
         dialogEdit:false,
         currentItem:'', 
         dialogDelete:false,
-        categoryId:'',
+        CategoryId:'',
     }
 },
 methods: {
@@ -133,16 +132,20 @@ methods: {
             });
     },
     deleteCategory(){
-        axios.delete('https://localhost:44367/api/Categorys/Categorys'+this.categoryId)
+        if (this.CategoryId){
+        axios.delete('https://localhost:44367/api/Categorys/Categorys/' + this.CategoryId)    
         .then(response=>{
-            var newArr = this.categories.filter(x=>x.categoryId !=this.categoryId);
+            var newArr = this.categories.filter(x=>x.CategoryId !=this.CategoryId);
             this.categories = newArr;
             this.dialogDelete= false;
             console.log(response.status);
         })
         .catch(error=>{
             console.log(error);
-        })
+        });
+    }else{
+        console.error('categoryId không tồn tại')
+    }
     }
 },
 created() {

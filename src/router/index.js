@@ -15,6 +15,21 @@ import CartView from '../views/CartView.vue'
 
 const routes = [
   {
+    path:'/side',
+    path:'/side',
+    component:()=> import('../components/SideBarAdmin1.vue')
+  },
+  {
+    path:'/singup',
+    path:'/singup',
+    component:()=> import('../views/Register.vue')
+  },
+  {
+    path:'/searchView',
+    path:'/searchView',
+    component:SearchView
+  },
+  {
     path: '/home',
     name: 'home',
     component: HomeView

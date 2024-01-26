@@ -14,19 +14,36 @@
                                 <v-col>
                                     <v-text-field
                                         label="Tên sản phẩm"
-                                        v-model="data.productName"
+                                        v-model="data.ProductsName"
                                     ></v-text-field>
                                 </v-col>
                                 <v-col>
-                                    <v-text-field
-                                        label="Ảnh  sản phẩm"
-                                        v-model="data.productimg"
-                                    ></v-text-field>
+                                    <v-file-input
+                                    v-model="files"
+                                    placeholder="Upload your documents"
+                                    label="File input"
+                                    multiple
+                                    prepend-icon="mdi-paperclip"
+                                >
+                                    <template v-slot:selection="{ fileNames }">
+                                    <template v-for="fileName in fileNames" :key="fileName">
+                                        <v-chip
+                                        size="small"
+                                        label
+                                        color="primary"
+                                        class="me-2"
+                                        >
+                                        {{ fileName }}
+                                        </v-chip>
+                                    </template>
+                                    </template>
+                                </v-file-input>
+ 
                                 </v-col>
                                 <v-col>
                                     <v-text-field
                                         label="Mô tả sản phẩm"
-                                        v-model="data.productDesc"
+                                        v-model="data.ProductsDescription"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -34,19 +51,19 @@
                                 <v-col>
                                     <v-text-field
                                         label="Giá"
-                                        v-model="data.price"
+                                        v-model="data.Price"
                                     ></v-text-field>
                                 </v-col>
                                 <v-col>
                                     <v-text-field
                                         label="ID Danh mục"
-                                        v-model="data.categoryId"
+                                        v-model="data.CategoryId"
                                     ></v-text-field>
                                 </v-col>
                                 <v-col>
                                     <v-text-field
-                                        label="ID Kho"
-                                        v-model="data.inventoryId"
+                                        label="Số lượng "
+                                        v-model="data.Quatity"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -75,6 +92,7 @@ import axios from 'axios';
 
 export default {
     name: 'AddView',
+    props: ['dialogAdd'],
     data() {
         return {
             data: {
@@ -89,7 +107,7 @@ export default {
     },
     methods: {
         addProduct() {
-            axios.post("https://localhost:44384/api/Product", this.data)
+            axios.post('https://localhost:7072/api/Products/PostProducts?newProductsName='+this.data.productName+'&newQuatity='+this.Quatity+'&newPirce='+this.Price+'&newProductsDescription='+this.ProductsDescription+'&newCategoryId='+this.CategoryId+'1&newpromotion='+this.promotion+'&neworigin='+this.origin+'&newwarranty='+this.warranty+'&newtrademark='+this.trademark+'&newScreen='+this.Screen+'&newGraphicscard='+this.Graphicscard+'&newoperatingsystem='+this.operatingsystem+'&newCpuname='+this.Cpuname+'')
                 .then(response => {
                     this.$emit('close');
                     this.$emit('updateData');
@@ -102,7 +120,7 @@ export default {
                 });
         }
     },
-    props: ['dialogAdd'],
+    
     computed: {
         dialog: {
             get() {

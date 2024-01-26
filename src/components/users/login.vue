@@ -9,11 +9,11 @@
       <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
         <a class="text-caption text-decoration-none text-blue" href="#" rel="noopener noreferrer" target="_blank">Forgot login password?</a>
       </div>
-      <v-btn block class="mb-8" color="blue" size="large" variant="tonal" @click="login">
+      <v-btn block class="mb-8" color="blue" size="large" variant="tonal" @click="login" @keyup.enter="login">
         Log In
       </v-btn>
       <v-card-text class="text-center">
-        <a class="text-blue text-decoration-none" href="singin" rel="noopener noreferrer" target="_blank">
+        <a class="text-blue text-decoration-none" href="/singup" rel="noopener noreferrer" target="_blank">
           Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
         </a>
       </v-card-text>
