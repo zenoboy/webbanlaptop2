@@ -10,6 +10,7 @@
       v-for="(item, i) in links"
       :key="i"
       :value="item"
+      :to="item.to"
       color="blue"
     >
       <template v-slot:prepend>
@@ -27,8 +28,8 @@ export default {
 data(){
     return{
         links: [
-                { icon: ' mdi-microsoft-windows', text: 'Loại sản phẩm' },
-                { icon: ' mdi-sale-outline', text: 'Sản phẩm' },
+                { icon: ' mdi-microsoft-windows', text: 'Loại sản phẩm' ,to:"/list-category"},
+                { icon: ' mdi-sale-outline', text: 'Sản phẩm',to:"/list-product" },
                 { icon: ' mdi-flask', text: 'Đơn hàng' },
                 { icon: ' mdi-calendar', text: 'Chi tiết đơn hàng' },
                 { icon: ' mdi-account-key', text: 'Người Dùng' },

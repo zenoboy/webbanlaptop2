@@ -130,7 +130,7 @@
         Phone: '',
         categories: [],
         search: '',
-        
+        ten:localStorage.getItem('username'),
         laptopCategories: [
           { id: 1, name: 'Laptop Dell', icon: 'mdi-laptop' },
           { id: 2, name: 'Laptop Acer', icon: 'mdi-laptop' },

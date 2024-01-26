@@ -1,6 +1,6 @@
 <template>
   <v-app-bar :elevation="2" color="blue">
-    <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon @click="toggleSidebar"></v-app-bar-nav-icon>
     <v-spacer></v-spacer>
     <v-toolbar-items>
         <v-btn>Hire me</v-btn>
