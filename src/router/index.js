@@ -3,12 +3,11 @@ import HomeView from '../views/HomeView.vue'
 import AdminView from '../views/WebAdmin/AdminView.vue'
 import ListCategory from '../views/WebAdmin/category/ListView.vue'
 import ProductDetail from '../views/productdetail.vue'
-<<<<<<< HEAD
+
 import SearchResults from '@/views/SearchResults.vue';
-=======
-import SearchView from '@/views/SearchView.vue';
+
 import CheckoutView from '../views/CheckoutView.vue'
->>>>>>> d1b051e1e84280cb178ea8603337e8deb26b9bdc
+
 
 // =======
 import CartView from '../views/CartView.vue'
@@ -71,7 +70,7 @@ const routes = [
     path: '/login',
     name: 'login',
 
-    component: () => import( '../views/dangky.vue')
+    component: () => import( '../views/login.vue')
   },
   {
     path: '/AdminView',
@@ -109,9 +108,6 @@ const routes = [
     path: '/ho-so',
     name: 'ho-so',
     component:() =>import('../views/UserProfile.vue')
-<<<<<<< HEAD
-  } 
-=======
   },
   {
     path: '/don-hang',
@@ -128,15 +124,13 @@ const routes = [
     name: 'chi-tiet-dia-chi',
     component:() =>import('../views/UserAddressDetail.vue')
   },
-<<<<<<< HEAD
->>>>>>> 7e1c7f2ece06c553c5f463c09710b0c6a0b85fea
-=======
+
   {
     path: '/checkout',
     name: 'checkout',
     component: CheckoutView
   },
->>>>>>> d1b051e1e84280cb178ea8603337e8deb26b9bdc
+
 
 ]
 
