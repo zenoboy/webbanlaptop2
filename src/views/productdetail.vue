@@ -254,7 +254,7 @@ export default {
       return date.toLocaleDateString(); // Sử dụng toLocaleDateString để chỉ lấy ngày tháng năm
     },
     showReview(){
-      if(localStorage.getItem('tokenID')){
+      if(localStorage.getItem('userId')){
         this.showReviewView=true
       }
       else{

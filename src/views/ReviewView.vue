@@ -71,7 +71,7 @@ export default {
     methods:{
         PostReview(){
             this.Review.newProductsID = this.product[0].ProductsId
-            this.Review.UsersId = localStorage.getItem('tokenID')
+            this.Review.UsersId = localStorage.getItem('userId')
             console.log(this.Review)
             axios.post("https://localhost:7072/api/Review/PostReviews?newUserID="+this.Review.UsersId+"&newProductsID="+this.Review.newProductsID+"&newComment="+this.Review.newComment+"&newRating="+this.Review.newRating+"&UserName="+this.Review.UserName)
             .then(response =>{

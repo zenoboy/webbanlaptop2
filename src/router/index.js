@@ -4,6 +4,7 @@ import AdminView from '../views/WebAdmin/AdminView.vue'
 import ListCategory from '../views/WebAdmin/category/ListView.vue'
 import ProductDetail from '../views/productdetail.vue'
 import SearchView from '@/views/SearchView.vue';
+import CheckoutView from '../views/CheckoutView.vue'
 
 // =======
 import CartView from '../views/CartView.vue'
@@ -116,6 +117,11 @@ const routes = [
     path: '/chi-tiet-dia-chi',
     name: 'chi-tiet-dia-chi',
     component:() =>import('../views/UserAdressDetail.vue')
+  },
+  {
+    path: '/checkout',
+    name: 'checkout',
+    component: CheckoutView
   },
 
 ]
