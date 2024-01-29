@@ -28,7 +28,7 @@
                             <div>
                                 <img
                                 
-                                :src="'https://localhost:44367/images/' + item.ImagerUrl"
+                                :src="'https://localhost:7072/images/' + item.ImagerUrl"
                                 class="img-fluid rounded-3" alt="Shopping item" style="width: 100px;">
                             </div>
                             <div class="ms-3">
@@ -79,7 +79,7 @@
                     </div>
     
                     
-                    <v-btn style="color: aliceblue;" to="/checkout" color="#0dcaf0" >Thanh toán</v-btn>
+                    <v-btn style="color: aliceblue;" @click="toCheckout" color="#0dcaf0" >Thanh toán</v-btn>
     
                     </div>
                 </div>
@@ -104,6 +104,17 @@
         removeItem(item){
             this.$store.commit('addRemoveCart',{products:item,toAdd:false})
         },
+        toCheckout(){
+            if(this.$store.state.cart.length === 0 ){
+                alert("Chưa có sản phẩm nào trong giỏ hàng!!!")
+            }
+            if(!localStorage.getItem('token')){
+                alert("Bạn chưa đăng nhập!")
+            }
+            else{
+                this.$router.push('/checkout' );
+            }
+        }
        
     },
     mounted(){

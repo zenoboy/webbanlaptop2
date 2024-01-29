@@ -158,7 +158,7 @@
     methods: {
       async performSearch() {
     try {
-      const response = await axios.get(`https://localhost:44367/api/Products/SearchProducts?keyword=${this.search}`);
+      const response = await axios.get(`https://localhost:7072/api/Products/SearchProducts?keyword=${this.search}`);
       this.$store.commit('setSearchResults', response.data);
       this.$router.push('/search-results' ); // Use the name of your search results route
       this.$store.commit('setSearchKeyword',this.search)
@@ -177,7 +177,7 @@
             this.loginDialog = false;
             console.log(this.UserName)
       try {
-        const response = await axios.post('https://localhost:44384/api/User', {
+        const response = await axios.post('https://localhost:7072/api/User', {
             UserName: this.UserName,
             PassWord: this.PassWord,
             
@@ -189,7 +189,7 @@
     },
     async register() {
       try {
-        const response = await axios.post('https://localhost:44384/api/User', {
+        const response = await axios.post('https://localhost:7072/api/User', {
           username: this.UserName,
           password: this.PassWord,
           fullname: this.FullName,

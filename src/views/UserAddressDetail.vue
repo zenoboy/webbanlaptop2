@@ -45,7 +45,7 @@
                 <v-icon :icon="item.icon" color="#B49239"></v-icon>
               </template>
 
-              <v-list-item-title v-text="item.text"></v-list-item-title>
+              <v-list-item-title v-model="item.text"></v-list-item-title>
             </v-list-item>
           </v-list-item-group>
         </v-list>

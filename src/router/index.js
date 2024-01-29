@@ -7,6 +7,11 @@ import SearchResults from '@/views/SearchResults.vue';
 import SearchView from '@/views/SearchView.vue';
 import CheckoutView from '../views/CheckoutView.vue'
 
+// import SearchResults from '@/views/SearchResults.vue';
+
+// import CheckoutView from '../views/CheckoutView.vue'
+
+
 // =======
 import CartView from '../views/CartView.vue'
 // import test from '../views/test.vue'
@@ -154,6 +159,7 @@ const routes = [
     name: 'checkout',
     component: CheckoutView
   },
+
 
 ]
 

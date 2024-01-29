@@ -11,7 +11,7 @@
             <v-col>
               <v-img
               
-              :src="'https://localhost:44367/images/' + Product[0].ImagerUrl"
+              :src="'https://localhost:7072/images/' + Product[0].ImagerUrl"
                 height="200"
 
               ></v-img>
@@ -255,7 +255,7 @@ export default {
       }
     },
     getProduct(){
-      axios.get('https://localhost:44367/api/Products/GetProductstoID?newproductsID='+this.id)
+      axios.get('https://localhost:7072/api/Products/GetProductstoID?newproductsID='+this.id)
         .then(response =>{
           this.Product = response.data;
           console.log(this.Product)
@@ -293,7 +293,7 @@ export default {
       }
     },
     getReview(){
-      axios.get('https://localhost:44367/api/Review/GetReviewByIdProduct?ProductsId='+this.id)
+      axios.get('https://localhost:7072/api/Review/GetReviewByIdProduct?ProductsId='+this.id)
         .then(response =>{
           this.Review = response.data;
           console.log("review",this.Review)    

@@ -68,6 +68,10 @@ export default createStore({
     setSearchKeyword(state, keyword) {
         state.searchKeyword = keyword;
     },
+    clearCart(state){
+        state.cart = [];
+        state.cartTotal = 0;
+    }
 
   },
   actions:{
