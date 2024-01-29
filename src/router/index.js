@@ -3,10 +3,13 @@ import HomeView from '../views/HomeView.vue'
 import AdminView from '../views/WebAdmin/AdminView.vue'
 import ListCategory from '../views/WebAdmin/category/ListView.vue'
 import ProductDetail from '../views/productdetail.vue'
-
 import SearchResults from '@/views/SearchResults.vue';
-
+import SearchView from '@/views/SearchView.vue';
 import CheckoutView from '../views/CheckoutView.vue'
+
+// import SearchResults from '@/views/SearchResults.vue';
+
+// import CheckoutView from '../views/CheckoutView.vue'
 
 
 // =======
@@ -16,6 +19,21 @@ import Dashboard from '../views/WebAdmin/DashboardView.vue'
 
 
 const routes = [
+  {
+    path:'/side',
+    path:'/side',
+    component:()=> import('../components/SideBarAdmin1.vue')
+  },
+  {
+    path:'/singup',
+    path:'/singup',
+    component:()=> import('../views/Register.vue')
+  },
+  {
+    path:'/searchView',
+    path:'/searchView',
+    component:SearchView
+  },
   {
     path: '/home',
     name: 'home',
@@ -82,6 +100,16 @@ const routes = [
     name: 'ListCategory',
     component: ListCategory
   },
+  {
+    path:'/list-product',
+    name:'list-product',
+    component:()=>import('../views/WebAdmin/product/ListProduct.vue')
+  },
+  {
+    path:'/statistical',
+    name:'statistical',
+    component:()=>import('../views/WebAdmin/statistical/Statistical.vue')
+  },
   
   { 
       path: '/search-results/', 
@@ -108,6 +136,7 @@ const routes = [
     path: '/ho-so',
     name: 'ho-so',
     component:() =>import('../views/UserProfile.vue')
+
   },
   {
     path: '/don-hang',

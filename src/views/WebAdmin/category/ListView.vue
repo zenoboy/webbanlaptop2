@@ -1,11 +1,11 @@
 <template>
 
       <div>
-        <side-bar-admin/>
-<top-bar-admin/>
+        <side-bar-admin-1/>
+<top-bar-admin-1/>
   <v-row class="mt-2">
     <v-icon>mdi-home</v-icon>
-    <h3 class="ml-2">Danh sách sản phẩm</h3>
+    <h3 class="ml-2">Danh sách Loại sản phẩm</h3>
     <v-spacer></v-spacer>
     <v-btn icon 
     size="small"
@@ -23,15 +23,14 @@
                         <th>STT</th>
                         <th>Mã loại SP</th>
                         <th>Tên Loại SP</th>
-                        <th>Chức năng</th>
                         
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(item,index) in categories" :key="index">
                         <td>{{ index+1 }}</td>
-                        <td>{{ item.categoryId }}</td>
-                        <td>{{ item.categoryName }}</td>
+                        <td>{{ item.CategoryId }}</td>
+                        <td>{{ item.CategoryName }}</td>
                         <td>
                             <v-btn color="blue"
                             class="mr-3"
@@ -50,7 +49,7 @@
                             size="x-small"
                             icon
                             @click="dialogDelete=true,
-                            categoryId=item.categoryId">
+                            CategoryId=item.CategoryId">
                                 <v-icon>mdi-delete</v-icon>
                             </v-btn>
                         </td>
@@ -103,14 +102,14 @@
 </template>
 <script>
 
-import SideBarAdmin from '@/components/SideBarAdmin.vue'
-import TopBarAdmin from '@/components/TopBarAdmin.vue'
 
-import axios from 'axios'
-import AddView from './AddView.vue'
+import SideBarAdmin1 from '@/components/SideBarAdmin1.vue';
+import axios from 'axios';
+import AddView from './AddView.vue';
 import EditView from './EditView'
+import TopBarAdmin1 from '@/components/TopBarAdmin1.vue'
 export default {
-    components:{AddView,EditView, SideBarAdmin, TopBarAdmin},
+    components:{AddView,EditView, SideBarAdmin1, TopBarAdmin1},
     name:'ListView',
     data() {
     return {
@@ -119,12 +118,12 @@ export default {
         dialogEdit:false,
         currentItem:'', 
         dialogDelete:false,
-        categoryId:'',
+        CategoryId:'',
     }
 },
 methods: {
     getCategories() {
-        axios.get('https://localhost:7182/api/Categories')
+        axios.get('https://localhost:44367/api/Categorys/Categorys')
             .then(response => {
                 this.categories = response.data;
             })
@@ -133,16 +132,20 @@ methods: {
             });
     },
     deleteCategory(){
-        axios.delete('https://localhost:7182/api/Categories'+this.categoryId)
+        if (this.CategoryId){
+        axios.delete('https://localhost:44367/api/Categorys/Categorys/' + this.CategoryId)    
         .then(response=>{
-            var newArr = this.categories.filter(x=>x.categoryId !=this.categoryId);
+            var newArr = this.categories.filter(x=>x.CategoryId !=this.CategoryId);
             this.categories = newArr;
             this.dialogDelete= false;
             console.log(response.status);
         })
         .catch(error=>{
             console.log(error);
-        })
+        });
+    }else{
+        console.error('categoryId không tồn tại')
+    }
     }
 },
 created() {
