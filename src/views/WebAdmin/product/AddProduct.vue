@@ -107,7 +107,7 @@ export default {
     },
     methods: {
         addProduct() {
-            axios.post('https://localhost:7072/api/Products/PostProducts?newProductsName='+this.data.productName+'&newQuatity='+this.Quatity+'&newPirce='+this.Price+'&newProductsDescription='+this.ProductsDescription+'&newCategoryId='+this.CategoryId+'1&newpromotion='+this.promotion+'&neworigin='+this.origin+'&newwarranty='+this.warranty+'&newtrademark='+this.trademark+'&newScreen='+this.Screen+'&newGraphicscard='+this.Graphicscard+'&newoperatingsystem='+this.operatingsystem+'&newCpuname='+this.Cpuname+'')
+            axios.post('https://localhost:7072/api/Products/PostProducts?newProductsName='+this.data.productName+'&newQuatity='+this.Quatity+'&newPirce='+this.Price+'&newProductsDescription='+this.ProductsDescription+'&newCategoryId='+this.CategoryId+'1&newpromotion='+this.promotion+'&neworigin='+this.origin+'&newwarranty='+this.warranty+'&newtrademark='+this.trademark+'&newScreen='+this.Screen+'&newGraphicscard='+this.Graphicscard+'&newoperatingsystem='+this.operatingsystem+'&newCpuname='+this.Cpuname+'&newImagerUrl'+this.newImagerUrl+'')
                 .then(response => {
                     this.$emit('close');
                     this.$emit('updateData');

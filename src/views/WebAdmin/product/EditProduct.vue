@@ -22,6 +22,7 @@
                                         label="Ảnh sản phẩm"
                                         v-model="data.productimg"
                                         @change="handleFileUpload"
+                                        
 
                                     ></v-text-field>
                                 </v-col>
