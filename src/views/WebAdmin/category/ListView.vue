@@ -2,7 +2,7 @@
 
       <div>
         <side-bar-admin-1/>
-<top-bar-admin-1/>
+        <top-bar-admin-1/>
   <v-row class="mt-2">
     <v-icon>mdi-home</v-icon>
     <h3 class="ml-2">Danh sách Loại sản phẩm</h3>
@@ -23,6 +23,7 @@
                         <th>STT</th>
                         <th>Mã loại SP</th>
                         <th>Tên Loại SP</th>
+                        <th>Chức năng</th>
                         
                     </tr>
                 </thead>
@@ -37,7 +38,7 @@
                             size="x-small"
                             icon=""
                             @click="dialogEdit=true,
-                                    currentItem=item"
+                                    id=item.CategoryId"
                             
                             >
                                 <v-icon>mdi-pencil</v-icon>
@@ -65,7 +66,7 @@
     @close="dialogAdd=false"
     @updateData="getCategories"/>
     <edit-view
-    :currentItem="currentItem"
+    :id="id"
     :dialogEdit="dialogEdit"
     @close="dialogEdit=false"
     @updateData="getCategories"
@@ -123,7 +124,7 @@ export default {
 },
 methods: {
     getCategories() {
-        axios.get('https://localhost:44367/api/Categorys/Categorys')
+        axios.get('https://localhost:7072/api/Categorys/Categorys')
             .then(response => {
                 this.categories = response.data;
             })
@@ -133,7 +134,11 @@ methods: {
     },
     deleteCategory(){
         if (this.CategoryId){
-        axios.delete('https://localhost:44367/api/Categorys/Categorys/' + this.CategoryId)    
+        axios.delete('https://localhost:7072/api/Categorys/DeleteCategory' ,null, {
+            params: {
+                NewCategoryId: this.CategoryId
+            }
+        })    
         .then(response=>{
             var newArr = this.categories.filter(x=>x.CategoryId !=this.CategoryId);
             this.categories = newArr;

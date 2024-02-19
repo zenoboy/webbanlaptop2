@@ -3,7 +3,7 @@
       <v-app-bar :elevation="0" color="" class="">
 
         <router-link to="/" class="text-decoration-none">
-        <h3 class="headline mb-0 text-red">LapTop Uông Bí</h3>
+        <h3 class="headline mb-0 text-red">DN Store</h3>
       </router-link>
 
         <v-spacer></v-spacer>
@@ -47,7 +47,17 @@
     color="grey-lighten-3"
     max-width="400"
   ></v-card>
-
+  <v-menu offset-y ref="menu">
+          <template v-slot:activator="{ on }">
+            <v-btn dark v-on="on" @mouseover="openMenu">
+              {{ ten ? `Xin chào, ${ten} !` : 'Tài khoản' }}
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item link @click="logout">Đăng xuất</v-list-item>
+            <!-- Thêm các mục menu khác tại đây -->
+          </v-list>
+        </v-menu>
   <v-container fluid>
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="4">
@@ -156,9 +166,16 @@
     },
 
     methods: {
+      openMenu() {
+        this.$nextTick(() => {
+    if (this.$refs.menu) {
+      this.$refs.menu.open();
+    }
+    });
+    },
       async performSearch() {
     try {
-      const response = await axios.get(`https://localhost:7072/api/Products/SearchProducts?keyword=${this.search}`);
+      const response = await axios.get(`https://localhost:44367/api/Products/SearchProducts?keyword=${this.search}`);
       this.$store.commit('setSearchResults', response.data);
       this.$router.push('/search-results' ); // Use the name of your search results route
       this.$store.commit('setSearchKeyword',this.search)
@@ -177,7 +194,7 @@
             this.loginDialog = false;
             console.log(this.UserName)
       try {
-        const response = await axios.post('https://localhost:7072/api/User', {
+        const response = await axios.post('https://localhost:44367/api/User', {
             UserName: this.UserName,
             PassWord: this.PassWord,
             
@@ -189,7 +206,7 @@
     },
     async register() {
       try {
-        const response = await axios.post('https://localhost:7072/api/User', {
+        const response = await axios.post('https://localhost:44367/api/User', {
           username: this.UserName,
           password: this.PassWord,
           fullname: this.FullName,

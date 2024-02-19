@@ -2,81 +2,141 @@
     <div>
         <v-dialog 
           v-model="dialog"
-          max-width="640px">
-<v-card>
-      <v-card-title>
-        <span>Thêm mới sản phẩm</span>
-      </v-card-title>
-      <v-card-text>
-        <v-form @submit.prevent="addProduct">
-          <v-container>
-              <v-col>
-                <v-text-field label="Tên sản phẩm" v-model="data.ProductsName"></v-text-field>
-              </v-col>
-              <v-col>
-                <v-file-input
-                v-model="data.ImagerUrl"
-                placeholder="Upload your img"
-                label="File input"
-                multiple
-                prepend-icon="mdi-image-plus"
-                ref="fileInput"
-
-                >
-                  <template v-slot:selection="{ fileNames }">
-                    <template v-for="fileName in fileNames" :key="fileName">
-                      <v-chip size="small" label color="primary" class="me-2">
-                        {{ fileName }}
-                      </v-chip>
-                    </template>
-                  </template>
-                </v-file-input>
-              </v-col>
-              <v-col>
-                <v-text-field label="Mô tả sản phẩm" v-model="data.ProductsDescription"></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field label="Giá" v-model="data.Price"></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field label="ID Danh mục" v-model="data.CategoryId"></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field label="Số lượng " v-model="data.Quatity"></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field label="khuyến mãi" v-model="data.promotion"></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field label="Nguồn gốc" v-model="data.origin"></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field label="Bảo hành" v-model="data.warranty"></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field label="Hãng sản xuất " v-model="data.trademark"></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field label="Màn hình" v-model="data.Screen"></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field label="Card Đồ Họa" v-model="data.Graphicscard"></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field label="Hệ Điều Hành" v-model="data.operatingsystem"></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field label="CPU" v-model="data.Cpuname"></v-text-field>
-              </v-col>
-          </v-container>
-          <v-btn type="submit" color="primary">Lưu</v-btn>
-        </v-form>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn class="mr-2" color="grey darken-3" @click="$emit('close')">Hủy</v-btn>
-      </v-card-actions>
-    </v-card>
+          max-width="1024"
+          persistent>
+            <v-card>
+                <v-card-title>
+                    <span>Thêm mới sản phẩm</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-form>
+                        <v-container>
+                            <v-row>
+                                <v-col cols="12">
+                                    <v-text-field
+                                        label="Tên sản phẩm"
+                                        v-model="data.ProductName"
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="4" >
+                                    <v-select 
+                                        v-model="selectedCat" 
+                                        :options="Category"
+                                        :items="Category" 
+                                        label="Danh mục" 
+                                        item-title="CategoryName"
+                                        item-value="CategoryId"
+                                        
+                                        :hint="`${selectedCat}`"
+                                    ></v-select>
+ 
+                                </v-col>
+                                <v-col cols="4" >
+                                    <v-text-field
+                                        label="Nguồn gốc"
+                                        v-model="data.Origin"
+                                    ></v-text-field>
+ 
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field
+                                        label="Giá tiền"
+                                        v-model="data.Price"
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field
+                                        label="Số lượng"
+                                        v-model="data.Quantity"
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field
+                                        label="Bảo hành"
+                                        v-model="data.Warranty"
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field
+                                        label="Khuyến mại"
+                                        v-model="data.Promotion"
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field
+                                        label="Thương hiệu"
+                                        v-model="data.Trademark"
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field
+                                        label="Màn hình"
+                                        v-model="data.Screen"
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field
+                                        label="Card đồ họa"
+                                        v-model="data.Graphicscard"
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field
+                                        label="Hệ điều hành"
+                                        v-model="data.Operatingsystem"
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field
+                                        label="Tên CPU"
+                                        v-model="data.Cpuname"
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    
+                                </v-col>
+                                <v-col cols="4" >
+                                    <v-row>
+                                        <v-col cols="12">
+                                            <v-img v-if="selectedImage" :src="selectedImage" ></v-img>
+                                        </v-col>
+                                        <v-col cols="12">
+                                            <v-file-input 
+                                            @change="handleFileChange"
+                                           
+                                            show-size 
+                                            label="File input">
+                                        </v-file-input>
+                                        </v-col>
+                                    </v-row>
+                        
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-textarea
+                                    bg-color="grey-lighten-2"
+                                    color="cyan"
+                                    label="Label"
+                                    v-model="data.ProductsDescription"
+                                    ></v-textarea>
+                                </v-col>
+                            </v-row>
+                            
+                        </v-container>
+                    </v-form>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        class="mr-2"
+                        color="grey darken-3"
+                        @click="this.$emit('close')"
+                    >Hủy</v-btn>
+                    <v-btn
+                        color="primary"
+                        @click="addProduct"
+                    >Lưu</v-btn>
+                </v-card-actions>
+            </v-card> 
         </v-dialog>
     </div>
 </template>
@@ -90,20 +150,25 @@ export default {
     data() {
         return {
             data: {
-                ProductsName: '',
-                ImagerUrl:'',
-                ProductsDescription: '',
-                Price: '',
-                CategoryId: '',
-                Quatity: '',
-                origin:'',
-                warranty:'',
-                trademark:'',
-                Screen:'',
-                Graphicscard:'',
-                operatingsystem:'',
-                Cpuname:'',
-            }
+                ProductName: null,
+                Quantity: null,
+                Price: null,
+                ProductsDescription: null,
+                Promotion: null,
+                Origin: null,
+                Warranty: null,
+                Trademark: null,
+                Screen: null,
+                Graphicscard: null,
+                Operatingsystem : null,
+                Cpuname: null
+
+                
+            },
+            selectedCat: null,
+            Category:[],
+            selectedImage: null,
+           
         };
     },
     methods: {
@@ -114,73 +179,62 @@ export default {
         this.data.ImagerUrl = files;
         },
         addProduct() {
-            // const url = `https://localhost:44367/api/Products/PostProducts;
-            
-            // const formData  = new FormData ();
 
-            // formData.append('newProductsName' ,this.data.ProductsName);
-            // formData.append('newQuatity', this.data.Quatity);
-            // formData.append('newPirce',this.data.Price);
-            // formData.append('newProductsDescription', this.data.ProductsDescription);
-            // formData.append('newCategoryId',this.data.CategoryId);
-            // formData.append('newpromotion', this.data.promotion);
-            // formData.append('neworigin', this.data.origin);
-            // formData.append('newwarranty',this.data.warranty);
-            // formData.append('newtrademark',this.data.trademark);
-            // formData.append('newScreen', this.data.Screen);
-            // formData.append('newGraphicscard', this.data.Graphicscard);
-            // formData.append('newoperatingsystem', this.data.operatingsystem);
-            // formData.append('newCpuname',this.data.Cpuname);
-            // formData.append('newImagerUrl', this.data.ImagerUrl);
-
-            // Object.keys(this.data).forEach(key => {
-            // if (key === 'ImagerUrl') {
-            // for (let i = 0; i < this.data.ImagerUrl.length; i++) {
-            //     formData.append(`ImagerUrl[${i}]`, this.data.ImagerUrl[i]);
-            // }
-            // } else {
-            // formData.append(key, this.data[key]);
-            // }
-            // });
-
-            // for (let i = 0; i < this.data.ImagerUrl.length; i++) {
-            // formData.append(`newImagerUrl[${i}]`, this.data.ImagerUrl[i]);
-            // }
-
-              // Sử dụng config để đặt 'Content-Type' là 'multipart/form-data'
-            
-
-            // axios.post('https://localhost:/api/Products/PostProducts?newProductsName='+this.data.productName+'&newQuatity='+this.Quatity+'&newPirce='+this.Price+'&newProductsDescription='+this.ProductsDescription+'&newCategoryId='+this.CategoryId+'1&newpromotion='+this.promotion+'&neworigin='+this.origin+'&newwarranty='+this.warranty+'&newtrademark='+this.trademark+'&newScreen='+this.Screen+'&newGraphicscard='+this.Graphicscard+'&newoperatingsystem='+this.operatingsystem+'&newCpuname='+this.Cpuname+'')
-            //     .then(response => {
-            //         this.$emit('close');
-            //         this.$emit('updateData');
-            //         console.log(response.status);
-            //         this.getProducts();
-
-            //     })
-            //     .catch(error => {
-            //         console.log(error);
-            //     });
-            console.log('Dữ liệu gửi đi:', this.data);
-                  const config = {
-            headers: {
-            'Content-Type': 'multipart/form-data; boundary=' + formData._boundary,
-                },
+            const formData = new FormData(); 
+            formData.append('files', this.selectedFile);
+        
+            const postData = {
+                newProductsName: this.data.ProductName,
+                newQuatity: this.data.Quantity,
+                newPirce: this.data.Price,
+                newProductsDescription: this.data.ProductsDescription,
+                newCategoryId: this.selectedCat,
+                newpromotion: this.data.Promotion,
+                neworigin: this.data.Origin,
+                newwarranty: this.data.Warranty,
+                trademask: this.data.Trademark,
+                Screen: this.data.Screen,
+                Graphicscard: this.data.Graphicscard,
+                operatingsystem: this.data.Operatingsystem,
+                Cpuname: this.data.Cpuname
             };
-            // Gửi yêu cầu POST với FormData chứa dữ liệu
 
-            axios.post('https://localhost:44367/api/Products/PostProducts', this.data,config)
-            .then(response => {
+            
+        axios.post('https://localhost:44367/api/Products/PostProducts', formData, { params: postData })
+        .then(response => {
             this.$emit('close');
             this.$emit('updateData');
-            console.log('ok',response.status);
-            this.getProducts();
+            console.log(response.status);
+            alert("Thêm sản phẩm thành công!")
+            // Quay trở lại trang trước
+            this.$emit('close');
+        })
+        .catch(error => {
+            console.log(error);
+        });
+        },
+        getCategory(){
+            axios.get('https://localhost:44367/api/Categorys/Categorys')
+            .then(response =>{
+                this.Category = response.data
+                console.log('ok', this.Category)
             })
             .catch(error => {
-            console.error('Error:', error);
-            console.log('Response Data:', error.response.data);
+                console.log(error);
             });
-            }},
+        },
+        handleFileChange(event) {
+            this.selectedFile = event.target.files[0];
+            console.log('updateImg1',this.selectedFile)
+            if(this.selectedFile){
+                const reader = new FileReader();
+                reader.onload = () => {
+                    this.selectedImage = reader.result;
+                };
+                reader.readAsDataURL(this.selectedFile);
+            }
+        },
+    },
     
     computed: {
         dialog: {
@@ -193,6 +247,9 @@ export default {
                 }
             }
         }
+    },
+    created(){
+        this.getCategory()
     }
 };
 </script>

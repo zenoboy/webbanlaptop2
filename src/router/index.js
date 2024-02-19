@@ -6,7 +6,9 @@ import ProductDetail from '../views/productdetail.vue'
 import SearchResults from '@/views/SearchResults.vue';
 import SearchView from '@/views/SearchView.vue';
 import CheckoutView from '../views/CheckoutView.vue'
-
+import ProductEdit from '../views/WebAdmin/product/ProductEdit.vue'
+import ListOrder from '../views/WebAdmin/order/ListOrder.vue'
+import ListUser from '../views/WebAdmin/user/ListUser.vue'
 // import SearchResults from '@/views/SearchResults.vue';
 
 // import CheckoutView from '../views/CheckoutView.vue'
@@ -96,12 +98,12 @@ const routes = [
     component: AdminView
   },
   {
-    path: '/list-category',
+    path: '/admin/list-category',
     name: 'ListCategory',
     component: ListCategory
   },
   {
-    path:'/list-product',
+    path:'/admin/list-product',
     name:'list-product',
     component:()=>import('../views/WebAdmin/product/ListProduct.vue')
   },
@@ -164,7 +166,28 @@ const routes = [
     name: 'dashboard',
     component: Dashboard
   },
+  {
+    path: '/edit-product/:id',
+    name: 'edit-product',
+    component: ProductEdit,
+    props: true
+  },
+  {
+    path: '/admin/list-order',
+    name: 'ListOrder',
+    component: ListOrder
+  },
+  {
+    path: '/admin/list-user',
+    name: 'ListUser',
+    component: ListUser
+  },
+  {
+    path: '/test1',
+    name: 'test1',
 
+    component: () => import( '../views/test1.vue')
+  },
 
 ]
 

@@ -51,8 +51,7 @@
                               class="mr-3"
                               size="x-small"
                               icon=""
-                              @click="dialogEdit=true,
-                                      currentItem=item"
+                              :to="{ name: 'edit-product', params: { id: item.ProductsId } }"
                               >
                                   <v-icon>mdi-pencil</v-icon>
                               </v-btn>
@@ -62,7 +61,7 @@
                               size="x-small"
                               icon
                               @click="dialogDelete=true,
-                              ProductsId=item.ProductsId">
+                              productId=item.ProductsId">
                                   <v-icon>mdi-delete</v-icon>
                               </v-btn>
                           </td>
@@ -102,7 +101,7 @@
                   <v-spacer></v-spacer>
                   <v-col cols="5">
                       <v-btn variant="text"
-                          @click="deleteProduct(ProductsId)"
+                          @click="deleteProduct()"
                           >Đồng ý</v-btn>
                   </v-col>
                   <v-col cols="6">
@@ -177,9 +176,9 @@ import TopBarAdmin1 from '@/components/TopBarAdmin1.vue';
                 },
   
           deleteProduct() {
-              axios.delete('https://localhost:44367/api/Products/DeleteProducts?NewProductsId'+this.ProductsId)
+              axios.delete('https://localhost:44367/api/Products/DeleteProducts?NewProductsId='+this.productId)
                   .then(response => {
-                  var newArr = this.products.filter(x => x.ProductsId != this.ProductsId);
+                  var newArr = this.products.filter(x => x.ProductsId != this.productId);
                   this.products = newArr;
                   this.dialogDelete = false;
                   console.log(response.status);

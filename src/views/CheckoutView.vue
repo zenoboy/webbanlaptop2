@@ -110,6 +110,8 @@ import axios from 'axios';
 import TopBar from '@/components/TopBar.vue';
 import BuySuccessView from './BuySuccessView.vue';
 
+import tinhThanhData from '../assets/data.json';
+
 export default {
     components:{
         TopBar,
@@ -117,7 +119,7 @@ export default {
     },
     data(){
         return{
-            cities:[],
+            cities: tinhThanhData.data,
             districts: [],
             wards: [],
             selectedCity: null,
@@ -139,42 +141,43 @@ export default {
         }
     },
     methods:{
-        getProvinces(){
-        axios.get("https://provinces.open-api.vn/api/")
-        .then(response => {
-                this.cities = response.data;
-                //this.cities = response.data.map(city => city.name);
+        // getProvinces(){
+        // axios.get("https://provinces.open-api.vn/api/")
+        // .then(response => {
+        //         this.cities = response.data;
+        //         //this.cities = response.data.map(city => city.name);
 
-            // Log the city names for debugging
-            console.log('Cities:', this.cities);
-        })
-        .catch(error => {
-            console.log("Lỗi khi lấy dữ liệu tỉnh/thành: " + error);
-        });
-        },
+        //     // Log the city names for debugging
+        //     console.log('Cities:', this.cities);
+        // })
+        // .catch(error => {
+        //     console.log("Lỗi khi lấy dữ liệu tỉnh/thành: " + error);
+        // });
+        // },
         getDistricts(){
-        if(this.selectedCity){
-            axios.get(`https://provinces.open-api.vn/api/p/${this.selectedCity}?depth=2`)
-            .then(response =>{
-            this.districts = response.data.districts;
-            console.log(this.districts)
-            })
+        if (this.selectedCity) {
+            const selectedCity = this.cities.find(city => city.code === this.selectedCity);
+            if (selectedCity ) {
+            this.districts = selectedCity.districts;
+            console.log('ok', this.districts)
+            // return this.districts
         }
-        else{
-            this.districts=[]
+        } else {
+            console.log('ok Loi')
+            return [];
         }
         },
         getWards() {
-            if (this.selectedDistrict) {
-                axios.get(`https://provinces.open-api.vn/api/d/${this.selectedDistrict}?depth=2`)
-                .then(response => {
-                    this.wards = response.data.wards;
-                })
-                .catch(error => {
-                    console.log("Lỗi khi lấy dữ liệu phường/xã: " + error);
-                });
+            if (this.selectedDistrict !==-1) {
+                const selectedDistrict = this.districts.find(districts => districts.code === this.selectedDistrict);
+                if (selectedDistrict ) {
+                    this.wards = selectedDistrict.wards;
+                    console.log('ok', this.wards)
+                    // return this.districts
+                }
             } else {
-                this.wards = [];
+            console.log('ok Loi')
+            return [];
             }
         },
         printResult() {
@@ -196,7 +199,7 @@ export default {
             //this.userProfile.UserId = 1
             //axios.post('https://localhost:7072/api/OrderProduct_/PostOrderProduct?newUserID='+userId+'&newPhone=4444444&newAddres=444444&city=h&district=h&ward=h')
             //axios.post('https://65a48de652f07a8b4a3d7466.mockapi.io/order',this.userProfile)
-            axios.post('https://localhost:7072/api/OrderProduct_/PostOrderProduct?newUserID='+this.userProfile.UserId+'&UserName='+this.userProfile.UserName+'&newPhone='+this.userProfile.newPhone+'&newAddres='+this.userProfile.newAddres+'&city='+this.userProfile.city+'&district='+this.userProfile.district+'&ward='+this.userProfile.ward)
+            axios.post('https://localhost:7072/api/OrderProduct_/PostOrderProduct?newUserID='+this.userProfile.UserId+'&UserName='+this.userProfile.UserName+'&newPhone='+this.userProfile.newPhone+'&newAddres='+this.userProfile.newAddres+'&city='+this.userProfile.city+'&district='+this.userProfile.district+'&ward='+this.userProfile.ward+'&status=1')
             .then(response=>{
                 console.log('orderData',response.data);
                 // Lấy orderId từ response và lưu vào trường dữ liệu
@@ -215,12 +218,14 @@ export default {
         PostOrderDetail(){
             this.$store.state.cart.forEach(product => {
                 const orderDetail = {
-                    OrderId: this.orderId,
-                    ProductId: product.ProductsId,  // Thay đổi logic tùy thuộc vào cách bạn lưu trữ ProductId
+                    OrderID: this.orderId,
+                    ProductID: product.ProductsId,  // Thay đổi logic tùy thuộc vào cách bạn lưu trữ ProductId
                     Quatity: product.qty,
-                    //Price: product.Price
+                    Price: product.Price
                 };
-                axios.post('https://localhost:7072/api/OrderDetail/PostOrderDetail?newOrderID='+orderDetail.OrderId+'&newProductID='+orderDetail.ProductId+'&newQuatity='+orderDetail.Quatity)
+                //axios.post('https://localhost:7072/api/OrderDetail/PostOrderDetail?newOrderID='+orderDetail.OrderId+'&newProductID='+orderDetail.ProductId+'&newQuatity='+orderDetail.Quatity)
+                //axios.post('https://localhost:7072/api/OrderDetail/Post_CTDonHang?OrderID=1&ProductID=6&Quatity=2&Price=1')
+                axios.post('https://localhost:7072/api/OrderDetail/Post_CTDonHang', null, {params : orderDetail})
                 .then(response=>{
                     console.log('orderDetail',response.data);
                     this.lessQuantity(product.ProductsId, product.qty)
@@ -258,7 +263,7 @@ export default {
         }
     },
     mounted(){
-        this.getProvinces();
+        //this.getProvinces();
     },
     watch: {
         selectedCity: function(newVal, oldVal) {

@@ -43,7 +43,7 @@
   <v-col v-for="(item, index) in displayedProducts" :key="index" cols="12" md="3">
           <v-hover v-slot="{isHovering,props}" open-delay="1">
             <v-card :elevation="isHovering ? 16 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
-              <v-img :src="'https://localhost:7072/images/' + item.ImagerUrl" height="200"></v-img>
+              <v-img :src="'https://localhost:44367/images/' + item.ImagerUrl" height="200"></v-img>
               <v-card-title>{{ item.ProductsName }}</v-card-title>
               <v-card-subtitle>{{ item.Price }}</v-card-subtitle>
               <v-card-actions>
@@ -58,7 +58,7 @@
         <v-col v-for="(item, index) in displayedProducts" :key="index" cols="12" md="3">
           <v-hover v-slot="{isHovering,props}" open-delay="1">
             <v-card :elevation="isHovering ? 16 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
-              <v-img :src="'https://localhost:7072/images/' + item.ImagerUrl" height="200"></v-img>
+              <v-img :src="'https://localhost:44367/images/' + item.ImagerUrl" height="200"></v-img>
               <v-card-title>{{ item.ProductsName }}</v-card-title>
               <v-card-subtitle>{{ item.Price }}</v-card-subtitle>
               <v-card-actions>
@@ -156,14 +156,14 @@ export default {
     async fetchProducts() {
       try {
         // const response = await axios.get('https://localhost:44384/api/Product');
-        const response = await axios.get('https://localhost:7072/api/Products/GetProducts');       
+        const response = await axios.get('https://localhost:44367/api/Products/GetProducts');       
         this.products = response.data;
       } catch (error) {
         console.error('Lỗi khi lấy sản phẩm:', error);
       }
     },
     displayProducts(){
-      axios.get('https://localhost:7072/api/Products/GetProducts')
+      axios.get('https://localhost:44367/api/Products/GetProducts')
             .then(response =>{
                 this.displayProduct = response.data;
                 console.log(this.displayProduct)
