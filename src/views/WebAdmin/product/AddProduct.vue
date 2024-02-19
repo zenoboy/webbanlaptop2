@@ -2,71 +2,126 @@
     <div>
         <v-dialog 
           v-model="dialog"
-          max-width="640px">
+          max-width="1024"
+          persistent>
             <v-card>
                 <v-card-title>
-                    <span>Thêm mới loại sản phẩm</span>
+                    <span>Thêm mới sản phẩm</span>
                 </v-card-title>
                 <v-card-text>
                     <v-form>
                         <v-container>
                             <v-row>
-                                <v-col>
+                                <v-col cols="12">
                                     <v-text-field
                                         label="Tên sản phẩm"
-                                        v-model="data.ProductsName"
+                                        v-model="data.ProductName"
                                     ></v-text-field>
                                 </v-col>
-                                <v-col>
-                                    <v-file-input
-                                    v-model="files"
-                                    placeholder="Upload your documents"
-                                    label="File input"
-                                    multiple
-                                    prepend-icon="mdi-paperclip"
-                                >
-                                    <template v-slot:selection="{ fileNames }">
-                                    <template v-for="fileName in fileNames" :key="fileName">
-                                        <v-chip
-                                        size="small"
-                                        label
-                                        color="primary"
-                                        class="me-2"
-                                        >
-                                        {{ fileName }}
-                                        </v-chip>
-                                    </template>
-                                    </template>
-                                </v-file-input>
+                                <v-col cols="4" >
+                                    <v-select 
+                                        v-model="selectedCat" 
+                                        :options="Category"
+                                        :items="Category" 
+                                        label="Danh mục" 
+                                        item-title="CategoryName"
+                                        item-value="CategoryId"
+                                        
+                                        :hint="`${selectedCat}`"
+                                    ></v-select>
  
                                 </v-col>
-                                <v-col>
+                                <v-col cols="4" >
                                     <v-text-field
-                                        label="Mô tả sản phẩm"
-                                        v-model="data.ProductsDescription"
+                                        label="Nguồn gốc"
+                                        v-model="data.Origin"
                                     ></v-text-field>
+ 
                                 </v-col>
-                            </v-row>
-                            <v-row>
-                                <v-col>
+                                <v-col cols="4">
                                     <v-text-field
-                                        label="Giá"
+                                        label="Giá tiền"
                                         v-model="data.Price"
                                     ></v-text-field>
                                 </v-col>
-                                <v-col>
+                                <v-col cols="4">
                                     <v-text-field
-                                        label="ID Danh mục"
-                                        v-model="data.CategoryId"
+                                        label="Số lượng"
+                                        v-model="data.Quantity"
                                     ></v-text-field>
                                 </v-col>
-                                <v-col>
+                                <v-col cols="4">
                                     <v-text-field
-                                        label="Số lượng "
-                                        v-model="data.Quatity"
+                                        label="Bảo hành"
+                                        v-model="data.Warranty"
                                     ></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field
+                                        label="Khuyến mại"
+                                        v-model="data.Promotion"
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field
+                                        label="Thương hiệu"
+                                        v-model="data.Trademark"
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field
+                                        label="Màn hình"
+                                        v-model="data.Screen"
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field
+                                        label="Card đồ họa"
+                                        v-model="data.Graphicscard"
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field
+                                        label="Hệ điều hành"
+                                        v-model="data.Operatingsystem"
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    <v-text-field
+                                        label="Tên CPU"
+                                        v-model="data.Cpuname"
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="4">
+                                    
+                                </v-col>
+                                <v-col cols="4" >
+                                    <v-row>
+                                        <v-col cols="12">
+                                            <v-img v-if="selectedImage" :src="selectedImage" ></v-img>
+                                            <!-- <v-img v-else :src="'https://localhost:7072/images/' + Product[0].ImagerUrl" ></v-img> -->
+                                        </v-col>
+                                        <v-col cols="12">
+                                            <v-file-input 
+                                            @change="handleFileChange"
+                                           
+                                            show-size 
+                                            label="File input">
+                                        </v-file-input>
+                                        </v-col>
+                                    </v-row>
+                        
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-textarea
+                                    bg-color="grey-lighten-2"
+                                    color="cyan"
+                                    label="Label"
+                                    v-model="data.ProductsDescription"
+                                    ></v-textarea>
                                 </v-col>
                             </v-row>
+                            
                         </v-container>
                     </v-form>
                 </v-card-text>
@@ -96,29 +151,83 @@ export default {
     data() {
         return {
             data: {
-                productName: '',
-                productimg:'',
-                productDesc: '',
-                price: '',
-                categoryId: 0,
-                inventoryId: 0,
-            }
+                ProductName: null,
+                Quantity: null,
+                Price: null,
+                ProductsDescription: null,
+                Promotion: null,
+                Origin: null,
+                Warranty: null,
+                Trademark: null,
+                Screen: null,
+                Graphicscard: null,
+                Operatingsystem : null,
+                Cpuname: null
+
+                
+            },
+            selectedCat: null,
+            Category:[],
+            selectedImage: null,
+           
         };
     },
     methods: {
         addProduct() {
-            axios.post('https://localhost:7072/api/Products/PostProducts?newProductsName='+this.data.productName+'&newQuatity='+this.Quatity+'&newPirce='+this.Price+'&newProductsDescription='+this.ProductsDescription+'&newCategoryId='+this.CategoryId+'1&newpromotion='+this.promotion+'&neworigin='+this.origin+'&newwarranty='+this.warranty+'&newtrademark='+this.trademark+'&newScreen='+this.Screen+'&newGraphicscard='+this.Graphicscard+'&newoperatingsystem='+this.operatingsystem+'&newCpuname='+this.Cpuname+'&newImagerUrl'+this.newImagerUrl+'')
-                .then(response => {
-                    this.$emit('close');
-                    this.$emit('updateData');
-                    console.log(response.status);
-                    this.getProducts();
+            const formData = new FormData(); 
+            formData.append('files', this.selectedFile);
+        
+            const postData = {
+                newProductsName: this.data.ProductName,
+                newQuatity: this.data.Quantity,
+                newPirce: this.data.Price,
+                newProductsDescription: this.data.ProductsDescription,
+                newCategoryId: this.selectedCat,
+                newpromotion: this.data.Promotion,
+                neworigin: this.data.Origin,
+                newwarranty: this.data.Warranty,
+                trademask: this.data.Trademark,
+                Screen: this.data.Screen,
+                Graphicscard: this.data.Graphicscard,
+                operatingsystem: this.data.Operatingsystem,
+                Cpuname: this.data.Cpuname
+            };
 
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        }
+            
+        axios.post('https://localhost:7072/api/Products/PostProducts', formData, { params: postData })
+        .then(response => {
+            this.$emit('close');
+            this.$emit('updateData');
+            console.log(response.status);
+            alert("Thêm sản phẩm thành công!")
+            // Quay trở lại trang trước
+            this.$emit('close');
+        })
+        .catch(error => {
+            console.log(error);
+        });
+        },
+        getCategory(){
+            axios.get('https://localhost:7072/api/Categorys/Categorys')
+            .then(response =>{
+                this.Category = response.data
+                console.log('ok', this.Category)
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+        handleFileChange(event) {
+            this.selectedFile = event.target.files[0];
+            console.log('updateImg1',this.selectedFile)
+            if(this.selectedFile){
+                const reader = new FileReader();
+                reader.onload = () => {
+                    this.selectedImage = reader.result;
+                };
+                reader.readAsDataURL(this.selectedFile);
+            }
+        },
     },
     
     computed: {
@@ -132,6 +241,9 @@ export default {
                 }
             }
         }
+    },
+    created(){
+        this.getCategory()
     }
 };
 </script>

@@ -3,7 +3,7 @@
       <v-app-bar :elevation="0" color="" class="">
 
         <router-link to="/" class="text-decoration-none">
-        <h3 class="headline mb-0 text-red">LapTop Uông Bí</h3>
+        <h3 class="headline mb-0 text-red">DN Store</h3>
       </router-link>
 
         <v-spacer></v-spacer>

@@ -28,11 +28,11 @@ export default {
 data(){
     return{
         links: [
-                { icon: ' mdi-microsoft-windows', text: 'Loại sản phẩm' ,to:"/list-category"},
-                { icon: ' mdi-sale-outline', text: 'Sản phẩm',to:"/list-product" },
-                { icon: ' mdi-flask', text: 'Đơn hàng' },
-                { icon: ' mdi-calendar', text: 'Chi tiết đơn hàng' },
-                { icon: ' mdi-account-key', text: 'Người Dùng' },
+                { icon: ' mdi-microsoft-windows', text: 'Loại sản phẩm' ,to: { name: 'ListCategory' }},
+                { icon: ' mdi-sale-outline', text: 'Sản phẩm',to: { name: 'list-product' } },
+                { icon: 'mdi-flask', text: 'Đơn hàng', to: { name: 'ListOrder' } },
+                
+                { icon: ' mdi-account-key', text: 'Người Dùng',to: { name: 'ListUser' } },
                 { icon: ' mdi-chart-pie', text: 'Khách Hàng' },
             ],
     }
