@@ -14,8 +14,8 @@ import CheckoutView from '../views/CheckoutView.vue'
 
 // =======
 import CartView from '../views/CartView.vue'
-// import test from '../views/test.vue'
-// >>>>>>> 686648eae67ccc91883c65f8b8fddf988e64bb33
+import test from '../views/test.vue'
+import Dashboard from '../views/WebAdmin/DashboardView.vue'
 
 
 const routes = [
@@ -127,11 +127,11 @@ const routes = [
     name: 'CartView',
     component: CartView
   },
-  // {
-  //   path: '/test',
-  //   name: 'test',
-  //   component: test
-  // },
+  {
+    path: '/test',
+    name: 'test',
+    component: test
+  },
   {
     path: '/ho-so',
     name: 'ho-so',
@@ -158,6 +158,11 @@ const routes = [
     path: '/checkout',
     name: 'checkout',
     component: CheckoutView
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: Dashboard
   },
 
 
