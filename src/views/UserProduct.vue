@@ -89,7 +89,8 @@
 </template>
 
 <script>
-import { ref, axios } from "vue";
+import { ref, onMounted } from "vue";
+import axios from "axios";
 import TopBar from "@/components/TopBar.vue";
 import FooterBar from "@/components/FooterBar.vue";
 
@@ -104,7 +105,7 @@ export default {
     return {
       drawer: ref(null),
       selectedTab: 0,
-      tabs: ["Đặt hàng", "Chờ Xác Nhận", "Đã Xác Nhận", "Đang vận chuyển", "Hoàn thành"],
+      tabs: ["Chờ Xác Nhận", "Đã Xác Nhận", "Đang vận chuyển", "Hoàn thành", "Hủy"],
       links: [
         { text: "Hồ Sơ Người Dùng", icon: "mdi mdi-account-box-multiple", route: "/ho-so" },
         { text: "Địa Chỉ", icon: "mdi mdi-map-marker", route: "/dia-chi" },
@@ -121,11 +122,25 @@ export default {
     },
     changeTab(index) {
       this.selectedTab = index;
-
     },
     goToHomePage() {
       this.$router.push("/").catch(err => console.error("Navigation error:", err));
     },
+    fetchDataFromBackend() {
+      axios.get("https://localhost:44367/api/OrderDetail/GetOrderDetail")
+        .then(response => {
+          this.processBackendData(response.data);
+        })
+        .catch(error => {
+          console.error("Error fetching data from backend:", error);
+        });
+    },
+    processBackendData(data) {
+      this.backendData = data;
+    },
+  },
+  mounted() {
+    this.fetchDataFromBackend();
   },
 };
 </script>
