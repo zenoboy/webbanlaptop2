@@ -63,22 +63,22 @@
             <v-card class="pa-2" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
               <v-table>
                 <thead>
+                  <tr>
                   <th>STT</th>
                   <th>Tên sản phẩm</th>
-                  <th>Ảnh</th>
                   <th>Giá</th>
                   <th>Số lượng</th>
                   <th>Thành tiền</th>
-
+                  </tr>
                 </thead>
+                
                 <tbody>
+                  
                   <tr v-for="(item,index) in orders" :key=index>
 
                     <td>{{index +1 }}</td>
                     <td>{{ item.ProductsName }}</td>
-                    <td>           
-                    <v-img :src="'https://localhost:44367/images/' + item.ImagerUrl" alt="Hình ảnh sản phẩm"></v-img>
-                    </td>
+
                     <td>{{ item.Price }}</td>
                     <td>{{ item.Quatity }}</td>
                     <td>{{ item.Price*item.Quatity}}</td>
@@ -128,7 +128,7 @@ export default {
     return {
       drawer: ref(null),
       selectedTab: 0,
-      tabs: ["Chờ Xác Nhận", "Đã Xác Nhận", "Đang vận chuyển", "Hoàn thành", "Hủy"],
+      tabs: ["Chờ Xác Nhận", "Đang vận chuyển", "Hoàn thành", "Hủy"],
       links: [
         { text: "Hồ Sơ Người Dùng", icon: "mdi mdi-account-box-multiple", route: "/ho-so" },
         { text: "Địa Chỉ", icon: "mdi mdi-map-marker", route: "/dia-chi" },
@@ -140,6 +140,17 @@ export default {
     };
   },
   methods: {
+
+    updateOrders() {
+    axios.get("https://localhost:44367/api/OrderDetail/GetOrderDetail?newUserID="+this.data)
+      .then(response => {
+        this.orders = response.data;
+        console.log("Updated orders:", this.orders);
+      })
+      .catch(error => {
+        console.error("Error updating orders:", error);
+      });
+    },
     // Trong phần xử lý khi admin chỉnh sửa trạng thái của đơn hàng
 handleEditOrderStatus() {
   // Gọi hàm cập nhật đơn hàng từ backend
@@ -175,6 +186,26 @@ handleEditOrderStatus() {
   },
   mounted() {
     this.fetchDataFromBackend();
+    
+  },
+  computed: {
+    // Tính toán danh sách đơn hàng đã lọc theo trạng thái được chọn
+    filteredOrders() {
+      switch (this.selectedTab) {
+        case 0: // Tab Chờ Xác Nhận
+          return this.orders.filter(order => order.status === "Chờ Xác Nhận");
+        case 1: // Tab Đang vận chuyển
+          return this.orders.filter(order => order.status === "Đang vận chuyển");
+        case 2: // Tab Hoàn thành
+          return this.orders.filter(order => order.status === "Hoàn thành");
+        case 3: // Tab Hủy
+          return this.orders.filter(order => order.status === "Hủy");
+        default:
+          return [];
+      }
+    },
   },
 };
 </script>
+<style>
+</style>

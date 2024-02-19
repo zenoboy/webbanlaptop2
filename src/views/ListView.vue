@@ -2,6 +2,27 @@
   <div>
     <top-bar/>
     <v-container class="mt-10">
+      <v-container fluid>
+    <v-layout row wrap>
+      <!-- Phần bên trái -->
+      <v-flex xs12 md6>
+        <!-- Banner bên trái -->
+        <v-card class="pa-2">
+          <!-- Đường dẫn đến ảnh banner -->
+          <v-img src="https://file.hstatic.net/200000722513/file/mua_pc_tang_ram_-_side_61d14e65bf2d438c8ea1be51d2cd862e.png" aspect-ratio="16/9"></v-img>
+        </v-card>
+      </v-flex>
+
+      <!-- Phần bên phải -->
+      <v-flex xs12 md6>
+        <!-- Banner bên phải -->
+        <v-card class="pa-2">
+          <!-- Đường dẫn đến ảnh banner -->
+          <v-img src="https://file.hstatic.net/200000722513/file/laptop_ai_don_tet_cung_msi_-_side_2b2a6f7db73340cd971707c06e48a915.jpg" aspect-ratio="16/9"></v-img>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
         <v-row>
           <v-col class="menu-col" cols="2">
             <!-- <v-tooltip text="Tooltip">
@@ -110,7 +131,7 @@ export default {
       ],
       displayType: 'grid',
       displayTypes: ['grid', 'list'],
-      itemsPerPage: 10,
+      itemsPerPage: 16,
       currentPage: 1,
 
       silders: [
