@@ -13,43 +13,13 @@
                             <v-row>
                                 <v-col>
                                     <v-text-field
-                                        label="Tên sản phẩm"
-                                        v-model="data.productName"
+                                        label="Tên loại sản phẩm"
+                                        v-model="data.categoryName"
                                     ></v-text-field>
                                 </v-col>
-                                <v-col>
-                                    <v-text-field
-                                        label="Ảnh  sản phẩm"
-                                        v-model="data.productimg"
-                                    ></v-text-field>
-                                </v-col>
-                                <v-col>
-                                    <v-text-field
-                                        label="Mô tả sản phẩm"
-                                        v-model="data.productDesc"
-                                    ></v-text-field>
-                                </v-col>
+                                
                             </v-row>
-                            <v-row>
-                                <v-col>
-                                    <v-text-field
-                                        label="Giá"
-                                        v-model="data.price"
-                                    ></v-text-field>
-                                </v-col>
-                                <v-col>
-                                    <v-text-field
-                                        label="ID Danh mục"
-                                        v-model="data.categoryId"
-                                    ></v-text-field>
-                                </v-col>
-                                <v-col>
-                                    <v-text-field
-                                        label="ID Kho"
-                                        v-model="data.inventoryId"
-                                    ></v-text-field>
-                                </v-col>
-                            </v-row>
+                            
                         </v-container>
                     </v-form>
                 </v-card-text>
@@ -62,7 +32,7 @@
                     >Hủy</v-btn>
                     <v-btn
                         color="primary"
-                        @click="addProduct"
+                        @click="addCategory"
                     >Lưu</v-btn>
                 </v-card-actions>
             </v-card>
@@ -78,23 +48,22 @@ export default {
     data() {
         return {
             data: {
-                productName: '',
-                productimg:'',
-                productDesc: '',
-                price: '',
-                categoryId: 0,
-                inventoryId: 0,
+                categoryName: ''
             }
         };
     },
     methods: {
-        addProduct() {
-            axios.post("https://localhost:44384/api/Product", this.data)
+        addCategory() {
+            const postData = {
+                newCategorysName: this.data.categoryName
+            };
+
+            axios.post('https://localhost:7072/api/Categorys/PostCategorys', null, { params: postData })
                 .then(response => {
                     this.$emit('close');
                     this.$emit('updateData');
                     console.log(response.status);
-                    this.getProducts();
+                   
 
                 })
                 .catch(error => {

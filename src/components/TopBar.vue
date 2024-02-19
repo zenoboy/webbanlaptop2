@@ -3,7 +3,7 @@
       <v-app-bar :elevation="0" color="" class="">
 
         <router-link to="/" class="text-decoration-none">
-        <h3 class="headline mb-0 text-red">LapTop Uông Bí</h3>
+        <h3 class="headline mb-0 text-red">DN Store</h3>
       </router-link>
 
         <v-spacer></v-spacer>
@@ -15,16 +15,22 @@
 
         <v-card-text>
       <v-text-field
-      :loading="loading"
-          density="compact"
-          variant="solo"
-          label="Chưa có gì đâu"
-          append-inner-icon="mdi-magnify"
-          single-line
-          hide-details
-          v-model="search"
-          @click:append-inner="performSearch"
-          @keyup.enter="performSearch"
+      v-model="search"
+  :loading="loading"
+  :density="density"
+  :variant="variant"
+  label="Tìm kiếm sản phẩm"
+  append-inner-icon="mdi-magnify"
+  single-line
+  hide-details
+  :rules="[
+    {
+      required: true,
+      message: 'Tên sản phẩm không được để trống',
+    },
+  ]"
+  @click:append-inner="performSearch"
+  @keyup.enter="performSearch"
       ></v-text-field>
     </v-card-text>
         
@@ -102,14 +108,13 @@
     </v-dialog>
         </v-toolbar-items>
       </v-app-bar>
-      
-      
     </div>
     
 </template>
   
   <script>
   import axios from 'axios';
+  import { mapMutations } from 'vuex';
   export default {
     name: 'TopBar' ,
     data() {
@@ -117,7 +122,6 @@
         form: false,
         email: null,
         password: null,
-        loading: false,
         loginDialog: false,
         registerDialog: false,
         UserName: '',
@@ -126,8 +130,7 @@
         Phone: '',
         categories: [],
         search: '',
-        ten: localStorage.getItem('username'),
-        
+        ten:localStorage.getItem('username'),
         laptopCategories: [
           { id: 1, name: 'Laptop Dell', icon: 'mdi-laptop' },
           { id: 2, name: 'Laptop Acer', icon: 'mdi-laptop' },
@@ -154,13 +157,16 @@
 
     methods: {
       async performSearch() {
-      try {
-        const response = await axios.get(`https://localhost:44367/api/Categorys/Categorys?categoryId=${this.selectedCategory}&query=${this.search}`);
-        this.$router.push({ name: 'search-result', params: { results: response.data, searchTerm: this.search } });
-      } catch (error) {
-        console.error('Lỗi tìm kiếm sản phẩm:', error);
-      }
-    },
+    try {
+      const response = await axios.get(`https://localhost:7072/api/Products/SearchProducts?keyword=${this.search}`);
+      this.$store.commit('setSearchResults', response.data);
+      this.$router.push('/search-results' ); // Use the name of your search results route
+      this.$store.commit('setSearchKeyword',this.search)
+    } catch (error) {
+      console.error('Lỗi tìm kiếm sản phẩm:', error);
+    }
+  },
+  ...mapMutations(['setSearchResults']),
 
       goToCartPage() {
       // this.$router.push('/cart')
@@ -171,7 +177,7 @@
             this.loginDialog = false;
             console.log(this.UserName)
       try {
-        const response = await axios.post('https://localhost:44384/api/User', {
+        const response = await axios.post('https://localhost:7072/api/User', {
             UserName: this.UserName,
             PassWord: this.PassWord,
             
@@ -183,7 +189,7 @@
     },
     async register() {
       try {
-        const response = await axios.post('https://localhost:44384/api/User', {
+        const response = await axios.post('https://localhost:7072/api/User', {
           username: this.UserName,
           password: this.PassWord,
           fullname: this.FullName,
@@ -202,7 +208,7 @@
     logout(){
       localStorage.removeItem('token');
       localStorage.removeItem('username');
-      localStorage.removeItem('tokenID')
+      localStorage.removeItem('userId')
       this.isLoggedIn = false; // Nếu có biến dữ liệu này
        // Nếu có biến dữ liệu này
 
@@ -232,7 +238,7 @@
     created(){
       console.log("token", localStorage.getItem('token'))
       console.log("token", this.ten)
-      console.log("tokenID", localStorage.getItem('tokenID'))
+      console.log("tokenID", localStorage.getItem('userId'))
     }
   }
   </script>

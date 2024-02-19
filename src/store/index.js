@@ -1,11 +1,16 @@
 import { createStore } from 'vuex'
-const store = createStore({
-    // Cấu hình Vuex store của bạn ở đây
-  });
+// store/index.js
 
+// import Vue from 'vue';
+// import Vuex from 'vuex';
+
+// Vue.use(Vuex);
 
 export default createStore({
   state:{
+    
+    searchKeyword: '',
+    searchResults: [],
     cart:[],
     cartTotal:0
   },
@@ -56,6 +61,16 @@ export default createStore({
         localStorage.setItem('cartTotal',JSON.stringify(state.cartTotal));
         localStorage.setItem('cart',JSON.stringify(state.cart));
 
+    },
+    setSearchResults(state, results) {
+        state.searchResults = results;
+      },
+    setSearchKeyword(state, keyword) {
+        state.searchKeyword = keyword;
+    },
+    clearCart(state){
+        state.cart = [];
+        state.cartTotal = 0;
     }
 
   },

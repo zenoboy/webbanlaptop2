@@ -8,36 +8,18 @@
                     <span>Cập nhật loại sản phẩm</span>
                 </v-card-title>
                 <v-card-text>
-                    <v-form>
+                    <v-form >
                         <v-container>
                             <v-row>
-                                <v-col>
+                                <v-col v-if="Category">
                                     <v-text-field
                                         label="Tên sản phẩm"
-                                        v-model="data.productName"
+                                        v-model="Category[0].CategoryName"
                                     ></v-text-field>
                                 </v-col>
-                                <v-col>
-                                    <v-text-field
-                                        label="Ảnh sản phẩm"
-                                        v-model="data.productimg"
-                                    ></v-text-field>
-                                </v-col>
-                                <v-col>
-                                    <v-text-field
-                                        label="Mô tả sản phẩm"
-                                        v-model="data.productDesc"
-                                    ></v-text-field>
-                                </v-col>
+                                
                             </v-row>
-                            <v-row>
-                                <v-col>
-                                    <v-text-field
-                                        label="Giá"
-                                        v-model="data.price"
-                                    ></v-text-field>
-                                </v-col>
-                            </v-row>
+                            
                         </v-container>
                     </v-form>
                 </v-card-text>
@@ -50,7 +32,7 @@
                     >Hủy</v-btn>
                     <v-btn
                         color="primary"
-                        @click="updateProduct"
+                        @click="updateCategory"
                     >Cập nhật</v-btn>
                 </v-card-actions>
             </v-card>
@@ -62,44 +44,53 @@
 import axios from 'axios';
 
 export default {
+   
     name: 'EditView',
     data() {
         return {
-            data: {
-                productName: '',
-                productimg:'',
-                productDesc: '',
-                price: '',
-                categoryId: 0,
-                inventoryId:0, 
-                productId:null,
-            },
+            CatId: null,
+            Category: null,
         };
     },
     methods: {
-        updateProduct() {
-            this.categoryId=this.currentItem.categoryId
-            this.data.productimg = this.currentItem.productimg;
-            this.categoryId=this.currentItem.inventoryId
-            this.categoryId=this.currentItem.productId
-            console.log(this.data)
+        getCategory(){
+           
+            // axios.get('https://localhost:7072/api/Categorys/GetCategoryById', null, {
+            //     params: {
+            //         CategoryId: this.CatId
+            //     }
+            // })
+            axios.get('https://localhost:7072/api/Categorys/GetCategoryById?CategoryId='+this.CatId)
+                .then(response =>{
+                    this.Category = response.data;
+                    console.log('category', this.Category)
+                })
+                .catch(error => {
+                console.log(error);
+                });
+        },
 
-
-    axios.put('https://localhost:44384/api/Product/'+this.data.productId, this.data)
-        .then(response => {
-            this.$emit('close');
-            // this.$emit('updateData');
-            console.log(response.status);
-            this.$emit('loadData');
-
-        })
-        .catch(error => {
-            console.error('Error updating product:', error.response);
-        });
-}
+        updateCategory(){
+            //axios.put('https://localhost:7072/api/Categorys/UpdateCategory?newCategoryId=6&newCategoryName=a')
+            const newCategory ={
+                newCategoryId: this.CatId,
+                newCategoryName: this.Category[0].CategoryName
+            };
+            axios.put('https://localhost:7072/api/Categorys/UpdateCategory', null, {params : newCategory})
+                .then(response =>{
+                    console.log('update',response.data);
+                    alert("Cập nhật sản phẩm thành công!")
+                    this.$emit('updateData');
+                    // Quay trở lại trang trước
+                    this.$emit('close');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
 
     },
-    props: ['dialogEdit', 'currentItem'],
+    props: ['dialogEdit', 'id'],
     computed: {
         dialog: {
             get() {
@@ -110,18 +101,21 @@ export default {
                     this.$emit('close');
                 }
             }
-        }
+        },
+        
     },
     watch: {
-        currentItem: function () {
-            this.data.productId = this.currentItem.productId;
-            this.data.productName = this.currentItem.productName;
-            this.data.productDesc = this.currentItem.productDesc;
-            this.data.price = this.currentItem.price;
-            this.data.categoryId = this.currentItem.categoryId;
-            this.data.inventoryId = this.currentItem.inventoryId;
+        
+        id: function (){
+            this.CatId = this.id;
+            this.getCategory();
         }
+        
+    },
+    created() {
+        
     }
+    
 };
 </script>
 

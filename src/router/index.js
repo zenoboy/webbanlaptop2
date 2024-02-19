@@ -3,25 +3,49 @@ import HomeView from '../views/HomeView.vue'
 import AdminView from '../views/WebAdmin/AdminView.vue'
 import ListCategory from '../views/WebAdmin/category/ListView.vue'
 import ProductDetail from '../views/productdetail.vue'
+import SearchResults from '@/views/SearchResults.vue';
 import SearchView from '@/views/SearchView.vue';
+import CheckoutView from '../views/CheckoutView.vue'
+import ProductEdit from '../views/WebAdmin/product/ProductEdit.vue'
+import ListOrder from '../views/WebAdmin/order/ListOrder.vue'
+import ListUser from '../views/WebAdmin/user/ListUser.vue'
+// import SearchResults from '@/views/SearchResults.vue';
+
+// import CheckoutView from '../views/CheckoutView.vue'
+
 
 // =======
 import CartView from '../views/CartView.vue'
-// import test from '../views/test.vue'
-// >>>>>>> 686648eae67ccc91883c65f8b8fddf988e64bb33
+import test from '../views/test.vue'
+import Dashboard from '../views/WebAdmin/DashboardView.vue'
 
 
 const routes = [
+  {
+    path:'/side',
+    path:'/side',
+    component:()=> import('../components/SideBarAdmin1.vue')
+  },
+  {
+    path:'/singup',
+    path:'/singup',
+    component:()=> import('../views/Register.vue')
+  },
+  {
+    path:'/searchView',
+    path:'/searchView',
+    component:SearchView
+  },
   {
     path: '/home',
     name: 'home',
     component: HomeView
   },
-  {
-    path: '/timkiem',
-    name: 'tiemkiem',
-    component: SearchView
-  },
+  // {
+  //   path: '/timkiem',
+  //   name: 'timkiem',
+  //   component: SearchView
+  // },
   {
     path: '/about',
     name: 'about',
@@ -74,14 +98,27 @@ const routes = [
     component: AdminView
   },
   {
-    path: '/list-category',
+    path: '/admin/list-category',
     name: 'ListCategory',
     component: ListCategory
   },
   {
-    path:'/timkiem',
-    name:'timkiem',
-    component: () => import( '../views/SearchView.vue')  },
+    path:'/admin/list-product',
+    name:'list-product',
+    component:()=>import('../views/WebAdmin/product/ListProduct.vue')
+  },
+  {
+    path:'/statistical',
+    name:'statistical',
+    component:()=>import('../views/WebAdmin/statistical/Statistical.vue')
+  },
+  
+  { 
+      path: '/search-results/', 
+      name: 'search-results',
+      component: SearchResults
+  },
+   
   {
     path: '/product-detail/:id',
     name: 'product-detail',
@@ -92,15 +129,16 @@ const routes = [
     name: 'CartView',
     component: CartView
   },
-  // {
-  //   path: '/test',
-  //   name: 'test',
-  //   component: test
-  // },
+  {
+    path: '/test',
+    name: 'test',
+    component: test
+  },
   {
     path: '/ho-so',
     name: 'ho-so',
     component:() =>import('../views/UserProfile.vue')
+
   },
   {
     path: '/don-hang',
@@ -117,6 +155,34 @@ const routes = [
     name: 'chi-tiet-dia-chi',
     component:() =>import('../views/UserAddressDetail.vue')
   },
+
+  {
+    path: '/checkout',
+    name: 'checkout',
+    component: CheckoutView
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: Dashboard
+  },
+  {
+    path: '/edit-product/:id',
+    name: 'edit-product',
+    component: ProductEdit,
+    props: true
+  },
+  {
+    path: '/admin/list-order',
+    name: 'ListOrder',
+    component: ListOrder
+  },
+  {
+    path: '/admin/list-user',
+    name: 'ListUser',
+    component: ListUser
+  },
+
 
 ]
 

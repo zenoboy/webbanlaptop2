@@ -4,10 +4,12 @@
     <!-- <top-bar/>  -->
 
 
-    <v-main>
-      <v-container class="py-3 px-6">
+    <v-main >
+      <v-container>
         <router-view/>
       </v-container>
+        
+      
     </v-main>
     <footer-bar/>
   </v-app>

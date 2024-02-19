@@ -40,121 +40,43 @@
 
 <!-- Danh sách sản phẩm - Chế độ Hiển thị lưới -->
 <v-row v-if="displayType === 'grid'">
-  <v-col v-for="(product, index) in displayedProducts" :key="index" cols="12" md="4">
-    <v-card>
-      <!-- Sửa tên thuộc tính ở đây -->
-      <v-img :src="product.Avatar" alt="Hình ảnh sản phẩm" contain height="100"></v-img>
-      <v-card-text>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title>{{ product.ProductsName }}</v-list-item-title>
-            <v-list-item-subtitle>{{ product.price }}</v-list-item-subtitle>
-            <v-list-item-subtitle>{{ product.price }}</v-list-item-subtitle>
-          </v-list-item-content>
-          <v-list-item-action>
-            <product-detail-dialog
-              :dialog="dialog"
-              :selectedProduct="selectedProduct"
-              @add-to-cart="addToCart"
-              @close-dialog="closeDialog"
-            />
-            <v-btn @click="addToCart(product)">Thêm vào giỏ hàng</v-btn>
-          </v-list-item-action>
-        </v-list-item>
-      </v-card-text>
-    </v-card>
-  </v-col>
-</v-row>
-
-
-      <!-- Danh sách sản phẩm - Chế độ Hiển thị danh sách -->
-      <!-- <v-list v-else-if="displayType === 'list'">
-        <v-list-item-group>
-          <v-list-item v-for="(product, index) in displayedProducts" :key="index">
-            <v-list-item-avatar>
-              <v-img :src="product.Avatar" alt="Hình ảnh sản phẩm"></v-img>
-            </v-list-item-avatar>
-
-            <v-list-item-content>
-              <v-list-item-title>{{ product.productName }}</v-list-item-title>
-              <v-list-item-subtitle>{{ product.price }}</v-list-item-subtitle>
-            </v-list-item-content>
-
-            <v-list-item-action>
-              <v-btn @click="addToCart(product)">Thêm vào giỏ hàng</v-btn>
-            </v-list-item-action>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list> -->
-
-
+  <v-col v-for="(item, index) in displayedProducts" :key="index" cols="12" md="3">
+          <v-hover v-slot="{isHovering,props}" open-delay="1">
+            <v-card :elevation="isHovering ? 16 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
+              <v-img :src="'https://localhost:7072/images/' + item.ImagerUrl" height="200"></v-img>
+              <v-card-title>{{ item.ProductsName }}</v-card-title>
+              <v-card-subtitle>{{ item.Price }}</v-card-subtitle>
+              <v-card-actions>
+                <v-btn color="primary" :to="{ name: 'product-detail', params: { id: item.ProductsId } }">Xem Chi Tiết</v-btn>
+                <cart-btn  :products="item"/></v-card-actions>
+            </v-card>
+          </v-hover>
+        </v-col>
+      </v-row>
       <v-row v-else-if="displayType === 'list'">
         <!-- Lặp qua danh sách sản phẩm và hiển thị từng sản phẩm trong một v-col -->
-       
-        <v-col
-            v-for="item in displayedProducts"
-            :key="item.ProductsId"
-            cols="12"
-            md="3" 
-        >
-        <!-- <router-link :to="{ name: 'ProductDetail'} " style="text-decoration: none;"> -->
-        <v-hover
-          v-slot="{isHovering,props}"
-          open-delay="1"
-
-        >
-        <v-card
-        
-            :elevation="isHovering ? 16 : 2"
-            :class="{ 'on-hover': isHovering }"
-            v-bind="props"
-          >
-     
-            <v-img
-              
-            :src="'https://localhost:7072/images/' + item.ImagerUrl"
-              height="200"
-            ></v-img>
-     
-            <v-card-title>{{ item.ProductsName }}</v-card-title>
-     
-            <v-card-subtitle>{{ item.Price }}</v-card-subtitle>
-      
-            <v-card-actions>
-              <v-btn color="primary" :to="{ name: 'product-detail', params: { id: item.ProductsId } }">Xem Chi Tiết</v-btn>
-              
-              <cart-btn :products="item"/>
-            </v-card-actions>
-          </v-card>
-        </v-hover>
-      <!-- </router-link> -->
+        <v-col v-for="(item, index) in displayedProducts" :key="index" cols="12" md="3">
+          <v-hover v-slot="{isHovering,props}" open-delay="1">
+            <v-card :elevation="isHovering ? 16 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
+              <v-img :src="'https://localhost:7072/images/' + item.ImagerUrl" height="200"></v-img>
+              <v-card-title>{{ item.ProductsName }}</v-card-title>
+              <v-card-subtitle>{{ item.Price }}</v-card-subtitle>
+              <v-card-actions>
+                <v-btn color="primary" :to="{ name: 'product-detail', params: { id: item.ProductsId } }">Xem Chi Tiết</v-btn>
+                <cart-btn  :products="item"/></v-card-actions>
+            </v-card>
+          </v-hover>
         </v-col>
-
-
-        
       </v-row>
+      
       <div v-if="!products.length">Giàu rồi bán gì nữa sang shop khác đi</div>
 
       <!-- Hiển thị phân trang -->
-      <v-pagination v-if="totalPages > 1" v-model="currentPage" :length="totalPages" @input="updateDisplayedProducts"></v-pagination>
- 
+      <v-pagination v-if="totalPages > 1" v-model="currentPage" :length="totalPages" @input="updateDisplayedProducts"></v-pagination> 
+      <v-row>
+        <v-col><h3>Sản phẩm bạn vừa xem</h3></v-col>
+      </v-row>
       </v-container>
-      <v-dialog v-model="dialog" max-width="600px">
-      <v-card>
-        <v-card-title>{{ selectedProduct.ProductName }}</v-card-title>
-        <v-card-subtitle>{{ selectedProduct.Price }}</v-card-subtitle>
-        <v-img :src="selectedProduct.Avatar" alt="Hình ảnh sản phẩm"></v-img>
-        <v-card-text>
-          
-          <!-- {{ selectedProduct.description }} -->
-        </v-card-text>
-        <v-card-actions>
-          <v-btn @click="addToCart(selectedProduct)">Thêm vào giỏ hàng</v-btn>
-          <v-btn @click="dialog = false">Đóng</v-btn>
-          
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
     <footer-bar/>   
   </div>
 </template>
@@ -164,10 +86,8 @@ import ProductDetailDialog from '@/components/ProductDetailDialog.vue';
 import axios from 'axios';
 import TopBar from '@/components/TopBar.vue';
 import FooterBar from '@/components/FooterBar.vue';
-
 import CartBtn from '@/components/CartBtn.vue';
-
-
+import { mapState } from 'vuex';
 export default {
   components: {
     ProductDetailDialog,
@@ -190,7 +110,7 @@ export default {
       ],
       displayType: 'grid',
       displayTypes: ['grid', 'list'],
-      itemsPerPage: 6,
+      itemsPerPage: 10,
       currentPage: 1,
 
       silders: [
@@ -220,11 +140,19 @@ export default {
     totalPages() {
       return Math.ceil(this.products.length / this.itemsPerPage);
     },
+  // Sử dụng mapState để lấy kết quả tìm kiếm từ Vuex
+  ...mapState(['searchResults']),
+  searchResults() {
+  console.log('Search Results:', this.searchResults);
+    return this.searchResults;
   },
+  },  
   mounted() {
     this.fetchProducts();
   },
   methods: {
+
+
     async fetchProducts() {
       try {
         // const response = await axios.get('https://localhost:44384/api/Product');

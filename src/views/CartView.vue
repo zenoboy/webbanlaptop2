@@ -20,31 +20,7 @@
     
                 <div v-for="item in $store.state.cart" class="card mb-3 shadow-sm border-0" :key="item.ProductsId">
                     <div class="card-body">
-                    <!-- <div class="d-flex justify-content-between">
-                        <div class="d-flex flex-row align-items-center">
-                            <div>
-                                <img
-                                
-                                :src="'https://localhost:7072/images/' + item.ImagerUrl"
-                                class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                            </div>
-                            <div class="ms-3">
-                                <p>{{ item.ProductsName }}</p>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row align-items-center">
-                            <div >
-                                <CartAddRemove :products="item"/>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row align-items-center">
-                            <div >
-                                <h5 class="mb-0"><i class="bi bi-currency-dollar"></i>{{ item.Price*item.qty }}</h5>
-                                <small v-if="item.hasDiscount" class="text-muted text-decoration-line-through"><i class="bi bi-currency-dollar"></i>{{ item.price}}</small>
-                            </div>
-                            <a role="button" @click="removeItem(item)" class="ms-4" style="color: #cecece;"><i class="bi bi-trash3 h4"></i></a>
-                        </div>
-                    </div> -->
+                   
 
                     <v-row>
                         <v-col cols="6">
@@ -53,7 +29,7 @@
                                 <img
                                 
                                 :src="'https://localhost:7072/images/' + item.ImagerUrl"
-                                class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+                                class="img-fluid rounded-3" alt="Shopping item" style="width: 100px;">
                             </div>
                             <div class="ms-3">
                                 <p>{{ item.ProductsName }}</p>
@@ -102,9 +78,8 @@
                         <p class="mb-2"><i class="bi bi-currency-dollar"></i>{{ $store.state.cartTotal }} đ</p>
                     </div>
     
-                    <button type="button" class="btn btn-info btn-block btn-lg">
-                        Thanh toán
-                    </button>
+                    
+                    <v-btn style="color: aliceblue;" @click="toCheckout" color="#0dcaf0" >Thanh toán</v-btn>
     
                     </div>
                 </div>
@@ -122,12 +97,25 @@
     </template>
     <script>
     import CartAddRemove from '../components/CartAddRemove.vue';
+    
     export default{
     components :{CartAddRemove},
     methods:{
         removeItem(item){
             this.$store.commit('addRemoveCart',{products:item,toAdd:false})
         },
+        toCheckout(){
+            if(this.$store.state.cart.length === 0 ){
+                alert("Chưa có sản phẩm nào trong giỏ hàng!!!")
+            }
+            if(!localStorage.getItem('token')){
+                alert("Bạn chưa đăng nhập!")
+            }
+            else{
+                this.$router.push('/checkout' );
+            }
+        }
+       
     },
     mounted(){
     
