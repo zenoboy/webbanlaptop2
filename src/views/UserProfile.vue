@@ -55,67 +55,34 @@
       <v-main>
         <v-container>
           <v-form ref="form" v-model="valid">
-            <v-text-field v-model="name" label="Họ tên" required outlined />
+            <v-text-field 
+            v-model="name" 
+            label="Họ tên" 
+            required 
+            outlined 
+            />
             <v-text-field
               v-model="phone"
               label="Số điện thoại"
               outlined
               @input="sanitizePhoneNumber"
             />
-            <v-text-field v-model="email" label="Email" outlined />
-            <v-inline>
-              <v-col cols="12">
-                <div class="d-flex align-center">
-                  <span class="mb-5" style="color: #425c5a">Giới tính:</span>
-                  <v-radio-group v-model="gender" inline>
-                    <v-radio label="Nam" value="male" color="#425C5A"></v-radio>
-                    <v-radio
-                      label="Nữ"
-                      value="female"
-                      color="#425C5A"
-                    ></v-radio>
-                  </v-radio-group>
-                </div>
-              </v-col>
-            </v-inline>
-            <v-row>
-              <v-col cols="12">
-                <label class="mb-2" style="color: #425c5a">Ngày Sinh:</label>
-              </v-col>
-              <v-col cols="4">
-                <v-combobox
-                  v-model="day"
-                  :items="getDaysArray()"
-                  label="Ngày"
-                  outlined
-                  dense
-                  color="#425C5A"
-                ></v-combobox>
-              </v-col>
-              <v-col cols="4">
-                <v-combobox
-                  v-model="month"
-                  :items="months"
-                  label="Tháng"
-                  outlined
-                  dense
-                  color="#425C5A"
-                ></v-combobox>
-              </v-col>
-              <v-col cols="4">
-                <v-combobox
-                  v-model="year"
-                  :items="years"
-                  label="Năm"
-                  outlined
-                  dense
-                  color="#425C5A"
-                ></v-combobox>
+            <v-text-field 
+            v-model="name" 
+            label="Mật Khẩu" 
+            required 
+            outlined 
+            />
+            <v-text-field 
+            v-model="email" 
+            label="Email" 
+            outlined />
+            <v-row v-if="user && user.length > 0">
+              <v-col v-for="(item, index) in user" :key="index">
+                {{ item.usersId }} - {{ item.usersName }} - {{ item.userEmail }} - {{ item.userPhone }} - {{ item.userPassword }}
               </v-col>
             </v-row>
-            <v-row justify="center">
               <v-btn color="#B49239" type="submit" v-if="valid">Cập nhật</v-btn>
-            </v-row>
           </v-form>
         </v-container>
       </v-main>
@@ -126,6 +93,7 @@
   
   <script>
 import { ref } from "vue";
+import axios from "axios";
 import TopBar from "@/components/TopBar.vue";
 import FooterBar from "@/components/FooterBar.vue";
 
@@ -152,41 +120,37 @@ export default {
         },
         { text: "Đăng Xuất", icon: "mdi mdi-logout", route: "./login" },
       ],
+      user: [],
       drawer: ref(null),
-      day: 1,
-      month: 1,
-      year: new Date().getFullYear(),
       name: "",
       phone: "",
       email: "",
-      gender: "",
+      password:"",
       address: "",
       province: "",
       district: "",
       valid: true,
-      months: Array.from({ length: 12 }, (_, i) => i + 1),
-      years: Array.from({ length: 70 }, (_, i) => new Date().getFullYear() - i),
     };
   },
+  mounted() {
+  this.getUserProfile(); 
+},
+
   methods: {
+    getUserProfile() {
+  axios.get('https://localhost:7182/api/Categories')
+    .then(response => {
+      this.categories = response.data;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+},
+created() {
+  this.getUserProfile();
+},
     sanitizePhoneNumber() {
       this.phone = this.phone.replace(/\D/g, "");
-    },
-    getDaysArray(month, year) {
-      const daysInMonth = this.getDaysInMonth(this.month, this.year);
-      return Array.from({ length: daysInMonth }, (_, i) => i + 1);
-    },
-    getDaysInMonth(month, year) {
-      if (month === 2) {
-        return this.isLeapYear(year) ? 29 : 28;
-      } else if ([4, 6, 9, 11].includes(month)) {
-        return 30;
-      } else {
-        return 31;
-      }
-    },
-    isLeapYear(year) {
-      return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
     },
     navigateTo(route) {
       console.log(this.$router);
