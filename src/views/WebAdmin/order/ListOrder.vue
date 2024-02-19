@@ -84,7 +84,7 @@ export default {
     },
     methods:{
         getOrder(){
-            axios.get('https://localhost:7072/api/OrderProduct_/GetOrderProduct')
+            axios.get('https://localhost:44367/api/OrderProduct_/GetOrderProduct')
                 .then(response =>{
                     this.Order = response.data,
                     console.log('order', this.Order)

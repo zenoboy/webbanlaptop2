@@ -47,7 +47,7 @@
     color="grey-lighten-3"
     max-width="400"
   ></v-card>
-  <v-menu offset-y ref="menu">
+  <!-- <v-menu offset-y ref="menu">
           <template v-slot:activator="{ on }">
             <v-btn dark v-on="on" @mouseover="openMenu">
               {{ ten ? `Xin chào, ${ten} !` : 'Tài khoản' }}
@@ -55,9 +55,8 @@
           </template>
           <v-list>
             <v-list-item link @click="logout">Đăng xuất</v-list-item>
-            <!-- Thêm các mục menu khác tại đây -->
           </v-list>
-        </v-menu>
+        </v-menu> -->
   <v-container fluid>
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="4">
@@ -166,13 +165,13 @@
     },
 
     methods: {
-      openMenu() {
-        this.$nextTick(() => {
-    if (this.$refs.menu) {
-      this.$refs.menu.open();
-    }
-    });
-    },
+    //   openMenu() {
+    //     this.$nextTick(() => {
+    // if (this.$refs.menu) {
+    //   this.$refs.menu.open();
+    // }
+    // });
+    // },
       async performSearch() {
     try {
       const response = await axios.get(`https://localhost:44367/api/Products/SearchProducts?keyword=${this.search}`);

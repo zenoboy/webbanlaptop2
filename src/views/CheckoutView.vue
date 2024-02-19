@@ -63,7 +63,7 @@
                 <div v-for="item in $store.state.cart" :key="item.ProductsId"  class="content-product">
                     <div class="item-product flex-item">
                         <v-img 
-                            :src="'https://localhost:7072/images/' + item.ImagerUrl"
+                            :src="'https://localhost:44367/images/' + item.ImagerUrl"
                             max-width="100"
                             max-height="100"
                             
@@ -197,9 +197,9 @@ export default {
         SendCart(){
             this.userProfile.UserId = localStorage.getItem('userId')
             //this.userProfile.UserId = 1
-            //axios.post('https://localhost:7072/api/OrderProduct_/PostOrderProduct?newUserID='+userId+'&newPhone=4444444&newAddres=444444&city=h&district=h&ward=h')
+            //axios.post('https://localhost:44367/api/OrderProduct_/PostOrderProduct?newUserID='+userId+'&newPhone=4444444&newAddres=444444&city=h&district=h&ward=h')
             //axios.post('https://65a48de652f07a8b4a3d7466.mockapi.io/order',this.userProfile)
-            axios.post('https://localhost:7072/api/OrderProduct_/PostOrderProduct?newUserID='+this.userProfile.UserId+'&UserName='+this.userProfile.UserName+'&newPhone='+this.userProfile.newPhone+'&newAddres='+this.userProfile.newAddres+'&city='+this.userProfile.city+'&district='+this.userProfile.district+'&ward='+this.userProfile.ward+'&status=1')
+            axios.post('https://localhost:44367/api/OrderProduct_/PostOrderProduct?newUserID='+this.userProfile.UserId+'&UserName='+this.userProfile.UserName+'&newPhone='+this.userProfile.newPhone+'&newAddres='+this.userProfile.newAddres+'&city='+this.userProfile.city+'&district='+this.userProfile.district+'&ward='+this.userProfile.ward+'&status=1')
             .then(response=>{
                 console.log('orderData',response.data);
                 // Lấy orderId từ response và lưu vào trường dữ liệu
@@ -223,9 +223,9 @@ export default {
                     Quatity: product.qty,
                     Price: product.Price
                 };
-                //axios.post('https://localhost:7072/api/OrderDetail/PostOrderDetail?newOrderID='+orderDetail.OrderId+'&newProductID='+orderDetail.ProductId+'&newQuatity='+orderDetail.Quatity)
-                //axios.post('https://localhost:7072/api/OrderDetail/Post_CTDonHang?OrderID=1&ProductID=6&Quatity=2&Price=1')
-                axios.post('https://localhost:7072/api/OrderDetail/Post_CTDonHang', null, {params : orderDetail})
+                //axios.post('https://localhost:44367/api/OrderDetail/PostOrderDetail?newOrderID='+orderDetail.OrderId+'&newProductID='+orderDetail.ProductId+'&newQuatity='+orderDetail.Quatity)
+                //axios.post('https://localhost:44367/api/OrderDetail/Post_CTDonHang?OrderID=1&ProductID=6&Quatity=2&Price=1')
+                axios.post('https://localhost:44367/api/OrderDetail/Post_CTDonHang', null, {params : orderDetail})
                 .then(response=>{
                     console.log('orderDetail',response.data);
                     this.lessQuantity(product.ProductsId, product.qty)
@@ -242,12 +242,12 @@ export default {
             this.showDialog();
         },
         lessQuantity(ProductId, quantityToReduce){
-            axios.get('https://localhost:7072/api/Products/GetProductstoID?newproductsID='+ProductId)
+            axios.get('https://localhost:44367/api/Products/GetProductstoID?newproductsID='+ProductId)
             .then(response =>{
                 const productInfo = response.data[0];
                 productInfo.Quatity -= quantityToReduce;
                 console.log('okee', response.data);
-                axios.put('https://localhost:7072/api/Products/UpdateProducts?newProductsId='+ProductId+'&newProductsName='+productInfo.ProductsName+'&newQuatity='+productInfo.Quatity+'&newPrice='+productInfo.Price+'&newProductsDescription='+productInfo.ProductsDescription+'&newCategoryId='+productInfo.CategoryId+'&newpromotion='+productInfo.promotion+'&neworigin='+productInfo.origin+'&newwarranty='+productInfo.warranty+'&trademask='+productInfo.trademask+'&Screen='+productInfo.Screen+'&Graphicscard='+productInfo.Graphicscard+'&operatingsystem='+productInfo.operatingsystem+'&Cpuname='+productInfo.Cpuname)
+                axios.put('https://localhost:44367/api/Products/UpdateProducts?newProductsId='+ProductId+'&newProductsName='+productInfo.ProductsName+'&newQuatity='+productInfo.Quatity+'&newPrice='+productInfo.Price+'&newProductsDescription='+productInfo.ProductsDescription+'&newCategoryId='+productInfo.CategoryId+'&newpromotion='+productInfo.promotion+'&neworigin='+productInfo.origin+'&newwarranty='+productInfo.warranty+'&trademask='+productInfo.trademask+'&Screen='+productInfo.Screen+'&Graphicscard='+productInfo.Graphicscard+'&operatingsystem='+productInfo.operatingsystem+'&Cpuname='+productInfo.Cpuname)
                 .then(response =>{
                     console.log('okee', response.data);
                     
