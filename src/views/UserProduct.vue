@@ -140,6 +140,12 @@ export default {
     };
   },
   methods: {
+    // Trong phần xử lý khi admin chỉnh sửa trạng thái của đơn hàng
+handleEditOrderStatus() {
+  // Gọi hàm cập nhật đơn hàng từ backend
+  this.updateOrders();
+},
+
     navigateTo(route) {
       console.log("Route to navigate:", route);
       this.$router.push(route).catch(err => console.error("Navigation error:", err));
