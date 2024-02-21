@@ -85,7 +85,7 @@
             <v-col cols="4">
                 <b style="font-size:18px">Thương hiệu</b>
                 <v-text-field
-                v-model="Product[0].trademask"
+                v-model="Product[0].trademark"
                 clearable
                 hide-details="auto"
                 label="Thương hiệu"
@@ -205,6 +205,18 @@ export default {
             selectedImage: null,
         }
     },
+    // computed: {
+    //     dialog: {
+    //         get() {
+    //             return this.dialogEdit;
+    //         },
+    //         set(value) {
+    //             if (!value) {
+    //                 this.$emit('close');
+    //             }
+    //         }
+    //     }
+    // },
     methods:{
         getProduct(){
                 axios.get('https://localhost:44367/api/Products/GetProductstoID?newproductsID='+this.id)
@@ -239,7 +251,7 @@ export default {
                 }
                 else{
                     alert("Cập nhật sản phẩm thành công!")
-                    this.$router.push('/list-product');
+                    this.$router.push('/admin/list-product');
                 }
                 
             })
@@ -271,7 +283,7 @@ export default {
             .then(response => {
                 console.log('updateImgOk',response.data)
                 alert("Cập nhật sản phẩm thành công!")
-                this.$router.push('/list-product');
+                this.$router.push('/admin/list-product');
 
             })
             .catch(error => {

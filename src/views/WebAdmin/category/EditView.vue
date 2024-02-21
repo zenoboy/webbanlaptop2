@@ -55,12 +55,12 @@ export default {
     methods: {
         getCategory(){
            
-            // axios.get('https://localhost:7072/api/Categorys/GetCategoryById', null, {
+            // axios.get('https://localhost:44367/api/Categorys/GetCategoryById', null, {
             //     params: {
             //         CategoryId: this.CatId
             //     }
             // })
-            axios.get('https://localhost:7072/api/Categorys/GetCategoryById?CategoryId='+this.CatId)
+            axios.get('https://localhost:44367/api/Categorys/GetCategoryById?CategoryId='+this.CatId)
                 .then(response =>{
                     this.Category = response.data;
                     console.log('category', this.Category)
@@ -71,12 +71,12 @@ export default {
         },
 
         updateCategory(){
-            //axios.put('https://localhost:7072/api/Categorys/UpdateCategory?newCategoryId=6&newCategoryName=a')
+            //axios.put('https://localhost:44367/api/Categorys/UpdateCategory?newCategoryId=6&newCategoryName=a')
             const newCategory ={
                 newCategoryId: this.CatId,
                 newCategoryName: this.Category[0].CategoryName
             };
-            axios.put('https://localhost:7072/api/Categorys/UpdateCategory', null, {params : newCategory})
+            axios.put('https://localhost:44367/api/Categorys/UpdateCategory', null, {params : newCategory})
                 .then(response =>{
                     console.log('update',response.data);
                     alert("Cập nhật sản phẩm thành công!")

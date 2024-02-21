@@ -5,7 +5,7 @@
       <div v-if="Product">
         <v-row>
           <v-col>
-            <v-img :src="'https://localhost:7072/images/' + Product.ImagerUrl" height="200"></v-img>
+            <v-img :src="'https://localhost:44367/images/' + Product.ImagerUrl" height="200"></v-img>
           </v-col>
           <v-col>
             <h1 class="name">{{ Product.ProductsName }}</h1>
@@ -145,7 +145,7 @@ export default {
       }
     },
     getProduct() {
-      axios.get(`https://localhost:7072/api/Products/GetProductsID?newproductsid=${this.id}`)
+      axios.get(`https://localhost:44367/api/Products/GetProductsID?newproductsid=${this.id}`)
         .then(response => {
           this.Product = response.data;
           console.log(this.Product);

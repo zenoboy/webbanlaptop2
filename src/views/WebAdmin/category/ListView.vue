@@ -124,7 +124,7 @@ export default {
 },
 methods: {
     getCategories() {
-        axios.get('https://localhost:7072/api/Categorys/Categorys')
+        axios.get('https://localhost:44367/api/Categorys/Categorys')
             .then(response => {
                 this.categories = response.data;
             })
@@ -134,7 +134,7 @@ methods: {
     },
     deleteCategory(){
         if (this.CategoryId){
-        axios.delete('https://localhost:7072/api/Categorys/DeleteCategory' ,null, {
+        axios.delete('https://localhost:44367/api/Categorys/DeleteCategory' ,null, {
             params: {
                 NewCategoryId: this.CategoryId
             }

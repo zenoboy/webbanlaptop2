@@ -36,6 +36,7 @@ data() {
     newUserPhone: '',
     newUserEmail: '',
     newUserAddress: '',
+    UserRole: 1,
   };
 },
 methods: {
@@ -46,7 +47,7 @@ methods: {
           return;
         }                                         
       // Kiểm tra xem tên người dùng hoặc email đã tồn tại chưa
-      const checkResponse = await axios.get(`https://localhost:7072/api/Users/CheckUserExists?newUserEmail=${encodeURIComponent(this.newUserEmail)}`);
+      const checkResponse = await axios.get(`https://localhost:44367/api/Users/CheckUserExists?newUserEmail=${encodeURIComponent(this.newUserEmail)}`);
 
       if (checkResponse.data.exists) {
         alert("Tên người dùng hoặc Email đã tồn tại. Vui lòng chọn một tên người dùng hoặc Email khác.");
@@ -67,7 +68,10 @@ methods: {
       formData.append('newUserPhone', this.newUserPhone);
       formData.append('newUserEmail', this.newUserEmail);
       formData.append('newUserAddress', this.newUserAddress);
-      const response = await axios.post(`https://localhost:7072/api/Users/PostUsers?newUserName=${this.newUserName}&newUserPassword=${this.newUserPassword}&newUserPhone=${this.newUserPassword}&newUserEmail=${this.newUserEmail}&newUserAddress=${this.newUserAddress}`, formData);
+      formData.append('UserRole', this.UserRole);
+
+      const response = await axios.post(`https://localhost:44367/api/Users/PostUsers?newUserName=${this.newUserName}&newUserPassword=${this.newUserPassword}&newUserPhone=${this.newUserPassword}
+      &newUserEmail=${this.newUserEmail}&newUserAddress=${this.newUserAddress}&UserRole=${this.UserRole}`, formData);
       console.log('Registration successful', response.data);
       // Optionally, you can navigate the user to another page upon successful registration
       alert("Đăng ký thành công");
