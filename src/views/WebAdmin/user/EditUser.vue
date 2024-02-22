@@ -71,7 +71,7 @@ export default {
     },
     methods:{
         getUser(){
-            axios.get('https://localhost:7072/api/Users/GetUserById?userId='+this.UsersId)
+            axios.get('https://localhost:44367/api/Users/GetUserById?userId='+this.UsersId)
             .then(response=>{
                 this.User = response.data
                 console.log('user', this.User)
@@ -81,7 +81,7 @@ export default {
             })
         },
         updateRole(){
-            axios.put('https://localhost:7072/api/Users/UpdateRole?userId='+this.UsersId+'&UserRole='+this.User[0].UserRole)
+            axios.put('https://localhost:44367/api/Users/UpdateRole?userId='+this.UsersId+'&UserRole='+this.User[0].UserRole)
             .then(response=>{
                 console.log('update',response.data);
                     alert("Cập nhật quyền thành công!")

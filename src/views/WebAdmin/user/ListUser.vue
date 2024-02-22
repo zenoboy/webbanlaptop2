@@ -112,7 +112,7 @@ export default {
     },
     methods:{
         getUser(){
-            axios.get('https://localhost:7072/api/Users/GetUser')
+            axios.get('https://localhost:44367/api/Users/GetUser')
                 .then(response=>{
                     this.User = response.data,
                     console.log('user', this.User)

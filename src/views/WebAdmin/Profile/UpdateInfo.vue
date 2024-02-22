@@ -75,7 +75,7 @@ export default {
                 Address: this.UserAddress
             }
             //axios.get('https://localhost:7072/api/Users/UpdateInfo?userId=2&FullName=Hahaa%20hihi&Phone=015525525&Email=son%40gmail.com&Address=Ha%20N%C3%B4i')
-            axios.put('https://localhost:7072/api/Users/UpdateInfo', null, {params: data})
+            axios.put('https://localhost:44367/api/Users/UpdateInfo', null, {params: data})
             .then(response=>{
                 this.information = response.data
                 this.$emit('updateData')

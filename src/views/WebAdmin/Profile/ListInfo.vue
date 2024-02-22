@@ -62,7 +62,7 @@ export default {
     },  
     methods:{
         getInfo(){
-            axios.get('https://localhost:7072/api/Users/GetUserById?userId='+this.userId)
+            axios.get('https://localhost:44367/api/Users/GetUserById?userId='+this.userId)
             .then(response=>{
                 this.information = response.data
                 console.log('info', this.information)

@@ -72,7 +72,7 @@ export default {
                     currentPassword: this.oldPass,
                     newPassword: this.newPass
                 }
-                axios.post('https://localhost:7072/api/Users/ChangePassword', null, {params: data})
+                axios.post('https://localhost:44367/api/Users/ChangePassword', null, {params: data})
                 .then(response=>{
                     alert("Thay đổi mật khẩu thành công!!!")
                     console.log(response.data)

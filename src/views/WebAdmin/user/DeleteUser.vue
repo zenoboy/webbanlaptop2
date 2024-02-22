@@ -34,7 +34,7 @@ export default {
     props:['dialogDeleteUser', 'UsersId'],
     methods:{
         deleteUser(){
-            axios.delete('https://localhost:7072/api/Users/DeleteUser?userId='+this.UsersId)
+            axios.delete('https://localhost:44367/api/Users/DeleteUser?userId='+this.UsersId)
                 .then(response=>{
                     console.log('delete',response.data);
                     this.$emit('updateData');

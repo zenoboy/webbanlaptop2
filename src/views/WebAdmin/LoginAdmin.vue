@@ -51,7 +51,7 @@ export default {
                 UserName: this.username,
                 UserPassword: this.password
             };
-                axios.post('https://localhost:7072/api/Login/Login', loginData)
+                axios.post('https://localhost:44367/api/Login/Login', loginData)
                 .then(response=>{
                     const { Token,   role,fullname,UserId } = response.data;
                     if(response.data.role == "users"){

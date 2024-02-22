@@ -44,7 +44,7 @@ export default {
           UserPassword: this.password
         };
 
-        const response = await axios.post('https://localhost:7072/api/Login/Login', loginData);
+        const response = await axios.post('https://localhost:44367/api/Login/Login', loginData);
 
         
         const { Token, Message, RedirectUrl, Role,UserId } = response.data;

@@ -117,7 +117,7 @@ export default {
                 UserRole: this.data.selectedRole
             }
             //axios.post('https://localhost:7072/api/Users/PostUsers?newUserName=admin2&newUserPassword=123456&newFullName=%C3%A1dasd&newUserPhone=12333&newUserEmail=s%40gmail.com&newUserAddress=sss')
-            axios.post('https://localhost:7072/api/Users/PostUsers', null, {params: dataUser})
+            axios.post('https://localhost:44367/api/Users/PostUsers', null, {params: dataUser})
                 .then(response =>{
                     this.$emit('close');
                     this.$emit('updateData');

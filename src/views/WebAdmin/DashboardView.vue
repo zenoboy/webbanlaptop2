@@ -266,7 +266,7 @@ export default {
   },
   methods:{
       getCountCustomer(){
-        axios.get('https://localhost:7072/api/Users/GetCountCustomer')
+        axios.get('https://localhost:44367/api/Users/GetCountCustomer')
         .then(response =>{
           this.count_customer = response.data
           console.log('countCustomer',this.count_customer)
@@ -276,7 +276,7 @@ export default {
         })
       },
       getCountProduct(){
-        axios.get('https://localhost:7072/api/Products/GetCountProduct')
+        axios.get('https://localhost:44367/api/Products/GetCountProduct')
         .then(response =>{
           this.count_product = response.data
           console.log('countProduct',this.count_product)
@@ -286,7 +286,7 @@ export default {
         })
       },
       getCountOrder(){
-        axios.get('https://localhost:7072/api/OrderProduct_/GetCountOrder')
+        axios.get('https://localhost:44367/api/OrderProduct_/GetCountOrder')
         .then(response =>{
           this.count_order = response.data
           console.log('countOrder',this.count_order)
@@ -296,7 +296,7 @@ export default {
         })
       },
       getCountProductLIMIT(){
-        axios.get('https://localhost:7072/api/Products/GetCountProductLIMIT')
+        axios.get('https://localhost:44367/api/Products/GetCountProductLIMIT')
         .then(response =>{
           this.count_productLIMIT = response.data
           console.log('countOrder',this.count_productLIMIT)
@@ -306,7 +306,7 @@ export default {
         })
       },
       getProductLIMIT(){
-        axios.get('https://localhost:7072/api/Products/GetProductLIMIT')
+        axios.get('https://localhost:44367/api/Products/GetProductLIMIT')
         .then(response =>{
           this.productLIMIT = response.data
           console.log('countOrder',this.productLIMIT)
@@ -316,7 +316,7 @@ export default {
         })
       },
       GetBestSeller(){
-        axios.get('https://localhost:7072/api/Products/GetBestSeller')
+        axios.get('https://localhost:44367/api/Products/GetBestSeller')
         .then(response =>{
           this.bestSeller = response.data
           console.log('best-seller',this.bestSeller)
