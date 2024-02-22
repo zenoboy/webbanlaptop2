@@ -39,7 +39,7 @@
                     <v-col v-for="item in items" :key="item.ProductsId" cols="12" sm="6" md="4" lg="3">
                         <v-card>
                             <!-- Display your product details here -->
-                            <v-img :src="'https://localhost:7072' + item.ImagerUrl" height="200"
+                            <v-img :src="'https://localhost:44367' + item.ImagerUrl" height="200"
                                 @error="handleImageError(item)"></v-img>
                             <v-card-title >{{ item.ProductsName }}</v-card-title>
                             <v-card-subtitle>{{ item.Price }}</v-card-subtitle>
@@ -152,7 +152,7 @@ export default {
     },
     created() {
         this.loading = true;
-        axios.get('https://localhost:7072/api/Products/GetProducts')
+        axios.get('https://localhost:44367/api/Products/GetProducts')
             .then(response => {
                 if (response.data && Array.isArray(response.data)) {
                     this.items = response.data.map(item => {
@@ -173,7 +173,7 @@ export default {
         async fetchProducts() {
             try {
                 // const response = await axios.get('https://localhost:44384/api/Product');
-                const response = await axios.get('https://localhost:7072/api/Products/GetProducts');
+                const response = await axios.get('https://localhost:44367/api/Products/GetProducts');
                 this.products = response.data;
             } catch (error) {
                 console.error('Lỗi khi lấy sản phẩm:', error);

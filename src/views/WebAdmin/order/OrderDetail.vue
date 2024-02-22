@@ -142,7 +142,7 @@ export default {
                 orderId: this.OrderId
              
             };
-            axios.get('https://localhost:7072/api/OrderDetail/GetOrderDetailByOrderId', {params: id})
+            axios.get('https://localhost:44367/api/OrderDetail/GetOrderDetailByOrderId', {params: id})
                 .then(response => {
                     this.orderdetail = response.data;
                     console.log('order', this.orderdetail)
@@ -155,7 +155,7 @@ export default {
             const id ={
                 orderId: this.OrderId
             };
-            axios.get('https://localhost:7072/api/OrderProduct_/GetOrderProductByOrderId', {params: id})
+            axios.get('https://localhost:44367/api/OrderProduct_/GetOrderProductByOrderId', {params: id})
                 .then(response => {
                     
                     this.Order = response.data;
@@ -191,7 +191,7 @@ export default {
                     OrderID: this.OrderId,
                     status: 2
                 };
-                axios.put('https://localhost:7072/api/OrderProduct_/UpdateStatus', null, {params : newStatus})
+                axios.put('https://localhost:44367/api/OrderProduct_/UpdateStatus', null, {params : newStatus})
                     .then(response => {
                         console.log('update',response.data);
                         alert("Cập nhật sản trạng thái thành công!")
@@ -208,7 +208,7 @@ export default {
                     orderId: this.OrderId,
                     status: 3
                 };
-                axios.put('https://localhost:7072/api/OrderProduct_/UpdateStatus', null, {params : newStatus})
+                axios.put('https://localhost:44367/api/OrderProduct_/UpdateStatus', null, {params : newStatus})
                     .then(response => {
                         console.log('update',response.data);
                         alert("Cập nhật sản trạng thái thành công!")
@@ -227,7 +227,7 @@ export default {
                 OrderID: this.OrderId,
                 status: 4
             };
-            axios.put('https://localhost:7072/api/OrderProduct_/UpdateStatus', null, {params : newStatus})
+            axios.put('https://localhost:44367/api/OrderProduct_/UpdateStatus', null, {params : newStatus})
                 .then(response => {
                     console.log('update',response.data);
                     alert("Hủy đơn hàng thành công!")
@@ -240,12 +240,12 @@ export default {
                     })
         },
         removeOrder(){
-            // axios.delete('https://localhost:7072/api/OrderProduct_/DeleteOrder',null, {
+            // axios.delete('https://localhost:44367/api/OrderProduct_/DeleteOrder',null, {
             // params : {
             //     newOrderID: this.OrderId
             // }
             // })
-            axios.delete('https://localhost:7072/api/OrderProduct_/DeleteOrder?newOrderID='+this.OrderId)    
+            axios.delete('https://localhost:44367/api/OrderProduct_/DeleteOrder?newOrderID='+this.OrderId)    
                 .then(response=>{
                     console.log('delete',response.data);
                     alert("Xóa đơn hàng thành công!");

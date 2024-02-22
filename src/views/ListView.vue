@@ -2,6 +2,27 @@
   <div>
     <top-bar/>
     <v-container class="mt-10">
+      <v-container fluid>
+    <v-layout row wrap>
+      <!-- Phần bên trái -->
+      <v-flex xs12 md6>
+        <!-- Banner bên trái -->
+        <v-card class="pa-2">
+          <!-- Đường dẫn đến ảnh banner -->
+          <v-img src="https://file.hstatic.net/200000722513/file/mua_pc_tang_ram_-_side_61d14e65bf2d438c8ea1be51d2cd862e.png" aspect-ratio="16/9"></v-img>
+        </v-card>
+      </v-flex>
+
+      <!-- Phần bên phải -->
+      <v-flex xs12 md6>
+        <!-- Banner bên phải -->
+        <v-card class="pa-2">
+          <!-- Đường dẫn đến ảnh banner -->
+          <v-img src="https://file.hstatic.net/200000722513/file/laptop_ai_don_tet_cung_msi_-_side_2b2a6f7db73340cd971707c06e48a915.jpg" aspect-ratio="16/9"></v-img>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
         <v-row>
           <v-col class="menu-col" cols="2">
             <!-- <v-tooltip text="Tooltip">
@@ -43,7 +64,7 @@
   <v-col v-for="(item, index) in displayedProducts" :key="index" cols="12" md="3">
           <v-hover v-slot="{isHovering,props}" open-delay="1">
             <v-card :elevation="isHovering ? 16 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
-              <v-img :src="'https://localhost:7072/images/' + item.ImagerUrl" height="200"></v-img>
+              <v-img :src="'https://localhost:44367/images/' + item.ImagerUrl" height="200"></v-img>
               <v-card-title>{{ item.ProductsName }}</v-card-title>
               <v-card-subtitle>{{ item.Price }}</v-card-subtitle>
               <v-card-actions>
@@ -58,7 +79,7 @@
         <v-col v-for="(item, index) in displayedProducts" :key="index" cols="12" md="3">
           <v-hover v-slot="{isHovering,props}" open-delay="1">
             <v-card :elevation="isHovering ? 16 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
-              <v-img :src="'https://localhost:7072/images/' + item.ImagerUrl" height="200"></v-img>
+              <v-img :src="'https://localhost:44367/images/' + item.ImagerUrl" height="200"></v-img>
               <v-card-title>{{ item.ProductsName }}</v-card-title>
               <v-card-subtitle>{{ item.Price }}</v-card-subtitle>
               <v-card-actions>
@@ -110,7 +131,7 @@ export default {
       ],
       displayType: 'grid',
       displayTypes: ['grid', 'list'],
-      itemsPerPage: 10,
+      itemsPerPage: 16,
       currentPage: 1,
 
       silders: [
@@ -156,14 +177,14 @@ export default {
     async fetchProducts() {
       try {
         // const response = await axios.get('https://localhost:44384/api/Product');
-        const response = await axios.get('https://localhost:7072/api/Products/GetProducts');       
+        const response = await axios.get('https://localhost:44367/api/Products/GetProducts');       
         this.products = response.data;
       } catch (error) {
         console.error('Lỗi khi lấy sản phẩm:', error);
       }
     },
     displayProducts(){
-      axios.get('https://localhost:7072/api/Products/GetProducts')
+      axios.get('https://localhost:44367/api/Products/GetProducts')
             .then(response =>{
                 this.displayProduct = response.data;
                 console.log(this.displayProduct)

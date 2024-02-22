@@ -85,7 +85,7 @@
             <v-col cols="4">
                 <b style="font-size:18px">Thương hiệu</b>
                 <v-text-field
-                v-model="Product[0].trademask"
+                v-model="Product[0].trademark"
                 clearable
                 hide-details="auto"
                 label="Thương hiệu"
@@ -143,7 +143,7 @@
                 <v-row>
                     <v-col cols="12">
                         <v-img v-if="selectedImage" :src="selectedImage" ></v-img>
-                        <v-img v-else :src="'https://localhost:7072/images/' + Product[0].ImagerUrl" ></v-img>
+                        <v-img v-else :src="'https://localhost:44367/images/' + Product[0].ImagerUrl" ></v-img>
                     </v-col>
                     <v-col cols="12">
                         <v-file-input 
@@ -205,9 +205,21 @@ export default {
             selectedImage: null,
         }
     },
+    // computed: {
+    //     dialog: {
+    //         get() {
+    //             return this.dialogEdit;
+    //         },
+    //         set(value) {
+    //             if (!value) {
+    //                 this.$emit('close');
+    //             }
+    //         }
+    //     }
+    // },
     methods:{
         getProduct(){
-                axios.get('https://localhost:7072/api/Products/GetProductstoID?newproductsID='+this.id)
+                axios.get('https://localhost:44367/api/Products/GetProductstoID?newproductsID='+this.id)
                 .then(response=>{
                     
                     this.Product = response.data
@@ -219,7 +231,7 @@ export default {
 
         },
         getCategory(){
-            axios.get('https://localhost:7072/api/Categorys/Categorys')
+            axios.get('https://localhost:44367/api/Categorys/Categorys')
             .then(response=>{
                     
                 this.Category = response.data
@@ -231,7 +243,7 @@ export default {
         },
         
         updateProduct(){
-            axios.put('https://localhost:7072/api/Products/UpdateProducts?newProductsId='+this.Product[0].ProductsId+'&newProductsName='+this.Product[0].ProductsName+'&newQuatity='+this.Product[0].Quatity+'&newPrice='+this.Product[0].Price+'&newProductsDescription='+this.Product[0].ProductsDescription+'&newCategoryId='+this.Product[0].CategoryId+'&newpromotion='+this.Product[0].promotion+'&neworigin='+this.Product[0].origin+'&newwarranty='+this.Product[0].warranty+'&trademask='+this.Product[0].trademask+'&Screen='+this.Product[0].Screen+'&Graphicscard='+this.Product[0].Graphicscard+'&operatingsystem='+this.Product[0].operatingsystem+'&Cpuname='+this.Product[0].Cpuname)
+            axios.put('https://localhost:44367/api/Products/UpdateProducts?newProductsId='+this.Product[0].ProductsId+'&newProductsName='+this.Product[0].ProductsName+'&newQuatity='+this.Product[0].Quatity+'&newPrice='+this.Product[0].Price+'&newProductsDescription='+this.Product[0].ProductsDescription+'&newCategoryId='+this.Product[0].CategoryId+'&newpromotion='+this.Product[0].promotion+'&neworigin='+this.Product[0].origin+'&newwarranty='+this.Product[0].warranty+'&trademask='+this.Product[0].trademask+'&Screen='+this.Product[0].Screen+'&Graphicscard='+this.Product[0].Graphicscard+'&operatingsystem='+this.Product[0].operatingsystem+'&Cpuname='+this.Product[0].Cpuname)
             .then(response => {
                 console.log('update',response.data)
                 if(this.selectedFile){
@@ -267,7 +279,7 @@ export default {
             
             formData.append('files', this.selectedFile);
             console.log('dataImg', formData)
-            axios.put('https://localhost:7072/api/Products/UpdateImage?ProductId='+productId,formData)
+            axios.put('https://localhost:44367/api/Products/UpdateImage?ProductId='+productId,formData)
             .then(response => {
                 console.log('updateImgOk',response.data)
                 alert("Cập nhật sản phẩm thành công!")

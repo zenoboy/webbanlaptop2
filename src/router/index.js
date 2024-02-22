@@ -200,7 +200,12 @@ const routes = [
     name: 'LoginAdmin',
     component: LoginAdmin
   },
+  {
+    path: '/test1',
+    name: 'test1',
 
+    component: () => import( '../views/test1.vue')
+  },
 
 ]
 

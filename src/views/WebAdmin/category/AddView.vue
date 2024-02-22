@@ -58,7 +58,7 @@ export default {
                 newCategorysName: this.data.categoryName
             };
 
-            axios.post('https://localhost:7072/api/Categorys/PostCategorys', null, { params: postData })
+            axios.post('https://localhost:44367/api/Categorys/PostCategorys', null, { params: postData })
                 .then(response => {
                     this.$emit('close');
                     this.$emit('updateData');

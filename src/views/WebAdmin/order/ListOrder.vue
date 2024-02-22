@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <side-bar-admin-1/>
     <top-bar-admin-1/>
@@ -65,41 +66,67 @@
     
     
   </div>
+
 </template>
 
 <script>
 import SideBarAdmin1 from '@/components/SideBarAdmin1.vue';
-import TopBarAdmin1 from '@/components/TopBarAdmin1.vue'
+import TopBarAdmin1 from '@/components/TopBarAdmin1.vue';
 import axios from 'axios';
 import OrderDetail from './OrderDetail';
+
 export default {
     components: { SideBarAdmin1, TopBarAdmin1, OrderDetail },
-    name:'List_Order',
+    name: 'List_Order',
     data() {
         return {
-            Order:null,
-            dialogDetail:false,
-            id: ''
-        }
+            Order: [],
+            dialogDetail: false,
+            id: '',
+            items: [
+                { id:1, title: 'Chờ xác nhận' },
+                { id:2,title: 'Chờ Giao Hàng' },
+                { id:3,title: 'Đã giao hàng' },
+                { id:4,title: 'Đã hủy' },
+            ],
+            filteredOrder: [],
+            orderStatusOptions: ['Chờ xác nhận', 'Chờ giao hàng', 'Đã giao hàng', 'Đã hủy'],
+        };
     },
-    methods:{
-        getOrder(){
-            axios.get('https://localhost:7072/api/OrderProduct_/GetOrderProduct')
-                .then(response =>{
-                    this.Order = response.data,
-                    console.log('order', this.Order)
+    methods: {
+        getOrder() {
+            axios.get('https://localhost:44367/api/OrderProduct_/GetOrderProduct')
+                .then(response => {
+                    this.Order = response.data;
+                    this.filteredOrder = response.data;
+                    console.log('order', this.Order);
                 })
-                .catch(error =>{
-                        console.log(error);
-                    })
-        }
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        filterByStatus(status) {
+            // Gọi API để lấy danh sách đơn hàng dựa trên trạng thái đã chọn
+            axios.get(`https://localhost:44367/api/OrderProduct_/GetOrderByStatus?status=${status}`)
+            
+                .then(response => {
+                    this.filteredOrder = response.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        },
+        showAllOrders() {
+            // Gọi lại phương thức getOrder để hiển thị toàn bộ danh sách đơn hàng
+            this.filteredOrder = this.Order;
+        },
     },
-    created(){
+
+    created() {
         this.getOrder();
-    }
-}
+    },
+};
 </script>
 
 <style>
-
 </style>

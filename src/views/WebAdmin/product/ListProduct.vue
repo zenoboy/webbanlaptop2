@@ -39,7 +39,7 @@
                         <td>{{ item.ProductsId }}</td>
                             <!-- Thêm thành phần v-img để hiển thị ảnh -->
                       <td>
-                          <v-img :src="'https://localhost:7072/images/' + item.ImagerUrl" alt="Hình ảnh sản phẩm"></v-img>
+                          <v-img :src="'https://localhost:44367/images/' + item.ImagerUrl" alt="Hình ảnh sản phẩm"></v-img>
                       </td>
                         <td>{{ item.ProductsName }}</td>
                         <td>{{ item.ProductsDescription }}</td>
@@ -162,7 +162,7 @@ import TopBarAdmin1 from '@/components/TopBarAdmin1.vue';
       },
       methods: {
           getProducts() {
-              axios.get('https://localhost:7072/api/Products/GetProducts')
+              axios.get('https://localhost:44367/api/Products/GetProducts')
                   .then(response => {
                   this.products = response.data;
   
@@ -176,7 +176,7 @@ import TopBarAdmin1 from '@/components/TopBarAdmin1.vue';
                 },
   
           deleteProduct() {
-              axios.delete('https://localhost:7072/api/Products/DeleteProducts?NewProductsId='+this.productId)
+              axios.delete('https://localhost:44367/api/Products/DeleteProducts?NewProductsId='+this.productId)
                   .then(response => {
                   var newArr = this.products.filter(x => x.ProductsId != this.productId);
                   this.products = newArr;

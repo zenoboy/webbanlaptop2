@@ -14,7 +14,7 @@
                     <v-row >
                         <v-col align="center" justify="center">
                             <v-img
-                            :src="'https://localhost:7072/images/' + product[0].ImagerUrl"
+                            :src="'https://localhost:44367/images/' + product[0].ImagerUrl"
                             height="125"
                             width="125"
                             cover
@@ -73,7 +73,7 @@ export default {
             this.Review.newProductsID = this.product[0].ProductsId
             this.Review.UsersId = localStorage.getItem('userId')
             console.log(this.Review)
-            axios.post("https://localhost:7072/api/Review/PostReviews?newUserID="+this.Review.UsersId+"&newProductsID="+this.Review.newProductsID+"&newComment="+this.Review.newComment+"&newRating="+this.Review.newRating+"&UserName="+this.Review.UserName)
+            axios.post("https://localhost:44367/api/Review/PostReviews?newUserID="+this.Review.UsersId+"&newProductsID="+this.Review.newProductsID+"&newComment="+this.Review.newComment+"&newRating="+this.Review.newRating+"&UserName="+this.Review.UserName)
             .then(response =>{
                   this.$emit('close');
                   this.$emit('updateData');

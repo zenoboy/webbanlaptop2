@@ -28,7 +28,7 @@
                             <div>
                                 <img
                                 
-                                :src="'https://localhost:7072/images/' + item.ImagerUrl"
+                                :src="'https://localhost:44367/images/' + item.ImagerUrl"
                                 class="img-fluid rounded-3" alt="Shopping item" style="width: 100px;">
                             </div>
                             <div class="ms-3">

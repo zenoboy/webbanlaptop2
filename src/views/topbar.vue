@@ -18,7 +18,7 @@
                   <v-col v-for="result in searchResults" :key="result.ProductsId" cols="12" sm="6" md="4" lg="3">
                     <v-card>
                       <!-- Display your product details here -->
-                      <v-img :src="'https://localhost:7072' + result.ImagerUrl" height="200"
+                      <v-img :src="'https://localhost:44367' + result.ImagerUrl" height="200"
                         @error="handleImageError(result)"></v-img>
                       <v-card-title>{{ result.ProductsName }}</v-card-title>
                       <v-card-subtitle>{{ result.Price }}</v-card-subtitle>
@@ -119,7 +119,7 @@
       // lấy tên danh mục
       async fetchCategoryNames() {
         try {
-          const response = await axios.get('https://localhost:7072/api/Categorys/Categorys');
+          const response = await axios.get('https://localhost:44367/api/Categorys/Categorys');
           if (response.data && response.data.length > 0) {
             this.categoryNames = response.data.map(category => category.CategoryName);
           } else {
@@ -133,7 +133,7 @@
   
       async fetchSearchResults() {
         try {
-          const response = await axios.get(`https://localhost:7072/api/Products/SearchProducts?keyword=${this.search}`);
+          const response = await axios.get(`https://localhost:44367/api/Products/SearchProducts?keyword=${this.search}`);
           if (response.data && response.data.length > 0) {
             this.searchResults = response.data;
           } else {

@@ -99,7 +99,6 @@
                                     <v-row>
                                         <v-col cols="12">
                                             <v-img v-if="selectedImage" :src="selectedImage" ></v-img>
-                                            <!-- <v-img v-else :src="'https://localhost:7072/images/' + Product[0].ImagerUrl" ></v-img> -->
                                         </v-col>
                                         <v-col cols="12">
                                             <v-file-input 
@@ -137,7 +136,7 @@
                         @click="addProduct"
                     >Lưu</v-btn>
                 </v-card-actions>
-            </v-card>
+            </v-card> 
         </v-dialog>
     </div>
 </template>
@@ -173,7 +172,14 @@ export default {
         };
     },
     methods: {
+        handleFileChange() {
+        // Access the selected files using $refs
+        const files = this.$refs.fileInput.files;
+        // Store the selected files in data.ImagerUrl
+        this.data.ImagerUrl = files;
+        },
         addProduct() {
+
             const formData = new FormData(); 
             formData.append('files', this.selectedFile);
         
@@ -194,7 +200,7 @@ export default {
             };
 
             
-        axios.post('https://localhost:7072/api/Products/PostProducts', formData, { params: postData })
+        axios.post('https://localhost:44367/api/Products/PostProducts', formData, { params: postData })
         .then(response => {
             this.$emit('close');
             this.$emit('updateData');
@@ -208,7 +214,7 @@ export default {
         });
         },
         getCategory(){
-            axios.get('https://localhost:7072/api/Categorys/Categorys')
+            axios.get('https://localhost:44367/api/Categorys/Categorys')
             .then(response =>{
                 this.Category = response.data
                 console.log('ok', this.Category)

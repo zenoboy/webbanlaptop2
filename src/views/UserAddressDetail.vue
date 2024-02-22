@@ -53,16 +53,23 @@
       </v-navigation-drawer>
       <v-main>
         <v-container>
-
+          <div w="auto">
             <v-card-title> Tạo địa chỉ </v-card-title>
             <v-card-text>
               <v-row class="mx-auto">
-                <v-col cols="12" sm="12" md="6">
-                  <v-text-field label="Họ và tên" v-model="name"></v-text-field>
-                  <v-text-field
-                    label="Số điện thoại"
-                    v-model="phone"
-                  ></v-text-field>
+                <v-col cols="12" >
+                  <v-text-field 
+                  label="Họ và tên" 
+                  v-model="name" 
+                  required 
+                  outlined 
+                  />
+                  <v-text-field 
+                  v-model="userAddress.phone" 
+                  label="Số điện thoại" 
+                  outlined
+                  @input="sanitizePhoneNumberUserAddress"
+                  />
                   <div>
                     <select v-model="selectedDistrict">
                       <option
@@ -147,26 +154,32 @@
                           <v-radio
                             label="Nhà Riêng/Chung Cư"
                             color="#425C5A"
+                            value="home"
                           ></v-radio>
                           <v-radio
                             label="Cơ Quan/ Công ty"
                             color="#425C5A"
+                            value="office"
                           ></v-radio>
                         </v-radio-group>
                       </div>
                     </v-col>
                   </v-inline>
-                  <v-checkbox
-                    label="Đặt làm địa chỉ mặc định"
-                    v-model="userAddress.defaultAddress"
-                  ></v-checkbox>
                 </v-col>
               </v-row>
             </v-card-text>
-            <v-card-actions>
-              <v-btn color="primary" @click="addAddress">Thêm địa chỉ</v-btn>
-            </v-card-actions>
-
+            <div class="button" >
+        <v-btn
+          color="red"
+          dark
+          @click="updateAddress"
+          class="mx-auto"
+        >
+          <span class="justify-center text-center" style="position: relative;
+                                     bottom: 2px;" >Cập nhật</span>
+        </v-btn>
+      </div>
+          </div>
         </v-container>
       </v-main>
     </v-app>
@@ -188,6 +201,10 @@ export default {
   },
   data() {
     return {
+      userAddress: {
+        defaultAddress: false,
+    },
+      selectedAddressType: "home",
       drawer: ref(null),
       links: [
         {
@@ -225,6 +242,23 @@ export default {
     this.fetchProvinces();
   },
   methods: {
+    sanitizePhoneNumberUserAddress() {
+      this.userAddress.phone = this.userAddress.phone.replace(/\D/g, "");
+    },
+    navigateTo(route) {
+    console.log("Route to navigate:", route);
+    this.$router
+      .push(route)
+      .catch((err) => console.error("Navigation error:", err));
+  },
+  changeTab(index) {
+    this.selectedTab = index;
+  },
+  goToHomePage() {
+    this.$router
+      .push("/")
+      .catch((err) => console.error("Navigation error:", err));
+  },
     getProvinces() {
       axios
         .get("https://provinces.open-api.vn/api/")
@@ -270,20 +304,6 @@ export default {
   mounted() {
     this.getProvinces();
   },
-  navigateTo(route) {
-    console.log("Route to navigate:", route);
-    this.$router
-      .push(route)
-      .catch((err) => console.error("Navigation error:", err));
-  },
-  changeTab(index) {
-    this.selectedTab = index;
-  },
-  goToHomePage() {
-    this.$router
-      .push("/")
-      .catch((err) => console.error("Navigation error:", err));
-  },
   watch: {
     selectedCity: function (newVal, oldVal) {
       console.log("Giá trị mới:", newVal);
@@ -303,4 +323,12 @@ export default {
   },
 };
 </script> 
-  
+<style scoped>
+  .button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+</style>
