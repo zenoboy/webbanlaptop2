@@ -9,6 +9,8 @@ import CheckoutView from '../views/CheckoutView.vue'
 import ProductEdit from '../views/WebAdmin/product/ProductEdit.vue'
 import ListOrder from '../views/WebAdmin/order/ListOrder.vue'
 import ListUser from '../views/WebAdmin/user/ListUser.vue'
+import ListInfo from '../views/WebAdmin/Profile/ListInfo.vue'
+import LoginAdmin from '../views/WebAdmin/LoginAdmin.vue'
 // import SearchResults from '@/views/SearchResults.vue';
 
 // import CheckoutView from '../views/CheckoutView.vue'
@@ -83,7 +85,7 @@ const routes = [
   {
     path: '/admin',
     name: 'admin',
-
+    meta: { requiresAuth: true }, // Đánh dấu route cần yêu cầu đăng nhập
     component: () => import( '../views/WebAdmin/admin.vue')
   },
   {
@@ -100,11 +102,13 @@ const routes = [
   {
     path: '/admin/list-category',
     name: 'ListCategory',
-    component: ListCategory
+    component: ListCategory,
+    meta: { requiresAuth: true } // Đánh dấu route cần yêu cầu đăng nhập
   },
   {
     path:'/admin/list-product',
     name:'list-product',
+    meta: { requiresAuth: true }, // Đánh dấu route cần yêu cầu đăng nhập
     component:()=>import('../views/WebAdmin/product/ListProduct.vue')
   },
   {
@@ -162,9 +166,10 @@ const routes = [
     component: CheckoutView
   },
   {
-    path: '/dashboard',
+    path: '/admin/dashboard',
     name: 'dashboard',
-    component: Dashboard
+    component: Dashboard,
+    meta: { requiresAuth: true } // Đánh dấu route cần yêu cầu đăng nhập
   },
   {
     path: '/edit-product/:id',
@@ -175,12 +180,25 @@ const routes = [
   {
     path: '/admin/list-order',
     name: 'ListOrder',
-    component: ListOrder
+    component: ListOrder,
+    meta: { requiresAuth: true } // Đánh dấu route cần yêu cầu đăng nhập
   },
   {
     path: '/admin/list-user',
     name: 'ListUser',
-    component: ListUser
+    component: ListUser,
+    meta: { requiresAuth: true } // Đánh dấu route cần yêu cầu đăng nhập
+  },
+  {
+    path: '/admin/info',
+    name: 'ListInfo',
+    component: ListInfo,
+    meta: { requiresAuth: true } // Đánh dấu route cần yêu cầu đăng nhập
+  },
+  {
+    path: '/admin/login',
+    name: 'LoginAdmin',
+    component: LoginAdmin
   },
 
 
@@ -189,6 +207,18 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+// Định nghĩa route guard để kiểm tra xem người dùng đã đăng nhập hay chưa
+router.beforeEach((to, from, next) => {
+  const loggedInUser = JSON.parse(sessionStorage.getItem('admin')) // hoặc sessionStorage
+  if (to.meta.requiresAuth && !loggedInUser) {
+    // Nếu route yêu cầu đăng nhập và người dùng chưa đăng nhập, chuyển hướng đến trang đăng nhập
+    next('/admin/login')
+  } else {
+    // Nếu người dùng đã đăng nhập hoặc route không yêu cầu đăng nhập, tiếp tục
+    next()
+  }
 })
 
 export default router

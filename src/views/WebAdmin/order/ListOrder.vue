@@ -27,7 +27,7 @@
                             <th>Số điện thoại</th>
                             <th>Ngày đặt hàng</th>
                             <th>Địa chỉ</th>
-                            <th>Tổng tiền</th>
+                            
                             <th>Tình trạng </th>
                             <th>Chức năng</th>
                         </tr>
@@ -40,7 +40,7 @@
                             <td>{{ item.UserPhone }}</td>
                             <td>{{ item.OrderDate }}</td>
                             <td>{{ item.city }}</td>
-                            <td>{{ item.Price }}</td>
+                            
                             <td>{{ item.OrderStatus }}</td>
                             <td>
                                 <v-btn

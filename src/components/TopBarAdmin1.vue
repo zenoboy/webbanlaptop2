@@ -2,7 +2,7 @@
   <v-app-bar :elevation="2" color="blue">
     <v-app-bar-nav-icon ></v-app-bar-nav-icon>
     <v-spacer></v-spacer>
-    <v-toolbar-items>
+    <!-- <v-toolbar-items>
         <v-btn>Hire me</v-btn>
         <v-btn>Blog</v-btn>
         <v-btn>
@@ -21,13 +21,19 @@
             ></v-img>
             </v-avatar>
         </v-btn>
-    </v-toolbar-items>
+        <v-toolbar-title>Title</v-toolbar-title>
+    </v-toolbar-items> -->
+    <v-toolbar-title>Xin Chào: {{ this.fullname }} </v-toolbar-title>
   </v-app-bar>
 </template>
 
 <script>
 export default {
-
+    data(){
+        return{
+            fullname: (JSON.parse(sessionStorage.getItem('admin')).fullname)
+        }
+    }
 }
 </script>
 

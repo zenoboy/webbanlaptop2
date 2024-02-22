@@ -239,7 +239,7 @@ export default {
                 }
                 else{
                     alert("Cập nhật sản phẩm thành công!")
-                    this.$router.push('/list-product');
+                    this.$router.push('/admin/list-product');
                 }
                 
             })
@@ -271,7 +271,7 @@ export default {
             .then(response => {
                 console.log('updateImgOk',response.data)
                 alert("Cập nhật sản phẩm thành công!")
-                this.$router.push('/list-product');
+                this.$router.push('/admin/list-product');
 
             })
             .catch(error => {

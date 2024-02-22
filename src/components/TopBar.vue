@@ -130,7 +130,7 @@
         Phone: '',
         categories: [],
         search: '',
-        ten:localStorage.getItem('username'),
+        ten:sessionStorage.getItem('username'),
         laptopCategories: [
           { id: 1, name: 'Laptop Dell', icon: 'mdi-laptop' },
           { id: 2, name: 'Laptop Acer', icon: 'mdi-laptop' },
@@ -206,9 +206,9 @@
     },
   
     logout(){
-      localStorage.removeItem('token');
-      localStorage.removeItem('username');
-      localStorage.removeItem('userId')
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('username');
+      sessionStorage.removeItem('userId')
       this.isLoggedIn = false; // Nếu có biến dữ liệu này
        // Nếu có biến dữ liệu này
 
@@ -232,13 +232,13 @@
     computed:{
       isLoggedIn() {
       // Kiểm tra xem đã đăng nhập hay chưa
-      return !!localStorage.getItem('token');
+      return !!sessionStorage.getItem('token');
     },
     },
     created(){
-      console.log("token", localStorage.getItem('token'))
+      console.log("token", sessionStorage.getItem('token'))
       console.log("token", this.ten)
-      console.log("tokenID", localStorage.getItem('userId'))
+      console.log("tokenID", sessionStorage.getItem('userId'))
     }
   }
   </script>

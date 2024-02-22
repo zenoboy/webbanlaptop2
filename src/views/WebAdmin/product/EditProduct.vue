@@ -88,7 +88,7 @@ export default {
             console.log(this.data)
 
 
-    axios.put('https://localhost:44367/api/Products/'+this.data.ProductsId, this.data)
+    axios.put('https://localhost:7072/api/Products/'+this.data.ProductsId, this.data)
         .then(response => {
             this.$emit('close');
             // this.$emit('updateData');
@@ -130,7 +130,7 @@ export default {
             const formData = new FormData();
             formData.append('files', this.data.productimg);
 
-            axios.post('https://localhost:44367/api/Products/UploadImage', formData, {
+            axios.post('https://localhost:7072/api/Products/UploadImage', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

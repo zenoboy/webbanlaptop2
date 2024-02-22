@@ -5,8 +5,9 @@
     <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="448" rounded="lg">
       <div class="text-subtitle-1 text-medium-emphasis">Đăng kí</div>
 
-      <v-text-field v-model="newUserName" density="compact" placeholder="Tên đầy đủ" prepend-inner-icon="mdi mdi-account-edit" variant="outlined" ></v-text-field>
+      <v-text-field v-model="newUserName" density="compact" placeholder="Tài khoản" prepend-inner-icon="mdi mdi-account-edit" variant="outlined" ></v-text-field>
       <v-text-field v-model="newUserPassword" density="compact" placeholder="Mật khẩu" prepend-inner-icon="mdi mdi-lock-outline" :type="visible ? 'text' : 'password'" @click:append-inner="visible = !visible" variant="outlined"></v-text-field>
+      <v-text-field v-model="newFullName" density="compact" placeholder="Họ Và Tên" prepend-inner-icon="mdi mdi-phone" variant="outlined"></v-text-field>
       <v-text-field v-model="newUserPhone" density="compact" placeholder="Số điện thoại" prepend-inner-icon="mdi mdi-phone" variant="outlined"></v-text-field>
       <v-text-field v-model="newUserEmail" density="compact" placeholder="Email" prepend-inner-icon="mdi mdi-email-outline" variant="outlined"></v-text-field>
       <v-text-field v-model="newUserAddress" density="compact" placeholder="Địa chỉ" prepend-inner-icon="mdi mdi-map-marker" variant="outlined"></v-text-field>
@@ -36,6 +37,8 @@ data() {
     newUserPhone: '',
     newUserEmail: '',
     newUserAddress: '',
+    newFullName:'',
+    UserRole: 'users'
   };
 },
 methods: {
@@ -67,11 +70,13 @@ methods: {
       formData.append('newUserPhone', this.newUserPhone);
       formData.append('newUserEmail', this.newUserEmail);
       formData.append('newUserAddress', this.newUserAddress);
-      const response = await axios.post(`https://localhost:7072/api/Users/PostUsers?newUserName=${this.newUserName}&newUserPassword=${this.newUserPassword}&newUserPhone=${this.newUserPassword}&newUserEmail=${this.newUserEmail}&newUserAddress=${this.newUserAddress}`, formData);
+      formData.append('newFullName', this.newFullName);
+      formData.append('UserRole', this.UserRole)
+      const response = await axios.post(`https://localhost:7072/api/Users/PostUsers?newUserName=${this.newUserName}&newUserPassword=${this.newUserPassword}&newFullName=${this.newFullName}&newUserPhone=${this.newUserPhone}&newUserEmail=${this.newUserEmail}&newUserAddress=${this.newUserAddress}&UserRole=${this.UserRole}`, formData);
       console.log('Registration successful', response.data);
       // Optionally, you can navigate the user to another page upon successful registration
       alert("Đăng ký thành công");
-      this.$router.push('/users/login');
+      this.$router.push('/');
     } catch (error) {
       console.error('Registration failed', error);
     }
