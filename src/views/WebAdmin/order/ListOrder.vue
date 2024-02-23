@@ -52,7 +52,7 @@
                                 <td>{{ item.OrderDate }}</td>
                                 <td>{{ item.city }}</td>
                                 <td>{{ item.Price }}</td>
-                                <td>{{ item.OrderStatus }}</td>
+                                <td>{{ orderStatusOptions[item.OrderStatus - 1] }}</td>
                                 <td>
                                     <v-btn @click="dialogDetail = true, id = item.OrderID" color="success">
                                         Chi tiết
