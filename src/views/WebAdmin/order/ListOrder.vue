@@ -7,12 +7,29 @@
         <v-icon>mdi-home</v-icon>
         <h3 class="ml-2">Danh sách đơn hàng</h3>
         <v-spacer></v-spacer>
-        <v-btn icon 
+       
+        <!-- <v-btn icon 
         size="small"
         color="blue"
         @click="dialogAdd = true"
         > 
-        <v-icon>mdi-plus</v-icon></v-btn>
+        <v-icon>mdi-plus</v-icon></v-btn> -->
+        <v-btn class="mr-3" icon size="small" @click="showAllOrders"> <v-icon>mdi mdi-refresh</v-icon></v-btn>
+        <v-menu offset-y>
+                <template v-slot:activator="{ props }">
+                    <v-btn v-bind="props" color=""
+                    class="mr-3">
+                        Lọc danh sách
+                        <v-icon right>mdi-chevron-down</v-icon>
+                    </v-btn>
+                </template>
+                <v-list>
+                    <v-list-item v-for="(item, index) in items" :key="index" @click="filterByStatus(item.id)">
+                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
+
     </v-row>
     <v-row>
         <v-col>
@@ -34,7 +51,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(item, index) in Order" :key=index>
+                        <tr v-for="(item, index) in filteredOrder" :key=index>
                             <td>{{ index+1 }}</td>
                             <td>{{ item.OrderID }}</td>
                             <td>{{ item.UserName }}</td>
@@ -42,7 +59,7 @@
                             <td>{{ item.OrderDate }}</td>
                             <td>{{ item.city }}</td>
                             
-                            <td>{{ item.OrderStatus }}</td>
+                            <td>{{ orderStatusOptions[item.OrderStatus - 1] }}</td>
                             <td>
                                 <v-btn
                                     @click="dialogDetail = true,

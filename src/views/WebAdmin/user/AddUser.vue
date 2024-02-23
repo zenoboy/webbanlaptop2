@@ -91,8 +91,8 @@ export default {
     data(){
         return{
             Role:[
-                { id: 1, name: 'Super Admin'}, 
-                { id: 2, name: 'Admin'},
+                { id: 'super', name: 'Super Admin'}, 
+                { id: 'admin', name: 'Admin'},
             ],
             data:{
                 UserName: null,

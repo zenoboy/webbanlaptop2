@@ -1,5 +1,5 @@
 <template>
-    <v-footer class="">
+    <v-footer class="footer-bar">
     <v-row justify="center" no-gutters>
       <v-btn
         v-for="link in links"
@@ -34,6 +34,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.footer-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
 </style>

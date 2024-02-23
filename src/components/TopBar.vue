@@ -1,25 +1,27 @@
 <template>
     <div>
-      <v-app-bar :elevation="0" color="" class="">
+      <v-app-bar >
 
         <router-link to="/" class="text-decoration-none">
-        <h3 class="headline mb-0 text-red">DN Store</h3>
+          <v-app-bar-title style="color: red; font-weight: 800;" class="ml-10"> DN Store</v-app-bar-title>
       </router-link>
 
-        <v-spacer></v-spacer>
-        <v-btn>Dell</v-btn>
-        <v-btn>Acer</v-btn>
-        <v-btn>Asus</v-btn>
-        <v-btn>HP</v-btn>
-        <v-btn>Lenovo</v-btn>
+        
+        <v-btn  :to="{ name: 'CategoryPage', params: { id: 1 } }">Hp</v-btn>
+        <v-btn :to="{ name: 'CategoryPage', params: { id: 2 } }">Asus</v-btn>
+        <v-btn :to="{ name: 'CategoryPage', params: { id: 3 } }">Dell</v-btn>
+        <v-btn :to="{ name: 'CategoryPage', params: { id: 4 } }">Acer</v-btn>
+        <v-btn :to="{ name: 'CategoryPage', params: { id: 8 } }">Lenovo</v-btn>
 
         <v-card-text>
-      <v-text-field
+         
+      <v-text-field style="width: 450px;"
       v-model="search"
   :loading="loading"
-  :density="density"
-  :variant="variant"
+  density="compact"
+      variant="solo"
   label="Tìm kiếm sản phẩm"
+  
   append-inner-icon="mdi-magnify"
   single-line
   hide-details
@@ -32,6 +34,7 @@
   @click:append-inner="performSearch"
   @keyup.enter="performSearch"
       ></v-text-field>
+      <v-spacer></v-spacer>
     </v-card-text>
         
         <v-toolbar-items>
@@ -57,11 +60,37 @@
             <v-list-item link @click="logout">Đăng xuất</v-list-item>
           </v-list>
         </v-menu> -->
-  <v-container fluid>
+  <v-container fluid style="margin-right: 50px;">
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="4">
           <v-btn v-if="!isLoggedIn" color="primary" to="/login">Đăng nhập</v-btn>
-          <v-btn v-if="isLoggedIn" @click="logout">Xin chào, {{ten}} ! Đăng Xuất</v-btn>
+          <!-- <v-btn v-if="isLoggedIn" @click="logout">Xin chào, {{ten}} ! Đăng Xuất</v-btn> -->
+          <!-- <v-btn v-if="isLoggedIn" to="/ho-so">Xin chào, {{ten}} </v-btn> -->
+
+          <v-menu v-if="isLoggedIn">
+            <template v-slot:activator="{ props }">
+              <v-btn icon="mdi-dots-vertical" v-bind="props"></v-btn>
+            </template>
+
+            <v-list>
+              <v-list-item
+        v-for="(item, i) in items"
+        :key="i"
+        :value="item"
+        color="primary"
+        rounded="xl"
+        @click="handleItemClick(item)"
+      >
+        <template v-slot:prepend>
+          <v-icon :icon="item.icon"></v-icon>
+        </template>
+
+        <v-list-item-title >{{ item.text }}</v-list-item-title>
+        
+      </v-list-item >
+      
+            </v-list>
+          </v-menu>
           <!-- <v-dialog v-model="loginDialog" persistent max-width="600px">
             <v-card>
               <v-card-title class="headline">Đăng nhập</v-card-title>
@@ -141,9 +170,9 @@
         search: '',
         ten:sessionStorage.getItem('username'),
         laptopCategories: [
-          { id: 1, name: 'Laptop Dell', icon: 'mdi-laptop' },
-          { id: 2, name: 'Laptop Acer', icon: 'mdi-laptop' },
-          { id: 3, name: 'Laptop Asus', icon: 'mdi-laptop' },
+          { id: 1, name: 'Laptop HP', icon: 'mdi-laptop' },
+          { id: 2, name: 'Laptop Asus', icon: 'mdi-laptop' },
+          { id: 3, name: 'Laptop Dell', icon: 'mdi-laptop' },
           { id: 4, name: 'Laptop HP', icon: 'mdi-laptop' },
           { id: 5, name: 'Laptop Lenovo', icon: 'mdi-laptop' },
         ],
@@ -160,6 +189,11 @@
             id: 3,
             url: "https://hanoicomputercdn.com/media/banner/11_Nov7b239a58cc35a66d8b8b572522be1bef.jpg"
           }
+        ],
+        items:[
+          {id:1, text: 'Thông tin cá nhân', icon: '  mdi-account' },
+          { id:2,text: 'Đăng xuất', icon: 'mdi mdi-logout' },
+         
         ]
       }
     },
@@ -219,6 +253,18 @@
     },
     openRegisterDialog() {
       this.registerDialog = true;
+    },
+    handleItemClick(item) {
+      // Thực hiện hành động khi một mục được nhấp
+      console.log('Item clicked:', item.text);
+      if (item.id === 2) {
+        this.logout();
+        alert('Đã đăng xuất')
+        this.$router.push('/');
+      }
+      if(item.id === 1){
+        this.$router.push('/ho-so');
+      }
     },
   
     logout(){

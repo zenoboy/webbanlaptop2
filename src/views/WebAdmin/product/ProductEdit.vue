@@ -33,7 +33,7 @@
                 v-model="Product[0].Quatity"
                 clearable
                 hide-details="auto"
-                label="Tên sản phẩm"
+                label="Số lượng"
                 single-line
         
                 ></v-text-field>
@@ -44,7 +44,7 @@
                 v-model="Product[0].Price"
                 clearable
                 hide-details="auto"
-                label="Tên sản phẩm"
+                label="TGiá tiền"
                 single-line
         
                 ></v-text-field>
@@ -55,7 +55,7 @@
                 v-model="Product[0].promotion"
                 clearable
                 hide-details="auto"
-                label="Tên sản phẩm"
+                label="Khuyến mại"
                 single-line
         
                 ></v-text-field>
@@ -66,7 +66,7 @@
                 v-model="Product[0].origin"
                 clearable
                 hide-details="auto"
-                label="Tên sản phẩm"
+                label="Xuất xứ"
                 single-line
         
                 ></v-text-field>
@@ -77,7 +77,7 @@
                 v-model="Product[0].warranty"
                 clearable
                 hide-details="auto"
-                label="Tên sản phẩm"
+                label="Bảo hành"
                 single-line
         
                 ></v-text-field>
@@ -98,7 +98,7 @@
                 v-model="Product[0].Screen"
                 clearable
                 hide-details="auto"
-                label="Tên sản phẩm"
+                label="Thông số màn hình"
                 single-line
         
                 ></v-text-field>
@@ -109,7 +109,7 @@
                 v-model="Product[0].Graphicscard"
                 clearable
                 hide-details="auto"
-                label="Tên sản phẩm"
+                label="Card đồ họa"
                 single-line
         
                 ></v-text-field>
@@ -121,7 +121,7 @@
                 v-model="Product[0].operatingsystem"
                 clearable
                 hide-details="auto"
-                label="Tên sản phẩm"
+                label="Hệ điều hành"
                 single-line
         
                 ></v-text-field>
@@ -133,7 +133,7 @@
                 v-model="Product[0].Cpuname"
                 clearable
                 hide-details="auto"
-                label="Tên sản phẩm"
+                label="Tên CPU"
                 single-line
         
                 ></v-text-field>

@@ -12,11 +12,13 @@
       <v-btn block class="mb-8" color="blue" size="large" variant="tonal" @click="login" @keyup.enter="login">
         Log In
       </v-btn>
+      
       <v-card-text class="text-center">
-        <a class="text-blue text-decoration-none" href="/singup" rel="noopener noreferrer" target="_blank">
-          Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
-        </a>
-      </v-card-text>
+      <!-- Sử dụng router-link để tạo liên kết -->
+      <router-link class="text-blue text-decoration-none" to="/signup">
+        Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
+      </router-link>
+    </v-card-text>
     </v-card>
   </div>
 </template>

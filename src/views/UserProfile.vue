@@ -7,6 +7,7 @@
         app
         color="#425C5A"
         class="rounded-e-xl"
+        
       >
         <v-sheet color="#3D5654" class="pa-4 rounded-te-xl text-center">
           <v-progress-circular
@@ -45,8 +46,10 @@
                 <v-icon :icon="item.icon" color="#B49239"></v-icon>
               </template>
 
-              <v-list-item-title v-text="item.text"></v-list-item-title>
+              <v-list-item-title >{{ item.text }}</v-list-item-title>
+              
             </v-list-item>
+     
           </v-list-item-group>
         </v-list>
         <v-row justify="center" class="spacer ml-16 mt-4" no-gutters> </v-row>
@@ -54,40 +57,40 @@
 
       <v-main>
         <v-container>
-          <v-form ref="form" v-model="valid">
+          <v-form ref="form" v-if="user">
             <v-text-field 
-            v-model="name" 
+            v-model="user[0].FullName" 
             label="Họ tên" 
             required 
             outlined 
+            density="compact"
             />
             <v-text-field
-              v-model="phone"
+              v-model="user[0].UserPhone"
               label="Số điện thoại"
               outlined
               @input="sanitizePhoneNumber"
+              density="compact"
             />
             <v-text-field 
-            v-model="name" 
-            label="Mật Khẩu" 
+            v-model="user[0].UserEmail" 
+            label="Email" 
             required 
             outlined 
+            density="compact"
             />
             <v-text-field 
-            v-model="email" 
-            label="Email" 
-            outlined />
-            <v-row v-if="user && user.length > 0">
-              <v-col v-for="(item, index) in user" :key="index">
-                {{ item.usersId }} - {{ item.usersName }} - {{ item.userEmail }} - {{ item.userPhone }} - {{ item.userPassword }}
-              </v-col>
-            </v-row>
-              <v-btn color="#B49239" type="submit" v-if="valid">Cập nhật</v-btn>
+            v-model="user[0].UserAddress" 
+            label="Địa Chỉ" 
+            outlined
+            density="compact" />
+            
+              <v-btn color="#B49239" @click="updateProfile">Cập nhật</v-btn>
           </v-form>
         </v-container>
       </v-main>
     </v-app>
-    <footer-bar />
+    <!-- <footer-bar /> -->
   </div>
 </template>
   
@@ -112,24 +115,23 @@ export default {
           icon: "mdi mdi-account-box-multiple",
           route: "./ho-so",
         },
-        { text: "Địa Chỉ", icon: "mdi mdi-map-marker", route: "./dia-chi" },
+
         {
           text: "Đơn Hàng Của Tôi",
           icon: "mdi mdi-shopping",
           route: "./don-hang",
         },
-        { text: "Đăng Xuất", icon: "mdi mdi-logout", route: "./login" },
+
       ],
-      user: [],
+      user:null,
       drawer: ref(null),
       name: "",
       phone: "",
       email: "",
-      password:"",
       address: "",
-      province: "",
-      district: "",
       valid: true,
+      userId: sessionStorage.getItem('userId'),
+      // userId: 1
     };
   },
   mounted() {
@@ -138,24 +140,47 @@ export default {
 
   methods: {
     getUserProfile() {
-  axios.get('https://localhost:7182/api/Categories')
-    .then(response => {
-      this.categories = response.data;
-    })
-    .catch(error => {
-      console.log(error);
-    });
-},
-created() {
-  this.getUserProfile();
-},
-    sanitizePhoneNumber() {
-      this.phone = this.phone.replace(/\D/g, "");
+      axios.get('https://localhost:44367/api/Users/GetUserById?userId='+this.userId)
+        .then(response => {
+          this.user = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    updateProfile(){
+      const data={
+        userId: this.userId,
+        FullName: this.user[0].FullName,
+        Phone: this.user[0].UserPhone,
+        Email: this.user[0].UserEmail,
+        Address: this.user[0].UserAddress
+      }
+      axios.put('https://localhost:44367/api/Users/UpdateInfo', null, {params: data})
+        .then(response=>{
+          this.information = response.data
+          this.$emit('updateData')
+          alert('Cập nhật thành công')
+          this.$emit('close');
+        })
+        .catch(error=>{
+          console.log(error)
+        })
     },
     navigateTo(route) {
       console.log(this.$router);
       this.$router.push(route);
     },
+    logout(){
+      alert('àdf')
+    }
   },
+  created() {
+  this.getUserProfile();
+},
+    sanitizePhoneNumber() {
+      this.phone = this.phone.replace(/\D/g, "");
+    },
+    
 };
 </script>

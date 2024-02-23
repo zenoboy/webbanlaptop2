@@ -11,6 +11,8 @@ import ListOrder from '../views/WebAdmin/order/ListOrder.vue'
 import ListUser from '../views/WebAdmin/user/ListUser.vue'
 import ListInfo from '../views/WebAdmin/Profile/ListInfo.vue'
 import LoginAdmin from '../views/WebAdmin/LoginAdmin.vue'
+import CategoryPage from '../views/CategoryPage.vue'
+import MyProfile from '../views/MyProfile.vue'
 // import SearchResults from '@/views/SearchResults.vue';
 
 // import CheckoutView from '../views/CheckoutView.vue'
@@ -29,8 +31,8 @@ const routes = [
     component:()=> import('../components/SideBarAdmin1.vue')
   },
   {
-    path:'/singup',
-    path:'/singup',
+    path:'/signup',
+    name:'signup',
     component:()=> import('../views/Register.vue')
   },
   {
@@ -206,7 +208,17 @@ const routes = [
 
     component: () => import( '../views/test1.vue')
   },
-
+  {
+    path: '/:id',
+    name: 'CategoryPage',
+    component: CategoryPage,
+    props: true
+  },
+  {
+    path: '/my-profile',
+    name: 'MyProfile',
+    component: MyProfile
+  }
 ]
 
 const router = createRouter({
