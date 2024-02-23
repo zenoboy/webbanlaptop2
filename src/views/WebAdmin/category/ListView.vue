@@ -127,6 +127,7 @@ methods: {
         axios.get('https://localhost:44367/api/Categorys/Categorys')
             .then(response => {
                 this.categories = response.data;
+                console.log('category', this.categories)
             })
             .catch(error => {
                 console.log(error);
@@ -134,11 +135,9 @@ methods: {
     },
     deleteCategory(){
         if (this.CategoryId){
-        axios.delete('https://localhost:44367/api/Categorys/DeleteCategory' ,null, {
-            params: {
-                NewCategoryId: this.CategoryId
-            }
-        })    
+
+        axios.delete('https://localhost:44367/api/Categorys/DeleteCategory?NewCategoryId='+this.CategoryId)    
+
         .then(response=>{
             var newArr = this.categories.filter(x=>x.CategoryId !=this.CategoryId);
             this.categories = newArr;

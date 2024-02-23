@@ -79,7 +79,7 @@ export default {
             axios.put('https://localhost:44367/api/Categorys/UpdateCategory', null, {params : newCategory})
                 .then(response =>{
                     console.log('update',response.data);
-                    alert("Cập nhật sản phẩm thành công!")
+                    alert("Cập nhật danh mục thành công!")
                     this.$emit('updateData');
                     // Quay trở lại trang trước
                     this.$emit('close');

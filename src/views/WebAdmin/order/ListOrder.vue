@@ -1,16 +1,21 @@
 <template>
-    <div>
-        <side-bar-admin-1/>
-        <top-bar-admin-1/>
-        <v-row class="mt-2">
-            <v-icon></v-icon>
-            <h3 class="ml-2">Danh sách đơn hàng</h3>
-            <v-spacer></v-spacer>
-            <v-btn class="mr-3" icon size="small"  @click="showAllOrders">
-                <v-icon>mdi mdi-refresh</v-icon>
-            </v-btn>
-            <!-- <v-spacer></v-spacer> -->
-            <v-menu offset-y>
+
+  <div>
+    <side-bar-admin-1/>
+    <top-bar-admin-1/>
+    <v-row class="mt-2">
+        <v-icon>mdi-home</v-icon>
+        <h3 class="ml-2">Danh sách đơn hàng</h3>
+        <v-spacer></v-spacer>
+       
+        <!-- <v-btn icon 
+        size="small"
+        color="blue"
+        @click="dialogAdd = true"
+        > 
+        <v-icon>mdi-plus</v-icon></v-btn> -->
+        <v-btn class="mr-3" icon size="small" @click="showAllOrders"> <v-icon>mdi mdi-refresh</v-icon></v-btn>
+        <v-menu offset-y>
                 <template v-slot:activator="{ props }">
                     <v-btn v-bind="props" color=""
                     class="mr-3">
@@ -24,6 +29,7 @@
                     </v-list-item>
                 </v-list>
             </v-menu>
+
         </v-row>
         <v-row>
             <v-col>

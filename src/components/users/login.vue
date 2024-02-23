@@ -12,11 +12,13 @@
       <v-btn block class="mb-8" color="blue" size="large" variant="tonal" @click="login" @keyup.enter="login">
         Log In
       </v-btn>
+      
       <v-card-text class="text-center">
-        <a class="text-blue text-decoration-none" href="/singup" rel="noopener noreferrer" target="_blank">
-          Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
-        </a>
-      </v-card-text>
+      <!-- Sử dụng router-link để tạo liên kết -->
+      <router-link class="text-blue text-decoration-none" to="/signup">
+        Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
+      </router-link>
+    </v-card-text>
     </v-card>
   </div>
 </template>
@@ -54,10 +56,10 @@ export default {
         //alert(Role);
       
 
-        localStorage.setItem('token', JSON.stringify(Token))
-        localStorage.setItem('username', this.username)
+        sessionStorage.setItem('token', JSON.stringify(Token))
+        sessionStorage.setItem('username', this.username)
         
-        localStorage.setItem('userId', UserId)
+        sessionStorage.setItem('userId', UserId)
 
 
         // console.log("userID", UserId)
