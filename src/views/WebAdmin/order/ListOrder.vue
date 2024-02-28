@@ -30,60 +30,48 @@
                 </v-list>
             </v-menu>
 
-    </v-row>
-    <v-row>
-        <v-col>
-            <v-card>
-                <v-table
-                fixed-header
-                height="550px">
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Mã đơn hàng</th>
-                            <th>Họ tên người đặt</th>
-                            <th>Số điện thoại</th>
-                            <th>Ngày đặt hàng</th>
-                            <th>Địa chỉ</th>
-                            
-                            <th>Tình trạng </th>
-                            <th>Chức năng</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(item, index) in filteredOrder" :key=index>
-                            <td>{{ index+1 }}</td>
-                            <td>{{ item.OrderID }}</td>
-                            <td>{{ item.UserName }}</td>
-                            <td>{{ item.UserPhone }}</td>
-                            <td>{{ item.OrderDate }}</td>
-                            <td>{{ item.city }}</td>
-                            
-                            <td>{{ orderStatusOptions[item.OrderStatus - 1] }}</td>
-                            <td>
-                                <v-btn
-                                    @click="dialogDetail = true,
-                                            id = item.OrderID"
-                                    color="success"
-                                >Chi tiết</v-btn>
-                            </td>
-                        </tr>
-                    </tbody>
-                </v-table>
-            </v-card>
-        </v-col>
-    </v-row>
-
-    <order-detail
-        :dialogDetail = "dialogDetail"
-        :id = "id"
-        @close="dialogDetail=false"
-        @updateData="getOrder"
-    />
-    
-    
-  </div>
-
+        </v-row>
+        <v-row>
+            <v-col>
+                <v-card>
+                    <v-table dense dark>
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Mã đơn hàng</th>
+                                <th>Họ tên người đặt</th>
+                                <th>Số điện thoại</th>
+                                <th>Ngày đặt hàng</th>
+                                <th>Địa chỉ</th>
+                                <th>Tổng tiền</th>
+                                <th>Tình trạng</th>
+                                <th>Chức năng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <!-- Hiển thị dữ liệu đã được lọc -->
+                                <tr v-for="(item, index) in filteredOrder" :key="index">
+                                <td>{{ index + 1 }}</td>
+                                <td>{{ item.OrderID }}</td>
+                                <td>{{ item.UserName }}</td>
+                                <td>{{ item.UserPhone }}</td>
+                                <td>{{ item.OrderDate }}</td>
+                                <td>{{ item.city }}</td>
+                                <td>{{ item.Price }}</td>
+                                <td>{{ orderStatusOptions[item.OrderStatus - 1] }}</td>
+                                <td>
+                                    <v-btn @click="dialogDetail = true, id = item.OrderID" color="success">
+                                        Chi tiết
+                                    </v-btn>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </v-table>
+                </v-card>
+            </v-col>
+        </v-row>
+        <order-detail :dialogDetail="dialogDetail" :id="id" @close="dialogDetail=false" @updateData="getOrder" />
+    </div>
 </template>
 
 <script>
