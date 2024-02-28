@@ -7,7 +7,7 @@
       </router-link>
 
         
-        <v-btn  :to="{ name: 'CategoryPage', params: { id: 1 } }">Hp</v-btn>
+        <v-btn :to="{ name: 'CategoryPage', params: { id: 1 } }">Hp</v-btn>
         <v-btn :to="{ name: 'CategoryPage', params: { id: 2 } }">Asus</v-btn>
         <v-btn :to="{ name: 'CategoryPage', params: { id: 3 } }">Dell</v-btn>
         <v-btn :to="{ name: 'CategoryPage', params: { id: 4 } }">Acer</v-btn>
@@ -39,9 +39,9 @@
         
         <v-toolbar-items>
           <!-- cart -->
-          <v-btn @click="goToCartPage" >
+          <v-btn icon="mdi mdi-cart-outline" @click="goToCartPage" >
             <v-badge  :content= "$store.state.cart.length" color="red">
-              <v-icon>mdi mdi-cart-outline</v-icon>
+              <v-icon  size="large">mdi mdi-cart-outline</v-icon>
             </v-badge>
                 
           </v-btn>

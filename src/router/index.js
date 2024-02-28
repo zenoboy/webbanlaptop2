@@ -209,7 +209,7 @@ const routes = [
     component: () => import( '../views/test1.vue')
   },
   {
-    path: '/:id',
+    path: '/category/:id',
     name: 'CategoryPage',
     component: CategoryPage,
     props: true
@@ -218,7 +218,13 @@ const routes = [
     path: '/my-profile',
     name: 'MyProfile',
     component: MyProfile
-  }
+  },
+  {
+    path: '/CKEditor',
+    name: 'CKEditor',
+
+    component: () => import( '../views/CKEditor.vue')
+  },
 ]
 
 const router = createRouter({

@@ -207,7 +207,7 @@ export default {
             console.log(response.status);
             alert("Thêm sản phẩm thành công!")
             // Quay trở lại trang trước
-            this.$emit('close');
+        
         })
         .catch(error => {
             console.log(error);

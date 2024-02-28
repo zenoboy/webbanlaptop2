@@ -108,7 +108,7 @@
             if(this.$store.state.cart.length === 0 ){
                 alert("Chưa có sản phẩm nào trong giỏ hàng!!!")
             }
-            if(!localStorage.getItem('token')){
+            if(!sessionStorage.getItem('token')){
                 alert("Bạn chưa đăng nhập!")
             }
             else{

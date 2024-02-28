@@ -179,7 +179,7 @@
                 <v-btn style="margin-right:20px; margin-left:40px"
                     size="large"
                     color="primary"
-                    @click="this.$emit('close')"
+                   :to="{ name: 'list-product' } " 
                 >Hủy</v-btn>
         </v-row>
         
@@ -205,18 +205,18 @@ export default {
             selectedImage: null,
         }
     },
-    // computed: {
-    //     dialog: {
-    //         get() {
-    //             return this.dialogEdit;
-    //         },
-    //         set(value) {
-    //             if (!value) {
-    //                 this.$emit('close');
-    //             }
-    //         }
-    //     }
-    // },
+    computed: {
+        dialog: {
+            get() {
+                return this.dialogEdit;
+            },
+            set(value) {
+                if (!value) {
+                    this.$emit('close');
+                }
+            }
+        }
+    },
     methods:{
         getProduct(){
                 axios.get('https://localhost:44367/api/Products/GetProductstoID?newproductsID='+this.id)

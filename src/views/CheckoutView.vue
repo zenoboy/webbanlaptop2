@@ -36,7 +36,8 @@
                                 item-title="name"
                                 item-value="code"
                                 @input="getWards"
-                                density="compact"></v-select>
+                                density="compact">
+                            </v-select>
                         </v-col>
                         <v-col>
                             <v-select 
@@ -195,7 +196,7 @@ export default {
             return option ? option.name : "";
         },
         SendCart(){
-            this.userProfile.UserId = localStorage.getItem('userId')
+            this.userProfile.UserId = sessionStorage.getItem('userId')
             //this.userProfile.UserId = 1
             //axios.post('https://localhost:44367/api/OrderProduct_/PostOrderProduct?newUserID='+userId+'&newPhone=4444444&newAddres=444444&city=h&district=h&ward=h')
             //axios.post('https://65a48de652f07a8b4a3d7466.mockapi.io/order',this.userProfile)

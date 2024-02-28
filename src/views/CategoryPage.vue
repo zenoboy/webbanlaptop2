@@ -26,7 +26,7 @@
         </router-link>
         </v-col>
       </v-row>
-        <footer-bar/>
+  
     </div>
 </template>
 
@@ -42,16 +42,16 @@ export default {
         return {
         categoryName: '',
         products: [],
-        
+        CatId: 0
         }
     },
     methods:{
         getProducts(){
             //const categoryId = this.$route.params.categoryId;
-            axios.get('https://localhost:44367/api/Products/GetProductByCatId?CategoryId='+this.id)
+            axios.get('https://localhost:44367/api/Products/GetProductByCatId?CategoryId='+this.CatId)
             .then(response => {
                 this.products = response.data;
-                console.log(this.Product)
+                console.log('product',this.products)
             })
             .catch(error => {
                 console.error('Error fetching products:', error);
@@ -61,9 +61,17 @@ export default {
             return numeral(price).format('0,0');
         },
     },
-    
-    created(){
+    watch:{
+      id: function(){
+        this.CatId = this.id
+        
+      },
+      CatId: function(){
         this.getProducts()
+      }
+    },
+    created(){
+      this.getProducts()
     }
 }
 </script>

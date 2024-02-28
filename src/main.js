@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 const app = createApp(App);
 app.use(store);
@@ -20,4 +20,4 @@ const vuetify = createVuetify({
   directives,
 })
 
-createApp(App).use(router).use(vuetify).use(store).mount('#app')
+createApp(App).use(router).use(vuetify).use(store).use(CKEditor).mount('#app')

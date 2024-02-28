@@ -234,18 +234,18 @@ export default {
           labels: ['January', 'February', 'March'],
           datasets: [{ data: [10, 30, 45] }],
         },
-        barChartOptions : {
-          responsive: true,
-          maintainAspectRatio: false,
-          legend: {
-    display: false, // Tắt hiển thị hướng dẫn ở trên biểu đồ
-  },
-          title: {
-    display: true,
-    text: 'Monthly Sales',
-    position: 'bottom' // Đặt tiêu đề ở dưới biểu đồ
-  }
-        },
+          barChartOptions : {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+      display: false, // Tắt hiển thị hướng dẫn ở trên biểu đồ
+    },
+            title: {
+      display: true,
+      text: 'Monthly Sales',
+      position: 'bottom' // Đặt tiêu đề ở dưới biểu đồ
+    }
+          },
       
       count_customer:null,
       count_product: null,

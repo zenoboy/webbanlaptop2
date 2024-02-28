@@ -5,7 +5,7 @@
     >
     <v-card>
         <v-card-title>
-            <span>Cập nhật loại sản phẩm</span>
+            <span>Chi tiết sản phẩm</span>
         </v-card-title>
         <v-card-text>
             <v-table>

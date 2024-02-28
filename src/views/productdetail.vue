@@ -71,7 +71,7 @@
                   <div class="btn-add-cart">
                     <v-btn @click="addToCart" :products=Product[0] style="margin-right: 30px; height: 45px;" color="#3278f6" >Thêm vào giỏ hàng</v-btn>
                     
-                    <v-btn style="height: 45px;" color="#fb4e4e">Mua Ngay</v-btn>
+                    <v-btn @click="buyNow" style="height: 45px;" color="#fb4e4e">Mua Ngay</v-btn>
                   </div>
                 </div>
               </div>
@@ -201,7 +201,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  <footer-bar/>
+  <!-- <footer-bar/> -->
 </div>
 </template>
   
@@ -290,6 +290,35 @@ export default {
         toast(toastMSG, {
           autoClose: 1000,
         });
+      }
+    },
+    buyNow(){
+      let cart = this.$store.state.cart;
+      let object = cart.find(o => o.ProductsId === this.Product[0].ProductsId)
+      if(object){
+        console.log('Co san pham roi')
+        // this.Product[0].qty = this.Product[0].qty + this.quantity
+        
+        //this.$store.commit('updateCart',{products:this.Product[0]})
+        //toast.success('cart updated',{autoClose:500})
+        //toast.autoClose=500
+        
+        console.log(this.Product[0].qty)
+        console.log("quantity",this.quantity)
+        this.$router.push('/cart-view');
+      }
+      else{
+        this.Product[0].qty = this.quantity
+        this.$store.commit('addCart',{products:this.Product[0], Add:this.Add})
+        console.log(this.Product.quantity)
+
+        // Hiển thị thông báo sử dụng thư viện toast
+        // let toastMSG = 'Added to cart';
+        // toast(toastMSG, {
+        //   autoClose: 1000,
+        // });
+
+        this.$router.push('/cart-view');
       }
     },
     getReview(){

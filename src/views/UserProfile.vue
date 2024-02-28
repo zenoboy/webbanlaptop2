@@ -22,13 +22,13 @@
             </v-avatar>
           </v-progress-circular>
 
-          <div class="mt-4">
+          <div  class="mt-4">
             <v-avatar>
               <v-icon color="white">mdi mdi-account</v-icon>
             </v-avatar>
           </div>
-          <span class="mb-6 text-caption" style="color: #b49239"
-            >*********@gmail.com</span
+          <span v-if="user" class="mb-6 text-caption" style="color: #02f668; font-size:18px"
+            > <p style="font-size:18px; font-weight: 800;">{{ user[0].FullName }}</p></span
           >
         </v-sheet>
 

@@ -11,15 +11,15 @@
         
       
     </v-main>
-    <footer-bar/>
+    <footer-bar/>   
   </v-app>
 </template>
 
 <script>
-// import FooterBar from './components/FooterBar.vue';
+ import FooterBar from './components/FooterBar.vue';
 import TopBar from './components/TopBar.vue'
 export default {
-  components: {  TopBar, },
+  components: {  TopBar, FooterBar },
 
 }
 </script>

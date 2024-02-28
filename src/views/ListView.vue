@@ -1,40 +1,12 @@
 <template>
   <div>
     <top-bar/>
-    <v-container class="">
-      <v-container fluid>
-    <v-layout row wrap>
-      <!-- Phần bên trái -->
-      <v-flex xs12 md6>
-        <!-- Banner bên trái -->
-        <v-card class="pa-2">
-          <!-- Đường dẫn đến ảnh banner -->
-          <v-img src="https://file.hstatic.net/200000722513/file/mua_pc_tang_ram_-_side_61d14e65bf2d438c8ea1be51d2cd862e.png" aspect-ratio="16/9"></v-img>
-        </v-card>
-      </v-flex>
-
-      <!-- Phần bên phải -->
-      <v-flex xs12 md6>
-        <!-- Banner bên phải -->
-        <v-card class="pa-2">
-          <!-- Đường dẫn đến ảnh banner -->
-          <v-img src="https://file.hstatic.net/200000722513/file/laptop_ai_don_tet_cung_msi_-_side_2b2a6f7db73340cd971707c06e48a915.jpg" aspect-ratio="16/9"></v-img>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
+ 
+    <v-container class="" style="margin-bottom: 50px;">
+     
         <v-row>
-          <v-col class="menu-col" cols="2">
-            <!-- <v-tooltip text="Tooltip">
-            <template v-slot:activator="{ props }">
-            <v-btn v-bind="props">Tooltip</v-btn>
-            </template>
-            </v-tooltip> -->
-            <!-- <div class="menu-item mt-10"  v-for="category in laptopCategories" :key="category.id">
-              <a href="" class="text-decoration-none"><v-icon>{{ category.icon }}</v-icon>
-              <span>{{ category.name }}</span>
-            </a>
-            </div> -->
+          <!-- <v-col class="menu-col" cols="2">
+           
             <div class="menu-item mt-10 col" v-for="category in laptopCategories" :key="category.id">
       <a href="" class="text-decoration-none">
           <v-icon>{{ category.icon }}</v-icon>
@@ -43,8 +15,8 @@
 
   </div>
   
-          </v-col>
-          <v-col cols="10">
+          </v-col> -->
+          <v-col >
             <v-carousel cycle="100px">
               <v-carousel-item v-for="item in silders" :key="item.id" :src="item.url" cover></v-carousel-item>
             </v-carousel>
@@ -57,7 +29,7 @@
         </v-row>
       </v-container>
     <v-container class="mt-10">
-      <v-select v-model="displayType" :items="displayTypes" label="Hiển thị" outlined></v-select>
+      
 
 <!-- Danh sách sản phẩm - Chế độ Hiển thị lưới -->
 <v-row v-if="displayType === 'grid'">
@@ -84,33 +56,15 @@
         </router-link>
         </v-col>
       </v-row>
-      <v-row v-else-if="displayType === 'list'">
-        <!-- Lặp qua danh sách sản phẩm và hiển thị từng sản phẩm trong một v-col -->
-        <v-col v-for="(item, index) in displayedProducts" :key="index" cols="12" md="3">
-          <router-link :to="{ name: 'product-detail', params: { id: item.ProductsId } } " style="text-decoration: none;">
-          <v-hover v-slot="{isHovering,props}" open-delay="1">
-            <v-card :elevation="isHovering ? 16 : 2" :class="{ 'on-hover': isHovering }" v-bind="props">
-              <v-img :src="'https://localhost:44367/images/' + item.ImagerUrl" height="200"></v-img>
-              <v-card-title>{{ item.ProductsName }}</v-card-title>
-              <v-card-subtitle>{{ item.Price }}</v-card-subtitle>
-              <v-card-actions>
-                <v-btn color="primary" :to="{ name: 'product-detail', params: { id: item.ProductsId } }">Xem Chi Tiết</v-btn>
-                <cart-btn  :products="item"/></v-card-actions>
-            </v-card>
-          </v-hover>
-        </router-link>
-        </v-col>
-      </v-row>
+      
       
       <div v-if="!products.length">Giàu rồi bán gì nữa sang shop khác đi</div>
 
       <!-- Hiển thị phân trang -->
       <v-pagination v-if="totalPages > 1" v-model="currentPage" :length="totalPages" @input="updateDisplayedProducts"></v-pagination> 
-      <v-row>
-        <v-col><h3>Sản phẩm bạn vừa xem</h3></v-col>
-      </v-row>
+      
       </v-container>
-    <footer-bar/>   
+   
   </div>
 </template>
 

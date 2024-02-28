@@ -21,7 +21,9 @@
               <v-icon color="white">mdi mdi-account</v-icon>
             </v-avatar>
           </div>
-          <span class="mb-6 text-caption" style="color: #B49239;">*********@gmail.com</span>
+          <span v-if="user" class="mb-6 text-caption" style="color: #02f668; font-size:18px"
+            > <p style="font-size:18px; font-weight: 800;">{{ user[0].FullName }}</p></span
+          >
         </v-sheet>
 
         <v-list>
@@ -287,11 +289,20 @@ export default {
       // userId: 1,
       orders:[],
       dialog: false,
-      idOrder: ''
+      idOrder: '',
+      user:null
     };
   },
   methods: {
-
+    getUserProfile() {
+      axios.get('https://localhost:44367/api/Users/GetUserById?userId='+this.userId)
+        .then(response => {
+          this.user = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     updateOrders() {
     axios.get("https://localhost:44367/api/OrderDetail/GetOrderDetail")
       .then(response => {
@@ -385,6 +396,7 @@ handleEditOrderStatus() {
     this.getOrder_1();
     this.getOrder_3();
     this.getOrder_4();
+    this.getUserProfile();
   },
   computed: {
     // Tính toán danh sách đơn hàng đã lọc theo trạng thái được chọn

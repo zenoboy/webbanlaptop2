@@ -75,7 +75,7 @@
       <add-product
       :dialogAdd="dialogAdd"
       @close="dialogAdd=false"
-      @updateData="getCategories"/>
+      @updateData="getProducts"/>
 
       <edit-product
       :currentItem="currentItem"
@@ -112,9 +112,9 @@
           </v-alert>
       </v-card>
       </v-dialog>
-      <v-row class="mt-2">
+      <!-- <v-row class="mt-2">
       <v-pagination :length="totalPages" v-model="currentPage" @input="loadData"></v-pagination>
-    </v-row>
+    </v-row> -->
       </div>
 </template>
   
